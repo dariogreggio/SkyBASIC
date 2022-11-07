@@ -1,3 +1,5 @@
+// SkyBASIC ovviamente post-dedicato a Irene B. 18/10 -> 1/12/1994
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

@@ -1,0 +1,6469 @@
+;	Static Name Aliases
+;
+	TITLE   source\skybasic.c
+	.8087
+INCLUDELIB	SLIBCE
+_TEXT	SEGMENT  WORD PUBLIC 'CODE'
+_TEXT	ENDS
+_DATA	SEGMENT  WORD PUBLIC 'DATA'
+_DATA	ENDS
+CONST	SEGMENT  WORD PUBLIC 'CONST'
+CONST	ENDS
+_BSS	SEGMENT  WORD PUBLIC 'BSS'
+_BSS	ENDS
+DGROUP	GROUP	CONST, _BSS, _DATA
+	ASSUME DS: DGROUP, SS: DGROUP
+PUBLIC  _Funct
+PUBLIC  _DirectMode
+PUBLIC  _fStop
+PUBLIC  _fError
+PUBLIC  _Errore
+PUBLIC  _KeyWords
+PUBLIC  _BitTable
+EXTRN	__acrtused:ABS
+EXTRN	_log:NEAR
+EXTRN	_close:NEAR
+EXTRN	_pow:NEAR
+EXTRN	_sin:NEAR
+EXTRN	_sqrt:NEAR
+EXTRN	_tan:NEAR
+EXTRN	_labs:NEAR
+EXTRN	__dos_getvect:NEAR
+EXTRN	_malloc:NEAR
+EXTRN	_printf:NEAR
+EXTRN	_read:NEAR
+EXTRN	_puts:NEAR
+EXTRN	_rand:NEAR
+EXTRN	__dos_setvect:NEAR
+EXTRN	_write:NEAR
+EXTRN	_scanf:NEAR
+EXTRN	_srand:NEAR
+EXTRN	_int86:NEAR
+EXTRN	_clock:NEAR
+EXTRN	__aNchkstk:NEAR
+EXTRN	_memmove:NEAR
+EXTRN	__flsbuf:NEAR
+EXTRN	_strcpy:NEAR
+EXTRN	_cos:NEAR
+EXTRN	__aNftol:NEAR
+EXTRN	_strlen:NEAR
+EXTRN	_exp:NEAR
+EXTRN	_strncmp:NEAR
+EXTRN	_abs:NEAR
+EXTRN	_getch:NEAR
+EXTRN	_strnicmp:NEAR
+EXTRN	_inp:NEAR
+EXTRN	_atoi:NEAR
+EXTRN	__aNNalmul:NEAR
+EXTRN	_atol:NEAR
+EXTRN	__aNNaldiv:NEAR
+EXTRN	_kbhit:NEAR
+EXTRN	__aNNalrem:NEAR
+EXTRN	_outp:NEAR
+EXTRN	_putch:NEAR
+_BSS      SEGMENT
+COMM NEAR	_DirectBuf:	 1:	 160
+COMM NEAR	_TextP:	BYTE:	 2
+_BSS      ENDS
+EXTRN	__ctype:BYTE
+_BSS      SEGMENT
+COMM NEAR	_PrgBase:	BYTE:	 2
+COMM NEAR	_VarBase:	BYTE:	 2
+COMM NEAR	_VarEnd:	BYTE:	 2
+COMM NEAR	_StrBase:	BYTE:	 2
+COMM NEAR	_MemTop:	BYTE:	 2
+_BSS      ENDS
+EXTRN	__iob:BYTE
+_BSS      SEGMENT
+COMM NEAR	_Linea:	BYTE:	 2
+COMM NEAR	_OldCtrl_C:	BYTE:	 4
+EXTRN	__fltused:NEAR
+_BSS      ENDS
+_DATA      SEGMENT
+$SG500	DB	'SYSTEM',  00H
+$SG501	DB	'NEW',  00H
+$SG502	DB	'LIST',  00H
+$SG503	DB	'RUN',  00H
+$SG504	DB	'END',  00H
+$SG505	DB	'STOP',  00H
+$SG506	DB	'PRINT',  00H
+$SG507	DB	'REM',  00H
+$SG508	DB	'FOR',  00H
+$SG509	DB	'TO',  00H
+$SG510	DB	'STEP',  00H
+$SG511	DB	'NEXT',  00H
+$SG512	DB	'GOTO',  00H
+$SG513	DB	'GOSUB',  00H
+$SG514	DB	'RETURN',  00H
+$SG515	DB	'IF',  00H
+$SG516	DB	'THEN',  00H
+$SG517	DB	'ELSE',  00H
+$SG518	DB	'ON',  00H
+$SG519	DB	'CALL',  00H
+$SG520	DB	'POKE',  00H
+$SG521	DB	'OUTP',  00H
+$SG522	DB	'INPUT',  00H
+$SG523	DB	'GET',  00H
+$SG524	DB	'CLS',  00H
+$SG525	DB	'BEEP',  00H
+$SG526	DB	'SAVE',  00H
+$SG527	DB	'LOAD',  00H
+$SG529	DB	'AND',  00H
+$SG530	DB	'OR',  00H
+$SG531	DB	'NOT',  00H
+$SG532	DB	'SGN',  00H
+$SG533	DB	'ABS',  00H
+$SG534	DB	'INT',  00H
+$SG535	DB	'SQR',  00H
+$SG536	DB	'SIN',  00H
+$SG537	DB	'COS',  00H
+$SG538	DB	'TAN',  00H
+$SG539	DB	'LOG',  00H
+$SG540	DB	'EXP',  00H
+$SG541	DB	'FRE',  00H
+$SG542	DB	'RND',  00H
+$SG543	DB	'PEEK',  00H
+$SG544	DB	'INP',  00H
+$SG545	DB	'LEN',  00H
+$SG546	DB	'STR$',  00H
+$SG547	DB	'VAL',  00H
+$SG548	DB	'CHR$',  00H
+$SG549	DB	'ASC',  00H
+$SG550	DB	'MID$',  00H
+$SG551	DB	'INSTR',  00H
+$SG552	DB	'TAB',  00H
+$SG553	DB	'DIN',  00H
+$SG555	DB	'Errore di sintassi',  00H
+$SG556	DB	'Valore non valido',  00H
+$SG557	DB	'Riga indefinita',  00H
+$SG558	DB	'Tipo non corrispondente',  00H
+$SG559	DB	'RETURN senza GOSUB',  00H
+$SG560	DB	'NEXT senza FOR',  00H
+$SG561	DB	'Fine memoria',  00H
+$SG562	DB	00H
+$SG563	DB	00H
+$SG564	DB	00H
+$SG565	DB	00H
+$SG566	DB	00H
+$SG567	DB	00H
+$SG568	DB	00H
+$SG569	DB	00H
+$SG570	DB	00H
+$SG571	DB	'Fermo',  00H
+$SG582	DB	'SkyBasic v%d.%02d (C) ADPM Synthesis 1994',  0aH,  00H
+$SG583	DB	'%d bytes liberi',  0aH,  00H
+$SG589	DB	0aH, 'Pronto.',  00H
+	ORG	$+155
+$SG772	DB	'%u ',  00H
+$SG800	DB	'%d',  00H
+$SG802	DB	'%ld',  00H
+$SG856	DB	'%s',  00H
+$SG873	DB	'Scrittura...',  00H
+$SG875	DB	'Lettura...',  00H
+$SG1122	DB	' alla linea %u',  0aH,  00H
+	ORG	$-209
+_DirectMode	DB	01H
+_fStop	DB	00H
+_fError	DB	00H
+_KeyWords	DW	DGROUP:$SG500
+	DW	DGROUP:$SG501
+	DW	DGROUP:$SG502
+	DW	DGROUP:$SG503
+	DW	DGROUP:$SG504
+	DW	DGROUP:$SG505
+	DW	DGROUP:$SG506
+	DW	DGROUP:$SG507
+	DW	DGROUP:$SG508
+	DW	DGROUP:$SG509
+	DW	DGROUP:$SG510
+	DW	DGROUP:$SG511
+	DW	DGROUP:$SG512
+	DW	DGROUP:$SG513
+	DW	DGROUP:$SG514
+	DW	DGROUP:$SG515
+	DW	DGROUP:$SG516
+	DW	DGROUP:$SG517
+	DW	DGROUP:$SG518
+	DW	DGROUP:$SG519
+	DW	DGROUP:$SG520
+	DW	DGROUP:$SG521
+	DW	DGROUP:$SG522
+	DW	DGROUP:$SG523
+	DW	DGROUP:$SG524
+	DW	DGROUP:$SG525
+	DW	DGROUP:$SG526
+	DW	DGROUP:$SG527
+	DW	00H
+_Funct	DW	DGROUP:$SG529
+	DW	DGROUP:$SG530
+	DW	DGROUP:$SG531
+	DW	DGROUP:$SG532
+	DW	DGROUP:$SG533
+	DW	DGROUP:$SG534
+	DW	DGROUP:$SG535
+	DW	DGROUP:$SG536
+	DW	DGROUP:$SG537
+	DW	DGROUP:$SG538
+	DW	DGROUP:$SG539
+	DW	DGROUP:$SG540
+	DW	DGROUP:$SG541
+	DW	DGROUP:$SG542
+	DW	DGROUP:$SG543
+	DW	DGROUP:$SG544
+	DW	DGROUP:$SG545
+	DW	DGROUP:$SG546
+	DW	DGROUP:$SG547
+	DW	DGROUP:$SG548
+	DW	DGROUP:$SG549
+	DW	DGROUP:$SG550
+	DW	DGROUP:$SG551
+	DW	DGROUP:$SG552
+	DW	DGROUP:$SG553
+	DW	00H
+_Errore	DW	DGROUP:$SG555
+	DW	DGROUP:$SG556
+	DW	DGROUP:$SG557
+	DW	DGROUP:$SG558
+	DW	DGROUP:$SG559
+	DW	DGROUP:$SG560
+	DW	DGROUP:$SG561
+	DW	DGROUP:$SG562
+	DW	DGROUP:$SG563
+	DW	DGROUP:$SG564
+	DW	DGROUP:$SG565
+	DW	DGROUP:$SG566
+	DW	DGROUP:$SG567
+	DW	DGROUP:$SG568
+	DW	DGROUP:$SG569
+	DW	DGROUP:$SG570
+	DW	DGROUP:$SG571
+_BitTable	DB	080H
+	DB	040H
+	DB	020H
+	DB	010H
+	DB	08H
+	DB	04H
+	DB	02H
+	DB	01H
+_DATA      ENDS
+_TEXT      SEGMENT
+	ASSUME	CS: _TEXT
+;|*** 
+; Line 1
+;|*** #include <stdio.h>
+; Line 2
+;|*** #include <stdlib.h>
+; Line 3
+;|*** #include <string.h>
+; Line 4
+;|*** #include <ctype.h>
+; Line 5
+;|*** #include <conio.h>
+; Line 6
+;|*** #include <io.h>
+; Line 7
+;|*** #include <fcntl.h>
+; Line 8
+;|*** #include <time.h>
+; Line 9
+;|*** #include <math.h>
+; Line 10
+;|*** #ifndef Z80
+;|*** #include <dos.h>
+; Line 12
+;|*** #endif
+;|*** 	
+;|*** #ifndef Z80                              // occhio a non superare 255 (v. GetLine e altro)
+;|*** #define BUF_SIZE 160
+;|*** #else
+;|*** #define BUF_SIZE 80
+;|*** #endif
+;|*** #define MEM_SIZE 0x2000
+;|*** #define VAR_SIZE 6
+;|*** 												 // 2 char + long
+;|*** #define INT_FLAG 1
+;|*** #define STR_FLAG 2
+;|*** 
+;|*** char DirectBuf[BUF_SIZE];
+;|*** char *TextP;
+;|*** char *PrgBase,*VarBase,*VarEnd,*StrBase,*MemTop;          // in ordine crescente
+;|*** #define VERSIONE 0x100
+;|*** char DirectMode=1;
+;|*** char fStop=0,fError=0;
+;|*** int Linea;
+;|*** 
+;|*** char ExecStmt(char);
+;|*** char *CercaLine(int, char);
+;|*** long EvalExpr(char, char *);
+;|*** long GetValue(int);
+;|*** char DoCheck(char);
+;|*** char *CercaFine(char);
+;|*** void SkipSpaces();
+;|*** char CheckMemory(int);
+;|*** char *AllocaString(int);
+;|*** 
+;|*** char *KeyWords[]={
+;|*** 	"SYSTEM","NEW","LIST","RUN","END","STOP","PRINT","REM","FOR","TO","STEP","NEXT","GOTO",
+;|*** 	"GOSUB","RETURN","IF","THEN","ELSE","ON","CALL","POKE","OUTP","INPUT","GET",
+;|*** 	"CLS","BEEP","SAVE","LOAD",0
+;|*** 	};
+;|*** 
+;|*** char *Funct[]={
+;|*** 	"AND","OR","NOT","SGN","ABS","INT","SQR","SIN","COS","TAN","LOG","EXP","FRE","RND","PEEK",
+;|*** 	"INP","LEN","STR$","VAL","CHR$","ASC","MID$","INSTR","TAB",
+;|*** 	"DIN",0
+;|*** 	};
+;|*** 
+;|*** char *Errore[]={
+;|*** 	"Errore di sintassi",
+;|*** 	"Valore non valido",
+;|*** 	"Riga indefinita",
+;|*** 	"Tipo non corrispondente",
+;|*** 	"RETURN senza GOSUB",
+;|*** 	"NEXT senza FOR",
+;|*** 	"Fine memoria",
+;|*** 	"",
+;|*** 	"",
+;|*** 	"",
+;|*** 	"",
+;|*** 	"",
+;|*** 	"",
+;|*** 	"",
+;|*** 	"",
+;|*** 	"",
+;|*** 	"Fermo"
+;|*** 	};
+;|*** 	
+;|*** char BitTable[8]={ 0x80,0x40,0x20,0x10,8,4,2,1 };
+;|*** 
+;|*** #ifndef Z80
+;|*** void (_interrupt _far *OldCtrl_C)();
+;|*** void _interrupt _far Ctrl_C();
+;|*** #endif
+;|*** 
+;|*** int main() {
+; Line 83
+	PUBLIC	_main
+_main	PROC NEAR
+	*** 000000	55 			push	bp
+	*** 000001	8b ec 			mov	bp,sp
+	*** 000003	b8 08 00 		mov	ax,8
+	*** 000006	e8 00 00 		call	__aNchkstk
+;	Exit = -8
+;	t = -4
+;	i = -6
+;	d = -2
+;|*** 	char Exit=0;
+; Line 84
+	*** 000009	c6 46 f8 00 		mov	BYTE PTR [bp-8],0	;Exit
+;|*** 	int t;
+;|*** 	char i,d;
+;|*** 	
+;|*** //  i=t & d ? Exit : i;
+;|*** //  if(t==1 || d==3 && i>6)
+;|*** //    kbhit();
+;|*** //  if(t==1 && d==3 || i>6)
+;|*** //    kbhit(); 
+;|*** //  if(t<=1 && (d==3 || i>6))
+;|*** //    kbhit(); 
+;|*** //  if((t<=1 || d==3) && i>6)
+;|*** //    kbhit(); 
+;|*** 
+;|*** #ifndef Z80
+;|*** 	OldCtrl_C=_dos_getvect(0x23);
+; Line 99
+	*** 00000d	b8 23 00 		mov	ax,35
+	*** 000010	50 			push	ax
+	*** 000011	e8 00 00 		call	__dos_getvect
+	*** 000014	83 c4 02 		add	sp,2
+	*** 000017	a3 00 00 		mov	WORD PTR _OldCtrl_C,ax
+	*** 00001a	89 16 02 00 		mov	WORD PTR _OldCtrl_C+2,dx
+;|*** 	_dos_setvect(0x23,Ctrl_C);
+; Line 100
+	*** 00001e	b8 00 00 		mov	ax,OFFSET _Ctrl_C
+	*** 000021	ba 00 00 		mov	dx,SEG _Ctrl_C
+	*** 000024	52 			push	dx
+	*** 000025	50 			push	ax
+	*** 000026	b8 23 00 		mov	ax,35
+	*** 000029	50 			push	ax
+	*** 00002a	e8 00 00 		call	__dos_setvect
+	*** 00002d	83 c4 06 		add	sp,6
+;|*** #endif
+;|*** 	
+;|*** 	PrgBase=malloc(MEM_SIZE);
+; Line 103
+	*** 000030	b8 00 20 		mov	ax,8192
+	*** 000033	50 			push	ax
+	*** 000034	e8 00 00 		call	_malloc
+	*** 000037	83 c4 02 		add	sp,2
+	*** 00003a	a3 00 00 		mov	WORD PTR _PrgBase,ax
+;|*** 	MemTop=PrgBase+MEM_SIZE;
+; Line 104
+	*** 00003d	80 c4 20 		add	ah,32
+	*** 000040	a3 00 00 		mov	WORD PTR _MemTop,ax
+;|*** 	ExecStmt('\x81');           // esegue NEW
+; Line 105
+	*** 000043	b0 81 			mov	al,129
+	*** 000045	50 			push	ax
+	*** 000046	e8 00 00 		call	_ExecStmt
+	*** 000049	83 c4 02 		add	sp,2
+;|*** 	
+;|*** ColdStart:  
+;|*** 	printf("SkyBasic v%d.%02d (C) ADPM Synthesis 1994\n",VERSIONE >> 8, VERSIONE & 0xff);
+; Line 108
+	*** 00004c	2b c0 			sub	ax,ax
+	*** 00004e	50 			push	ax
+	*** 00004f	b8 01 00 		mov	ax,1
+	*** 000052	50 			push	ax
+	*** 000053	b8 7a 01 		mov	ax,OFFSET DGROUP:$SG582
+	*** 000056	50 			push	ax
+	*** 000057	e8 00 00 		call	_printf
+	*** 00005a	83 c4 06 		add	sp,6
+;|*** 	printf("%d bytes liberi\n",MemTop-PrgBase);
+; Line 109
+	*** 00005d	a1 00 00 		mov	ax,WORD PTR _MemTop
+	*** 000060	2b 06 00 00 		sub	ax,WORD PTR _PrgBase
+	*** 000064	50 			push	ax
+	*** 000065	b8 a5 01 		mov	ax,OFFSET DGROUP:$SG583
+	*** 000068	50 			push	ax
+	*** 000069	e8 00 00 		call	_printf
+	*** 00006c	83 c4 04 		add	sp,4
+;|*** 	d=1;
+; Line 110
+	*** 00006f	c6 46 fe 01 		mov	BYTE PTR [bp-2],1	;d
+;|*** WarmStart:  
+;|*** 	do {
+; Line 112
+					$D585:
+;|*** 		DirectMode=1;
+; Line 113
+	*** 000073	c6 06 bf 01 01 		mov	BYTE PTR _DirectMode,1
+;|*** 		fStop=0;
+;|*** 		fError=0;
+; Line 115
+	*** 000078	2a c0 			sub	al,al
+	*** 00007a	a2 c0 01 		mov	BYTE PTR _fStop,al
+	*** 00007d	a2 c1 01 		mov	BYTE PTR _fError,al
+;|*** 		TextP=DirectBuf;
+; Line 116
+	*** 000080	c7 06 00 00 00 00 	mov	WORD PTR _TextP,OFFSET DGROUP:_DirectBuf
+;|*** 		if(d)
+; Line 117
+	*** 000086	38 46 fe 		cmp	BYTE PTR [bp-2],al	;d
+	*** 000089	74 0a 			je	$I588
+;|*** 			puts("\nPronto.");
+; Line 118
+	*** 00008b	b8 b6 01 		mov	ax,OFFSET DGROUP:$SG589
+	*** 00008e	50 			push	ax
+	*** 00008f	e8 00 00 		call	_puts
+	*** 000092	83 c4 02 		add	sp,2
+;|*** 		GetLine();
+; Line 119
+					$I588:
+	*** 000095	e8 00 00 		call	_GetLine
+;|*** 		t=Tokenize();
+; Line 120
+	*** 000098	e8 00 00 		call	_Tokenize
+;|*** 
+;|*** /*    i=0;
+;|*** 	printf("Tokenize: ");
+;|*** 	while(TextP[i]) {
+;|*** 		printf("%02x ",TextP[i++]);
+;|*** 		}
+;|*** 	putchar('\n');
+;|*** 	*/
+;|*** 
+;|*** 		if(*TextP >= '0' && *TextP <= '9') {
+; Line 130
+	*** 00009b	8b 1e 00 00 		mov	bx,WORD PTR _TextP
+	*** 00009f	80 3f 30 		cmp	BYTE PTR [bx],48
+	*** 0000a2	7c 12 			jl	$I592
+	*** 0000a4	80 3f 39 		cmp	BYTE PTR [bx],57
+	*** 0000a7	7f 0d 			jg	$I592
+;|*** 			StoreLine(t);
+; Line 131
+	*** 0000a9	50 			push	ax
+	*** 0000aa	e8 00 00 		call	_StoreLine
+	*** 0000ad	83 c4 02 		add	sp,2
+;|*** 			d=0;
+; Line 132
+	*** 0000b0	c6 46 fe 00 		mov	BYTE PTR [bp-2],0	;d
+;|*** 			}
+; Line 133
+;|*** 		else {
+; Line 134
+	*** 0000b4	eb 2c 			jmp	SHORT $I594
+					$I592:
+;|*** 			i=ExecLine();
+;|*** 			if(i<0) {
+; Line 136
+	*** 0000b6	e8 00 00 		call	_ExecLine
+	*** 0000b9	88 46 fa 		mov	BYTE PTR [bp-6],al	;i
+	*** 0000bc	0a c0 			or	al,al
+	*** 0000be	7d 0d 			jge	$I598
+;|*** 				if(i==-1)
+; Line 137
+	*** 0000c0	fe c0 			inc	al
+	*** 0000c2	75 06 			jne	$I597
+;|*** 					Exit=1;
+; Line 138
+	*** 0000c4	c6 46 f8 01 		mov	BYTE PTR [bp-8],1	;Exit
+;|*** 				else
+; Line 139
+	*** 0000c8	eb 03 			jmp	SHORT $I598
+					$I597:
+;|*** 					i=-i;
+; Line 140
+	*** 0000ca	f6 5e fa 		neg	BYTE PTR [bp-6]	;i
+					$I598:
+;|*** 				}  
+; Line 141
+;|*** 			if(i>0)
+; Line 142
+	*** 0000cd	80 7e fa 00 		cmp	BYTE PTR [bp-6],0	;i
+	*** 0000d1	7e 0b 			jle	$I599
+;|*** 				DoError(i);
+; Line 143
+	*** 0000d3	8a 46 fa 		mov	al,BYTE PTR [bp-6]	;i
+	*** 0000d6	98 			cbw	
+	*** 0000d7	50 			push	ax
+	*** 0000d8	e8 00 00 		call	_DoError
+	*** 0000db	83 c4 02 		add	sp,2
+;|*** 			d=1;
+; Line 144
+					$I599:
+	*** 0000de	c6 46 fe 01 		mov	BYTE PTR [bp-2],1	;d
+;|*** 			}
+; Line 145
+					$I594:
+;|*** 		} while(!Exit);
+; Line 146
+	*** 0000e2	80 7e f8 00 		cmp	BYTE PTR [bp-8],0	;Exit
+	*** 0000e6	74 8b 			je	$D585
+;|*** 		
+;|*** #ifndef Z80
+;|*** 	_dos_setvect(0x23,OldCtrl_C);
+; Line 149
+	*** 0000e8	ff 36 02 00 		push	WORD PTR _OldCtrl_C+2
+	*** 0000ec	ff 36 00 00 		push	WORD PTR _OldCtrl_C
+	*** 0000f0	b8 23 00 		mov	ax,35
+	*** 0000f3	50 			push	ax
+	*** 0000f4	e8 00 00 		call	__dos_setvect
+;|*** #endif
+;|*** 	}                
+; Line 151
+	*** 0000f7	8b e5 			mov	sp,bp
+	*** 0000f9	5d 			pop	bp
+	*** 0000fa	c3 			ret	
+	*** 0000fb	90 			nop	
+
+_main	ENDP
+;|*** 	
+;|*** long myAtoi() {
+; Line 153
+	PUBLIC	_myAtoi
+_myAtoi	PROC NEAR
+	*** 0000fc	55 			push	bp
+	*** 0000fd	8b ec 			mov	bp,sp
+	*** 0000ff	b8 08 00 		mov	ax,8
+	*** 000102	e8 00 00 		call	__aNchkstk
+	*** 000105	57 			push	di
+	*** 000106	56 			push	si
+;	i = -4
+;	ch = -6
+;	m = -8
+;|*** 	long i;
+;|*** 	char ch;
+;|*** 	char m=0;
+; Line 156
+	*** 000107	c6 46 f8 00 		mov	BYTE PTR [bp-8],0	;m
+;|*** 	
+;|*** 	i=0l;
+; Line 158
+	*** 00010b	2b c0 			sub	ax,ax
+	*** 00010d	89 46 fe 		mov	WORD PTR [bp-2],ax
+	*** 000110	89 46 fc 		mov	WORD PTR [bp-4],ax	;i
+;|*** 	ch=*TextP;
+; Line 159
+					$L20066:
+	*** 000113	8b 1e 00 00 		mov	bx,WORD PTR _TextP
+	*** 000117	8a 07 			mov	al,BYTE PTR [bx]
+	*** 000119	88 46 fa 		mov	BYTE PTR [bp-6],al	;ch
+;|*** 	while(ch >='0' && ch <='9' || ch=='.') {
+; Line 160
+	*** 00011c	3c 30 			cmp	al,48
+	*** 00011e	7c 04 			jl	$FB610
+	*** 000120	3c 39 			cmp	al,57
+	*** 000122	7e 06 			jle	$FB609
+					$FB610:
+	*** 000124	80 7e fa 2e 		cmp	BYTE PTR [bp-6],46	;ch
+	*** 000128	75 42 			jne	$FB608
+					$FB609:
+;|*** 		if(ch=='.')
+; Line 161
+	*** 00012a	80 7e fa 2e 		cmp	BYTE PTR [bp-6],46	;ch
+	*** 00012e	75 04 			jne	$I611
+;|*** 			m=1;
+; Line 162
+	*** 000130	c6 46 f8 01 		mov	BYTE PTR [bp-8],1	;m
+;|*** 		if(!m)
+; Line 163
+					$I611:
+	*** 000134	80 7e f8 00 		cmp	BYTE PTR [bp-8],0	;m
+	*** 000138	75 2c 			jne	$I612
+;|*** 			i=(i*10l)+(unsigned long)(ch-'0');
+; Line 164
+	*** 00013a	8a 46 fa 		mov	al,BYTE PTR [bp-6]	;ch
+	*** 00013d	98 			cbw	
+	*** 00013e	2d 30 00 		sub	ax,48
+	*** 000141	99 			cwd	
+	*** 000142	8b 4e fc 		mov	cx,WORD PTR [bp-4]	;i
+	*** 000145	8b 5e fe 		mov	bx,WORD PTR [bp-2]
+	*** 000148	8b f1 			mov	si,cx
+	*** 00014a	8b fb 			mov	di,bx
+	*** 00014c	d1 e1 			shl	cx,1
+	*** 00014e	d1 d3 			rcl	bx,1
+	*** 000150	d1 e1 			shl	cx,1
+	*** 000152	d1 d3 			rcl	bx,1
+	*** 000154	03 ce 			add	cx,si
+	*** 000156	13 df 			adc	bx,di
+	*** 000158	d1 e1 			shl	cx,1
+	*** 00015a	d1 d3 			rcl	bx,1
+	*** 00015c	03 c1 			add	ax,cx
+	*** 00015e	13 d3 			adc	dx,bx
+	*** 000160	89 46 fc 		mov	WORD PTR [bp-4],ax	;i
+	*** 000163	89 56 fe 		mov	WORD PTR [bp-2],dx
+;|*** 		TextP++;
+; Line 165
+					$I612:
+;|*** 		ch=*TextP;
+; Line 166
+	*** 000166	ff 06 00 00 		inc	WORD PTR _TextP
+	*** 00016a	eb a7 			jmp	SHORT $L20066
+					$FB608:
+;|*** 		}      
+;|*** 		
+;|*** 	return i;
+; Line 169
+	*** 00016c	8b 46 fc 		mov	ax,WORD PTR [bp-4]	;i
+	*** 00016f	8b 56 fe 		mov	dx,WORD PTR [bp-2]
+;|*** 	}
+; Line 170
+	*** 000172	5e 			pop	si
+	*** 000173	5f 			pop	di
+	*** 000174	8b e5 			mov	sp,bp
+	*** 000176	5d 			pop	bp
+	*** 000177	c3 			ret	
+
+_myAtoi	ENDP
+;|*** 
+;|*** int myXtoi() {
+; Line 172
+	PUBLIC	_myXtoi
+_myXtoi	PROC NEAR
+	*** 000178	55 			push	bp
+	*** 000179	8b ec 			mov	bp,sp
+	*** 00017b	b8 06 00 		mov	ax,6
+	*** 00017e	e8 00 00 		call	__aNchkstk
+;	i = -2
+;	ch = -4
+;|*** 	int i;
+;|*** 	char ch;
+;|*** 	
+;|*** 	i=0;
+; Line 176
+	*** 000181	c7 46 fe 00 00 		mov	WORD PTR [bp-2],0	;i
+;|*** 	ch=toupper(*TextP);
+; Line 177
+	*** 000186	8b 1e 00 00 		mov	bx,WORD PTR _TextP
+	*** 00018a	8a 07 			mov	al,BYTE PTR [bx]
+	*** 00018c	8b c8 			mov	cx,ax
+	*** 00018e	98 			cbw	
+	*** 00018f	8b d8 			mov	bx,ax
+	*** 000191	89 4e fa 		mov	WORD PTR [bp-6],cx
+	*** 000194	f6 87 01 00 02 		test	BYTE PTR __ctype[bx+1],2
+	*** 000199	75 58 			jne	$L20067
+					$L20001:
+	*** 00019b	8b 1e 00 00 		mov	bx,WORD PTR _TextP
+	*** 00019f	8a 07 			mov	al,BYTE PTR [bx]
+					$L20002:
+	*** 0001a1	88 46 fc 		mov	BYTE PTR [bp-4],al	;ch
+;|*** 	while(ch >='0' && ch <='9' || ch >='A' && ch <='F') {
+; Line 178
+	*** 0001a4	3c 30 			cmp	al,48
+	*** 0001a6	7c 04 			jl	$FB621
+	*** 0001a8	3c 39 			cmp	al,57
+	*** 0001aa	7e 0c 			jle	$FB620
+					$FB621:
+	*** 0001ac	80 7e fc 41 		cmp	BYTE PTR [bp-4],65	;ch
+	*** 0001b0	7c 48 			jl	$FB619
+	*** 0001b2	80 7e fc 46 		cmp	BYTE PTR [bp-4],70	;ch
+	*** 0001b6	7f 42 			jg	$FB619
+					$FB620:
+;|*** 		ch-='0';
+;|*** 		if(ch>9)
+; Line 180
+	*** 0001b8	80 6e fc 30 		sub	BYTE PTR [bp-4],48	;ch
+	*** 0001bc	80 7e fc 09 		cmp	BYTE PTR [bp-4],9	;ch
+	*** 0001c0	7e 08 			jle	$I622
+;|*** 			ch-=7;
+; Line 181
+	*** 0001c2	8a 46 fc 		mov	al,BYTE PTR [bp-4]	;ch
+	*** 0001c5	2c 07 			sub	al,7
+	*** 0001c7	88 46 fc 		mov	BYTE PTR [bp-4],al	;ch
+;|*** 		i=(i << 4)+ch;
+; Line 182
+					$I622:
+	*** 0001ca	8a 46 fc 		mov	al,BYTE PTR [bp-4]	;ch
+	*** 0001cd	98 			cbw	
+	*** 0001ce	b1 04 			mov	cl,4
+	*** 0001d0	8b 56 fe 		mov	dx,WORD PTR [bp-2]	;i
+	*** 0001d3	d3 e2 			shl	dx,cl
+	*** 0001d5	03 d0 			add	dx,ax
+	*** 0001d7	89 56 fe 		mov	WORD PTR [bp-2],dx	;i
+;|*** 		TextP++;
+;|*** 		ch=toupper(*TextP);
+; Line 184
+	*** 0001da	ff 06 00 00 		inc	WORD PTR _TextP
+	*** 0001de	8b 1e 00 00 		mov	bx,WORD PTR _TextP
+	*** 0001e2	8a 07 			mov	al,BYTE PTR [bx]
+	*** 0001e4	8b c8 			mov	cx,ax
+	*** 0001e6	98 			cbw	
+	*** 0001e7	8b d8 			mov	bx,ax
+	*** 0001e9	89 4e fa 		mov	WORD PTR [bp-6],cx
+	*** 0001ec	f6 87 01 00 02 		test	BYTE PTR __ctype[bx+1],2
+	*** 0001f1	74 a8 			je	$L20001
+					$L20067:
+	*** 0001f3	8a 46 fa 		mov	al,BYTE PTR [bp-6]
+	*** 0001f6	2c 20 			sub	al,32
+	*** 0001f8	eb a7 			jmp	SHORT $L20002
+					$FB619:
+;|*** 		}      
+;|*** 		
+;|*** 	return i;
+; Line 187
+	*** 0001fa	8b 46 fe 		mov	ax,WORD PTR [bp-2]	;i
+;|*** 	}
+; Line 188
+	*** 0001fd	8b e5 			mov	sp,bp
+	*** 0001ff	5d 			pop	bp
+	*** 000200	c3 			ret	
+	*** 000201	90 			nop	
+
+_myXtoi	ENDP
+;|*** 
+;|*** int Tokenize() {
+; Line 190
+	PUBLIC	_Tokenize
+_Tokenize	PROC NEAR
+	*** 000202	55 			push	bp
+	*** 000203	8b ec 			mov	bp,sp
+	*** 000205	b8 0e 00 		mov	ax,14
+	*** 000208	e8 00 00 		call	__aNchkstk
+	*** 00020b	56 			push	si
+;	p = -2
+;	p1 = -4
+;	p2 = -6
+;	i = -10
+;	j = -12
+;	t = -8
+;	k = -14
+;|*** 	char *p,*p1,*p2;
+;|*** 	int i,j,t;
+;|*** 	char **k;
+;|*** 	
+;|*** 	t=0;
+; Line 195
+	*** 00020c	c7 46 f8 00 00 		mov	WORD PTR [bp-8],0	;t
+;|*** 	p=TextP;
+; Line 196
+	*** 000211	a1 00 00 		mov	ax,WORD PTR _TextP
+	*** 000214	89 46 fe 		mov	WORD PTR [bp-2],ax	;p
+;|*** 	while(*p) {
+; Line 197
+	*** 000217	e9 26 01 		jmp	$I654
+					$FC632:
+;|*** //  printf("p vale %02x\n",*p);
+;|*** 		if(*p>='0' && *p<='9') {
+; Line 199
+	*** 00021a	80 3f 30 		cmp	BYTE PTR [bx],48
+	*** 00021d	7c 08 			jl	$I634
+	*** 00021f	80 3f 39 		cmp	BYTE PTR [bx],57
+	*** 000222	7f 03 			jg	$JCC546
+	*** 000224	e9 13 01 		jmp	$I655
+					$JCC546:
+					$I634:
+	*** 000227	80 3f 22 		cmp	BYTE PTR [bx],34
+	*** 00022a	75 1c 			jne	$I636
+;|*** 			p++;
+;|*** 			t++;
+;|*** 			}   
+;|*** 		else if(*p == '\"') {
+;|*** 			p++;
+; Line 204
+					$L20068:
+	*** 00022c	ff 46 fe 		inc	WORD PTR [bp-2]	;p
+;|*** 			t++;
+; Line 205
+	*** 00022f	ff 46 f8 		inc	WORD PTR [bp-8]	;t
+;|*** 			while(*p && *p!='\"') {
+; Line 206
+	*** 000232	8b 5e fe 		mov	bx,WORD PTR [bp-2]	;p
+	*** 000235	80 3f 00 		cmp	BYTE PTR [bx],0
+	*** 000238	75 03 			jne	$JCC568
+	*** 00023a	e9 03 01 		jmp	$I654
+					$JCC568:
+	*** 00023d	80 3f 22 		cmp	BYTE PTR [bx],34
+	*** 000240	75 03 			jne	$JCC576
+	*** 000242	e9 fb 00 		jmp	$I654
+					$JCC576:
+	*** 000245	eb e5 			jmp	SHORT $L20068
+	*** 000247	90 			nop	
+					$I636:
+	*** 000248	8a 07 			mov	al,BYTE PTR [bx]
+	*** 00024a	98 			cbw	
+	*** 00024b	8b f0 			mov	si,ax
+	*** 00024d	f6 84 01 00 03 		test	BYTE PTR __ctype[si+1],3
+	*** 000252	75 03 			jne	$JCC594
+	*** 000254	e9 d1 00 		jmp	$I641
+					$JCC594:
+;|*** 				p++;
+;|*** 				t++;
+;|*** 				}
+;|*** 			}
+;|*** 		else if(isalpha(*p)) {
+;|*** //      p++;
+;|*** 			p1=p;
+; Line 213
+	*** 000257	89 5e fc 		mov	WORD PTR [bp-4],bx	;p1
+;|*** //      while(isalpha(*p)) {
+;|*** //        p++;
+;|*** //        }   
+;|*** 			i=0;
+; Line 217
+	*** 00025a	c7 46 f6 00 00 		mov	WORD PTR [bp-10],0	;i
+;|*** 			while(k=KeyWords[i]) {
+; Line 218
+					$FC643:
+	*** 00025f	8b 5e f6 		mov	bx,WORD PTR [bp-10]	;i
+	*** 000262	d1 e3 			shl	bx,1
+	*** 000264	8b 87 c2 01 		mov	ax,WORD PTR _KeyWords[bx]
+	*** 000268	89 46 f2 		mov	WORD PTR [bp-14],ax	;k
+	*** 00026b	0b c0 			or	ax,ax
+	*** 00026d	74 42 			je	$FB644
+;|*** 				j=strlen(k);
+; Line 219
+	*** 00026f	50 			push	ax
+	*** 000270	e8 00 00 		call	_strlen
+	*** 000273	83 c4 02 		add	sp,2
+	*** 000276	89 46 f4 		mov	WORD PTR [bp-12],ax	;j
+;|*** 				if(!strnicmp(k,p1,j)) {
+; Line 220
+	*** 000279	50 			push	ax
+	*** 00027a	ff 76 fc 		push	WORD PTR [bp-4]	;p1
+	*** 00027d	ff 76 f2 		push	WORD PTR [bp-14]	;k
+	*** 000280	e8 00 00 		call	_strnicmp
+	*** 000283	83 c4 06 		add	sp,6
+	*** 000286	0b c0 			or	ax,ax
+	*** 000288	74 03 			je	$JCC648
+	*** 00028a	e9 8f 00 		jmp	$I645
+					$JCC648:
+;|*** //        printf("trovo %d\n",i);
+;|*** 					*p1++=i | 0x80;
+; Line 222
+	*** 00028d	8a 46 f6 		mov	al,BYTE PTR [bp-10]	;i
+	*** 000290	0c 80 			or	al,128
+	*** 000292	8b 5e fc 		mov	bx,WORD PTR [bp-4]	;p1
+	*** 000295	88 07 			mov	BYTE PTR [bx],al
+;|*** //          p=p+j;
+;|*** 					strcpy(p1,p+j);
+; Line 224
+	*** 000297	8b 46 f4 		mov	ax,WORD PTR [bp-12]	;j
+	*** 00029a	03 46 fe 		add	ax,WORD PTR [bp-2]	;p
+	*** 00029d	50 			push	ax
+	*** 00029e	ff 46 fc 		inc	WORD PTR [bp-4]	;p1
+	*** 0002a1	8b 46 fc 		mov	ax,WORD PTR [bp-4]	;p1
+	*** 0002a4	50 			push	ax
+	*** 0002a5	e8 00 00 		call	_strcpy
+	*** 0002a8	83 c4 04 		add	sp,4
+;|*** 					p=p1;
+; Line 225
+	*** 0002ab	8b 46 fc 		mov	ax,WORD PTR [bp-4]	;p1
+	*** 0002ae	89 46 fe 		mov	WORD PTR [bp-2],ax	;p
+;|*** 					break;
+; Line 226
+					$FB644:
+;|*** 					}
+;|*** 				i++;
+;|*** 				}
+;|*** 			if(!k) {
+; Line 230
+	*** 0002b1	83 7e f2 00 		cmp	WORD PTR [bp-14],0	;k
+	*** 0002b5	74 03 			je	$JCC693
+	*** 0002b7	e9 83 00 		jmp	$L20072
+					$JCC693:
+;|*** 				p1=p;
+; Line 231
+	*** 0002ba	8b 46 fe 		mov	ax,WORD PTR [bp-2]	;p
+	*** 0002bd	89 46 fc 		mov	WORD PTR [bp-4],ax	;p1
+;|*** 				i=0;
+; Line 232
+	*** 0002c0	c7 46 f6 00 00 		mov	WORD PTR [bp-10],0	;i
+;|*** 				while(k=Funct[i]) {
+; Line 233
+					$FC648:
+	*** 0002c5	8b 5e f6 		mov	bx,WORD PTR [bp-10]	;i
+	*** 0002c8	d1 e3 			shl	bx,1
+	*** 0002ca	8b 87 fc 01 		mov	ax,WORD PTR _Funct[bx]
+	*** 0002ce	89 46 f2 		mov	WORD PTR [bp-14],ax	;k
+	*** 0002d1	0b c0 			or	ax,ax
+	*** 0002d3	74 3f 			je	$FB649
+;|*** 					j=strlen(k);
+; Line 234
+	*** 0002d5	50 			push	ax
+	*** 0002d6	e8 00 00 		call	_strlen
+	*** 0002d9	83 c4 02 		add	sp,2
+	*** 0002dc	89 46 f4 		mov	WORD PTR [bp-12],ax	;j
+;|*** 					if(!strnicmp(k,p1,j)) {
+; Line 235
+	*** 0002df	50 			push	ax
+	*** 0002e0	ff 76 fc 		push	WORD PTR [bp-4]	;p1
+	*** 0002e3	ff 76 f2 		push	WORD PTR [bp-14]	;k
+	*** 0002e6	e8 00 00 		call	_strnicmp
+	*** 0002e9	83 c4 06 		add	sp,6
+	*** 0002ec	0b c0 			or	ax,ax
+	*** 0002ee	75 32 			jne	$I650
+;|*** 						*p1++=i | 0xc0;
+; Line 236
+	*** 0002f0	8a 46 f6 		mov	al,BYTE PTR [bp-10]	;i
+	*** 0002f3	0c c0 			or	al,192
+	*** 0002f5	8b 5e fc 		mov	bx,WORD PTR [bp-4]	;p1
+	*** 0002f8	88 07 			mov	BYTE PTR [bx],al
+;|*** //            p=p+strlen(Funct[i]);
+;|*** 						strcpy(p1,p+j);
+; Line 238
+	*** 0002fa	8b 46 f4 		mov	ax,WORD PTR [bp-12]	;j
+	*** 0002fd	03 46 fe 		add	ax,WORD PTR [bp-2]	;p
+	*** 000300	50 			push	ax
+	*** 000301	ff 46 fc 		inc	WORD PTR [bp-4]	;p1
+	*** 000304	8b 46 fc 		mov	ax,WORD PTR [bp-4]	;p1
+	*** 000307	50 			push	ax
+	*** 000308	e8 00 00 		call	_strcpy
+	*** 00030b	83 c4 04 		add	sp,4
+;|*** 						p=p1;
+; Line 239
+	*** 00030e	8b 46 fc 		mov	ax,WORD PTR [bp-4]	;p1
+	*** 000311	89 46 fe 		mov	WORD PTR [bp-2],ax	;p
+;|*** 						break;
+; Line 240
+					$FB649:
+;|*** 						}
+;|*** 					i++;
+;|*** 					}
+;|*** 				if(!k) {
+; Line 244
+	*** 000314	83 7e f2 00 		cmp	WORD PTR [bp-14],0	;k
+	*** 000318	75 23 			jne	$L20072
+	*** 00031a	eb 1e 			jmp	SHORT $I655
+;|*** 					}
+; Line 227
+;|*** 				i++;
+; Line 228
+					$I645:
+	*** 00031c	ff 46 f6 		inc	WORD PTR [bp-10]	;i
+;|*** 				}
+; Line 229
+	*** 00031f	e9 3d ff 		jmp	$FC643
+;|*** 			if(!k) {
+;|*** 				p1=p;
+;|*** 				i=0;
+;|*** 				while(k=Funct[i]) {
+;|*** 					j=strlen(k);
+;|*** 					if(!strnicmp(k,p1,j)) {
+;|*** 						*p1++=i | 0xc0;
+;|*** //            p=p+strlen(Funct[i]);
+;|*** 						strcpy(p1,p+j);
+;|*** 						p=p1;
+;|*** 						break;
+;|*** 						}
+; Line 241
+;|*** 					i++;
+; Line 242
+					$I650:
+	*** 000322	ff 46 f6 		inc	WORD PTR [bp-10]	;i
+;|*** 					}
+; Line 243
+	*** 000325	eb 9e 			jmp	SHORT $FC648
+	*** 000327	90 			nop	
+					$I641:
+	*** 000328	80 3f 3f 		cmp	BYTE PTR [bx],63
+	*** 00032b	75 05 			jne	$I653
+;|*** 				if(!k) {
+;|*** 					p++;
+;|*** 					}
+;|*** 				}
+;|*** 			t++;
+;|*** 			}
+;|*** 		else if(*p=='?') {               // gestisco PRINT
+;|*** 			*p++=0x86;
+; Line 251
+	*** 00032d	c6 07 86 		mov	BYTE PTR [bx],134
+	*** 000330	eb 08 			jmp	SHORT $I655
+					$I653:
+	*** 000332	80 3f 27 		cmp	BYTE PTR [bx],39
+	*** 000335	75 03 			jne	$I655
+;|*** 			t++;
+;|*** 			}
+;|*** 		else if(*p=='\'') {               // gestisco REM
+;|*** 			*p++=0x87;
+; Line 255
+	*** 000337	c6 07 87 		mov	BYTE PTR [bx],135
+					$I655:
+;|*** 			t++;
+;|*** 			}
+;|*** 		else {
+;|*** 			p++;
+; Line 259
+	*** 00033a	ff 46 fe 		inc	WORD PTR [bp-2]	;p
+;|*** 			t++;
+; Line 260
+					$L20072:
+	*** 00033d	ff 46 f8 		inc	WORD PTR [bp-8]	;t
+;|*** 			}
+; Line 261
+					$I654:
+;|*** 		}
+; Line 262
+	*** 000340	8b 5e fe 		mov	bx,WORD PTR [bp-2]	;p
+	*** 000343	80 3f 00 		cmp	BYTE PTR [bx],0
+	*** 000346	74 03 			je	$JCC838
+	*** 000348	e9 cf fe 		jmp	$FC632
+					$JCC838:
+;|*** 	return t;
+; Line 263
+	*** 00034b	8b 46 f8 		mov	ax,WORD PTR [bp-8]	;t
+;|*** 	}
+; Line 264
+	*** 00034e	5e 			pop	si
+	*** 00034f	8b e5 			mov	sp,bp
+	*** 000351	5d 			pop	bp
+	*** 000352	c3 			ret	
+	*** 000353	90 			nop	
+
+_Tokenize	ENDP
+;|*** 
+;|*** int GetLine() {
+; Line 266
+	PUBLIC	_GetLine
+_GetLine	PROC NEAR
+	*** 000354	55 			push	bp
+	*** 000355	8b ec 			mov	bp,sp
+	*** 000357	b8 06 00 		mov	ax,6
+	*** 00035a	e8 00 00 		call	__aNchkstk
+;	ch = -6
+;	i = -4
+;	p = -2
+;|*** #ifdef Z80
+;|*** 	char ch;
+;|*** #else
+;|*** 	int ch;  
+;|*** #endif  
+;|*** 	char i;
+;|*** 	char *p;
+;|*** 
+;|*** #ifdef Z80
+;|*** 	CursOn();
+;|*** #endif  
+;|*** 	p=TextP;
+;|*** 	*p=0;
+; Line 279
+	*** 00035d	8b 1e 00 00 		mov	bx,WORD PTR _TextP
+	*** 000361	89 5e fe 		mov	WORD PTR [bp-2],bx	;p
+	*** 000364	c6 07 00 		mov	BYTE PTR [bx],0
+;|*** 	i=0;
+; Line 280
+	*** 000367	c6 46 fc 00 		mov	BYTE PTR [bp-4],0	;i
+;|*** 	ch=0;
+; Line 281
+	*** 00036b	c7 46 fa 00 00 		mov	WORD PTR [bp-6],0	;ch
+;|*** 	do {
+; Line 282
+					$D661:
+;|*** 		if(kbhit()) {
+; Line 283
+	*** 000370	e8 00 00 		call	_kbhit
+	*** 000373	0b c0 			or	ax,ax
+	*** 000375	75 03 			jne	$JCC885
+	*** 000377	e9 86 00 		jmp	$I673
+					$JCC885:
+;|*** 			ch=getch();
+;|*** 	//    printf("letto %02x\n",ch);
+;|*** #ifndef Z80 
+;|*** 			if(!ch) {
+; Line 287
+	*** 00037a	e8 00 00 		call	_getch
+	*** 00037d	89 46 fa 		mov	WORD PTR [bp-6],ax	;ch
+	*** 000380	0b c0 			or	ax,ax
+	*** 000382	75 42 			jne	$I665
+;|*** 				ch=0x100 | getch();
+; Line 288
+	*** 000384	e8 00 00 		call	_getch
+	*** 000387	80 cc 01 		or	ah,1
+	*** 00038a	89 46 fa 		mov	WORD PTR [bp-6],ax	;ch
+;|*** 				goto Get2;
+; Line 289
+					$I667:
+;|*** 				}
+;|*** #endif
+;|*** 			if(isprint(ch)) {
+;|*** 				if(i < BUF_SIZE) {
+;|*** 					putch(ch);
+;|*** 					*p++=ch;
+;|*** 					*p=0;
+;|*** 					i++;
+;|*** 					}
+;|*** 				else {
+;|*** 					putch(7);
+;|*** 					}
+;|*** 				}
+;|*** 			else {
+;|*** Get2:
+;|*** 				if(ch==8) {
+; Line 305
+	*** 00038d	83 7e fa 08 		cmp	WORD PTR [bp-6],8	;ch
+	*** 000391	75 6d 			jne	$I673
+;|*** 					if(i>0) {
+; Line 306
+	*** 000393	80 7e fc 00 		cmp	BYTE PTR [bp-4],0	;i
+	*** 000397	7e 5d 			jle	$I672
+;|*** 						putch(8);
+; Line 307
+	*** 000399	b8 08 00 		mov	ax,8
+	*** 00039c	50 			push	ax
+	*** 00039d	e8 00 00 		call	_putch
+	*** 0003a0	83 c4 02 		add	sp,2
+;|*** 						putch(' ');
+; Line 308
+	*** 0003a3	b8 20 00 		mov	ax,32
+	*** 0003a6	50 			push	ax
+	*** 0003a7	e8 00 00 		call	_putch
+	*** 0003aa	83 c4 02 		add	sp,2
+;|*** 						putch(8);
+; Line 309
+	*** 0003ad	b8 08 00 		mov	ax,8
+	*** 0003b0	50 			push	ax
+	*** 0003b1	e8 00 00 		call	_putch
+	*** 0003b4	83 c4 02 		add	sp,2
+;|*** 						i--;
+; Line 310
+	*** 0003b7	fe 4e fc 		dec	BYTE PTR [bp-4]	;i
+;|*** 						p--;
+;|*** 						*p=0;
+; Line 312
+	*** 0003ba	ff 4e fe 		dec	WORD PTR [bp-2]	;p
+	*** 0003bd	8b 5e fe 		mov	bx,WORD PTR [bp-2]	;p
+	*** 0003c0	c6 07 00 		mov	BYTE PTR [bx],0
+;|*** 						}
+; Line 313
+;|*** 					else
+; Line 314
+	*** 0003c3	eb 3b 			jmp	SHORT $I673
+;|*** 				}
+; Line 290
+;|*** #endif
+;|*** 			if(isprint(ch)) {
+; Line 292
+	*** 0003c5	90 			nop	
+					$I665:
+	*** 0003c6	8b d8 			mov	bx,ax
+	*** 0003c8	f6 87 01 00 57 		test	BYTE PTR __ctype[bx+1],87
+	*** 0003cd	74 be 			je	$I667
+;|*** 				if(i < BUF_SIZE) {
+; Line 293
+	*** 0003cf	8a 46 fc 		mov	al,BYTE PTR [bp-4]	;i
+	*** 0003d2	98 			cbw	
+	*** 0003d3	3d a0 00 		cmp	ax,160
+	*** 0003d6	7d 1e 			jge	$I672
+;|*** 					putch(ch);
+; Line 294
+	*** 0003d8	53 			push	bx
+	*** 0003d9	e8 00 00 		call	_putch
+	*** 0003dc	83 c4 02 		add	sp,2
+;|*** 					*p++=ch;
+; Line 295
+	*** 0003df	8a 46 fa 		mov	al,BYTE PTR [bp-6]	;ch
+	*** 0003e2	8b 5e fe 		mov	bx,WORD PTR [bp-2]	;p
+	*** 0003e5	ff 46 fe 		inc	WORD PTR [bp-2]	;p
+	*** 0003e8	88 07 			mov	BYTE PTR [bx],al
+;|*** 					*p=0;
+; Line 296
+	*** 0003ea	8b 5e fe 		mov	bx,WORD PTR [bp-2]	;p
+	*** 0003ed	c6 07 00 		mov	BYTE PTR [bx],0
+;|*** 					i++;
+; Line 297
+	*** 0003f0	fe 46 fc 		inc	BYTE PTR [bp-4]	;i
+;|*** 					}
+; Line 298
+;|*** 				else {
+; Line 299
+	*** 0003f3	eb 0b 			jmp	SHORT $I673
+	*** 0003f5	90 			nop	
+					$I672:
+;|*** 					putch(7);
+;|*** 					}
+;|*** 				}
+;|*** 			else {
+;|*** Get2:
+;|*** 				if(ch==8) {
+;|*** 					if(i>0) {
+;|*** 						putch(8);
+;|*** 						putch(' ');
+;|*** 						putch(8);
+;|*** 						i--;
+;|*** 						p--;
+;|*** 						*p=0;
+;|*** 						}
+;|*** 					else
+;|*** 						putch(7);
+; Line 315
+	*** 0003f6	b8 07 00 		mov	ax,7
+	*** 0003f9	50 			push	ax
+	*** 0003fa	e8 00 00 		call	_putch
+	*** 0003fd	83 c4 02 		add	sp,2
+					$I673:
+;|*** 					}
+; Line 316
+;|*** 				}
+; Line 317
+;|*** 			}
+; Line 318
+;|*** 		} while(ch != 13);
+; Line 319
+	*** 000400	83 7e fa 0d 		cmp	WORD PTR [bp-6],13	;ch
+	*** 000404	74 03 			je	$JCC1028
+	*** 000406	e9 67 ff 		jmp	$D661
+					$JCC1028:
+;|*** #ifndef Z80
+;|*** 	putch(13);
+; Line 321
+	*** 000409	b8 0d 00 		mov	ax,13
+	*** 00040c	50 			push	ax
+	*** 00040d	e8 00 00 		call	_putch
+	*** 000410	83 c4 02 		add	sp,2
+;|*** #endif
+;|*** 	putch(10);
+; Line 323
+	*** 000413	b8 0a 00 		mov	ax,10
+	*** 000416	50 			push	ax
+	*** 000417	e8 00 00 		call	_putch
+;|*** //  p--;
+;|*** 	*p=0;
+; Line 325
+	*** 00041a	8b 5e fe 		mov	bx,WORD PTR [bp-2]	;p
+	*** 00041d	c6 07 00 		mov	BYTE PTR [bx],0
+;|*** 
+;|*** #ifdef Z80
+;|*** 	CursOff();
+;|*** #endif  
+;|*** 
+;|*** /*  i=0;
+;|*** 	printf("GETLINE: ");
+;|*** 	while(TextP[i]) {
+;|*** 		printf("%02x ",TextP[i++]);
+;|*** 		}
+;|*** 	putchar('\n');
+;|*** 	*/
+;|*** 	}
+; Line 338
+	*** 000420	8b e5 			mov	sp,bp
+	*** 000422	5d 			pop	bp
+	*** 000423	c3 			ret	
+
+_GetLine	ENDP
+;|*** 
+;|*** int StoreLine(int t) {
+; Line 340
+	PUBLIC	_StoreLine
+_StoreLine	PROC NEAR
+	*** 000424	55 			push	bp
+	*** 000425	8b ec 			mov	bp,sp
+	*** 000427	b8 0c 00 		mov	ax,12
+	*** 00042a	e8 00 00 		call	__aNchkstk
+	*** 00042d	57 			push	di
+	*** 00042e	56 			push	si
+;	p = -2
+;	p1 = -4
+;	i = -6
+;	n = -10
+;	m = -8
+;	t = 4
+;|*** 	char *p,*p1;
+;|*** 	int i,n;
+;|*** 	char m;
+;|*** 	
+;|*** 	p=TextP;
+; Line 345
+	*** 00042f	a1 00 00 		mov	ax,WORD PTR _TextP
+	*** 000432	89 46 fe 		mov	WORD PTR [bp-2],ax	;p
+;|*** 	n=myAtoi();
+; Line 346
+	*** 000435	e8 c4 fc 		call	_myAtoi
+	*** 000438	89 46 f6 		mov	WORD PTR [bp-10],ax	;n
+;|*** //  t=t-(TextP-p);
+;|*** //  while(*TextP >= '0' && *TextP <= '9') {
+;|*** //    TextP++;
+;|*** //    t--;
+;|*** //    }
+;|*** 	m=0;
+; Line 352
+	*** 00043b	c6 46 f8 00 		mov	BYTE PTR [bp-8],0	;m
+;|*** //  p=TextP;
+;|*** 	while(*TextP) {                   // m=0 se si vuole cancellare la riga data
+; Line 354
+					$FC682:
+	*** 00043f	8b 1e 00 00 		mov	bx,WORD PTR _TextP
+	*** 000443	80 3f 00 		cmp	BYTE PTR [bx],0
+	*** 000446	74 09 			je	$FB683
+;|*** 		if(*TextP != ' ') {
+; Line 355
+	*** 000448	80 3f 20 		cmp	BYTE PTR [bx],32
+	*** 00044b	74 43 			je	$I684
+;|*** 			m=1;
+; Line 356
+	*** 00044d	c6 46 f8 01 		mov	BYTE PTR [bp-8],1	;m
+;|*** //      p=TextP;
+;|*** 			break;
+; Line 358
+					$FB683:
+;|*** 			}
+;|*** 		TextP++;
+;|*** 		}
+;|*** //  TextP=p;
+;|*** 	t=t-(TextP-p);
+; Line 363
+	*** 000451	8b 46 fe 		mov	ax,WORD PTR [bp-2]	;p
+	*** 000454	2b c3 			sub	ax,bx
+	*** 000456	01 46 04 		add	WORD PTR [bp+4],ax	;t
+;|*** 	if(m) {
+; Line 364
+	*** 000459	80 7e f8 00 		cmp	BYTE PTR [bp-8],0	;m
+	*** 00045d	75 03 			jne	$JCC1117
+	*** 00045f	e9 bc 00 		jmp	$I685
+					$JCC1117:
+;|*** 		p=CercaLine(n,0);
+;|*** 		if(p) {
+; Line 366
+	*** 000462	2a c0 			sub	al,al
+	*** 000464	50 			push	ax
+	*** 000465	ff 76 f6 		push	WORD PTR [bp-10]	;n
+	*** 000468	e8 00 00 		call	_CercaLine
+	*** 00046b	83 c4 04 		add	sp,4
+	*** 00046e	89 46 fe 		mov	WORD PTR [bp-2],ax	;p
+	*** 000471	0b c0 			or	ax,ax
+	*** 000473	74 3d 			je	$I686
+;|*** 			p1=p+4;
+; Line 367
+	*** 000475	05 04 00 		add	ax,4
+	*** 000478	89 46 fc 		mov	WORD PTR [bp-4],ax	;p1
+;|*** //      printf("sostituisco %d\n",n);
+;|*** 			i=4;
+; Line 369
+	*** 00047b	c7 46 fa 04 00 		mov	WORD PTR [bp-6],4	;i
+;|*** 			while(*p1++)
+; Line 370
+					$FC688:
+	*** 000480	8b 5e fc 		mov	bx,WORD PTR [bp-4]	;p1
+	*** 000483	ff 46 fc 		inc	WORD PTR [bp-4]	;p1
+	*** 000486	80 3f 00 		cmp	BYTE PTR [bx],0
+	*** 000489	74 0b 			je	$FB689
+;|*** 				i++;
+; Line 371
+	*** 00048b	ff 46 fa 		inc	WORD PTR [bp-6]	;i
+	*** 00048e	eb f0 			jmp	SHORT $FC688
+;|*** 			}
+; Line 359
+;|*** 		TextP++;
+; Line 360
+					$I684:
+	*** 000490	ff 06 00 00 		inc	WORD PTR _TextP
+;|*** 		}
+; Line 361
+	*** 000494	eb a9 			jmp	SHORT $FC682
+					$FB689:
+;|*** //  TextP=p;
+;|*** 	t=t-(TextP-p);
+;|*** 	if(m) {
+;|*** 		p=CercaLine(n,0);
+;|*** 		if(p) {
+;|*** 			p1=p+4;
+;|*** //      printf("sostituisco %d\n",n);
+;|*** 			i=4;
+;|*** 			while(*p1++)
+;|*** 				i++;
+;|*** 			memmove(p,p1,VarEnd-p1);
+; Line 372
+	*** 000496	a1 00 00 		mov	ax,WORD PTR _VarEnd
+	*** 000499	2b 46 fc 		sub	ax,WORD PTR [bp-4]	;p1
+	*** 00049c	50 			push	ax
+	*** 00049d	ff 76 fc 		push	WORD PTR [bp-4]	;p1
+	*** 0004a0	ff 76 fe 		push	WORD PTR [bp-2]	;p
+	*** 0004a3	e8 00 00 		call	_memmove
+	*** 0004a6	83 c4 06 		add	sp,6
+;|*** 			VarBase=VarBase-i;
+; Line 373
+	*** 0004a9	8b 46 fa 		mov	ax,WORD PTR [bp-6]	;i
+	*** 0004ac	29 06 00 00 		sub	WORD PTR _VarBase,ax
+;|*** 			}
+; Line 374
+;|*** 		else {
+; Line 375
+	*** 0004b0	eb 1b 			jmp	SHORT $I691
+					$I686:
+;|*** 			p=CercaLine(n,1);
+;|*** 			if(!p)
+; Line 377
+	*** 0004b2	b0 01 			mov	al,1
+	*** 0004b4	50 			push	ax
+	*** 0004b5	ff 76 f6 		push	WORD PTR [bp-10]	;n
+	*** 0004b8	e8 00 00 		call	_CercaLine
+	*** 0004bb	83 c4 04 		add	sp,4
+	*** 0004be	89 46 fe 		mov	WORD PTR [bp-2],ax	;p
+	*** 0004c1	0b c0 			or	ax,ax
+	*** 0004c3	75 08 			jne	$I691
+;|*** 				p=VarBase-2;
+; Line 378
+	*** 0004c5	a1 00 00 		mov	ax,WORD PTR _VarBase
+	*** 0004c8	48 			dec	ax
+	*** 0004c9	48 			dec	ax
+	*** 0004ca	89 46 fe 		mov	WORD PTR [bp-2],ax	;p
+;|*** 			}
+; Line 379
+					$I691:
+;|*** //    printf("p vale %x, varbase %x\n",p,VarBase);
+;|*** 		i=t+5;
+;|*** 		memmove(p+i,p,VarEnd-p);
+; Line 382
+	*** 0004cd	a1 00 00 		mov	ax,WORD PTR _VarEnd
+	*** 0004d0	2b 46 fe 		sub	ax,WORD PTR [bp-2]	;p
+	*** 0004d3	50 			push	ax
+	*** 0004d4	ff 76 fe 		push	WORD PTR [bp-2]	;p
+	*** 0004d7	8b 46 04 		mov	ax,WORD PTR [bp+4]	;t
+	*** 0004da	05 05 00 		add	ax,5
+	*** 0004dd	89 46 fa 		mov	WORD PTR [bp-6],ax	;i
+	*** 0004e0	03 46 fe 		add	ax,WORD PTR [bp-2]	;p
+	*** 0004e3	50 			push	ax
+	*** 0004e4	8b f0 			mov	si,ax
+	*** 0004e6	e8 00 00 		call	_memmove
+	*** 0004e9	83 c4 06 		add	sp,6
+;|*** 		VarBase=VarBase+i;
+; Line 383
+	*** 0004ec	8b 46 fa 		mov	ax,WORD PTR [bp-6]	;i
+	*** 0004ef	01 06 00 00 		add	WORD PTR _VarBase,ax
+;|*** 		*((int *)(p+2))=n;
+; Line 384
+	*** 0004f3	8b 46 f6 		mov	ax,WORD PTR [bp-10]	;n
+	*** 0004f6	8b 5e fe 		mov	bx,WORD PTR [bp-2]	;p
+	*** 0004f9	89 47 02 		mov	WORD PTR [bx+2],ax
+;|*** 		p1=p+4;
+; Line 385
+	*** 0004fc	8d 47 04 		lea	ax,WORD PTR [bx+4]
+	*** 0004ff	89 46 fc 		mov	WORD PTR [bp-4],ax	;p1
+;|*** 		strcpy(p1,TextP);
+; Line 386
+	*** 000502	ff 36 00 00 		push	WORD PTR _TextP
+	*** 000506	50 			push	ax
+	*** 000507	8b f8 			mov	di,ax
+	*** 000509	e8 00 00 		call	_strcpy
+	*** 00050c	83 c4 04 		add	sp,4
+;|*** 		*(p1+t+1)=0;
+; Line 387
+	*** 00050f	8b 5e 04 		mov	bx,WORD PTR [bp+4]	;t
+	*** 000512	c6 41 01 00 		mov	BYTE PTR [bx+1][di],0
+;|*** 		*((char **)p)=p+i;
+; Line 388
+	*** 000516	8b 5e fe 		mov	bx,WORD PTR [bp-2]	;p
+	*** 000519	89 37 			mov	WORD PTR [bx],si
+;|*** //    printf("memorizzo %d, next link %x\n",t,p+i);
+;|*** 		}
+; Line 390
+;|*** 	else {
+; Line 391
+	*** 00051b	eb 49 			jmp	SHORT $I693
+	*** 00051d	90 			nop	
+					$I685:
+;|*** 		p=CercaLine(n,0);
+;|*** 		if(p) {
+; Line 393
+	*** 00051e	2a c0 			sub	al,al
+	*** 000520	50 			push	ax
+	*** 000521	ff 76 f6 		push	WORD PTR [bp-10]	;n
+	*** 000524	e8 00 00 		call	_CercaLine
+	*** 000527	83 c4 04 		add	sp,4
+	*** 00052a	89 46 fe 		mov	WORD PTR [bp-2],ax	;p
+	*** 00052d	0b c0 			or	ax,ax
+	*** 00052f	74 35 			je	$I693
+;|*** //      printf("cancello %d\n",n);
+;|*** //    printf("p vale %x, varbase %x\n",p,VarBase);
+;|*** 			p1=p+4;
+; Line 396
+	*** 000531	05 04 00 		add	ax,4
+	*** 000534	89 46 fc 		mov	WORD PTR [bp-4],ax	;p1
+;|*** 			i=4;
+; Line 397
+	*** 000537	c7 46 fa 04 00 		mov	WORD PTR [bp-6],4	;i
+;|*** 			while(*p1++)
+; Line 398
+	*** 00053c	eb 03 			jmp	SHORT $L20075
+					$FC695:
+;|*** 				i++;
+; Line 399
+	*** 00053e	ff 46 fa 		inc	WORD PTR [bp-6]	;i
+					$L20075:
+	*** 000541	8b 5e fc 		mov	bx,WORD PTR [bp-4]	;p1
+	*** 000544	ff 46 fc 		inc	WORD PTR [bp-4]	;p1
+	*** 000547	80 3f 00 		cmp	BYTE PTR [bx],0
+	*** 00054a	75 f2 			jne	$FC695
+;|*** 			memmove(p,p1,VarEnd-p1);
+; Line 400
+	*** 00054c	a1 00 00 		mov	ax,WORD PTR _VarEnd
+	*** 00054f	2b 46 fc 		sub	ax,WORD PTR [bp-4]	;p1
+	*** 000552	50 			push	ax
+	*** 000553	ff 76 fc 		push	WORD PTR [bp-4]	;p1
+	*** 000556	ff 76 fe 		push	WORD PTR [bp-2]	;p
+	*** 000559	e8 00 00 		call	_memmove
+	*** 00055c	83 c4 06 		add	sp,6
+;|*** 			VarBase=VarBase-i;
+; Line 401
+	*** 00055f	8b 46 fa 		mov	ax,WORD PTR [bp-6]	;i
+	*** 000562	29 06 00 00 		sub	WORD PTR _VarBase,ax
+;|*** //    printf("p vale %x, varbase %x\n",p,VarBase);
+;|*** 			}
+; Line 403
+;|*** 		}
+; Line 404
+					$I693:
+;|*** 	RelinkBasic();
+; Line 405
+	*** 000566	e8 00 00 		call	_RelinkBasic
+;|*** 	}
+; Line 406
+	*** 000569	5e 			pop	si
+	*** 00056a	5f 			pop	di
+	*** 00056b	8b e5 			mov	sp,bp
+	*** 00056d	5d 			pop	bp
+	*** 00056e	c3 			ret	
+	*** 00056f	90 			nop	
+
+_StoreLine	ENDP
+;|*** 	
+;|*** int RelinkBasic() {
+; Line 408
+	PUBLIC	_RelinkBasic
+_RelinkBasic	PROC NEAR
+	*** 000570	55 			push	bp
+	*** 000571	8b ec 			mov	bp,sp
+	*** 000573	b8 06 00 		mov	ax,6
+	*** 000576	e8 00 00 		call	__aNchkstk
+;	p = -2
+;	p1 = -4
+;|*** 	char *p,*p1;
+;|*** 	
+;|*** 	p=PrgBase;
+; Line 411
+	*** 000579	a1 00 00 		mov	ax,WORD PTR _PrgBase
+	*** 00057c	eb 19 			jmp	SHORT $L20077
+					$FC702:
+;|*** 	while(*(int *)p) {                    // se non è finito...
+;|*** 		p1=p+4;
+; Line 413
+	*** 00057e	8d 47 04 		lea	ax,WORD PTR [bx+4]
+	*** 000581	89 46 fc 		mov	WORD PTR [bp-4],ax	;p1
+;|*** 		while(*p1++);
+; Line 414
+					$FC705:
+	*** 000584	8b 5e fc 		mov	bx,WORD PTR [bp-4]	;p1
+	*** 000587	ff 46 fc 		inc	WORD PTR [bp-4]	;p1
+	*** 00058a	80 3f 00 		cmp	BYTE PTR [bx],0
+	*** 00058d	75 f5 			jne	$FC705
+;|*** 		*(char **)p=p1;
+;|*** 		p=p1;
+; Line 416
+	*** 00058f	8b 46 fc 		mov	ax,WORD PTR [bp-4]	;p1
+	*** 000592	8b 5e fe 		mov	bx,WORD PTR [bp-2]	;p
+	*** 000595	89 07 			mov	WORD PTR [bx],ax
+					$L20077:
+	*** 000597	89 46 fe 		mov	WORD PTR [bp-2],ax	;p
+;|*** 		}
+; Line 417
+	*** 00059a	8b d8 			mov	bx,ax
+	*** 00059c	83 3f 00 		cmp	WORD PTR [bx],0
+	*** 00059f	75 dd 			jne	$FC702
+;|*** 	VarBase=p+2;
+;|*** 	VarEnd=VarBase;
+; Line 419
+	*** 0005a1	40 			inc	ax
+	*** 0005a2	40 			inc	ax
+	*** 0005a3	a3 00 00 		mov	WORD PTR _VarBase,ax
+	*** 0005a6	a3 00 00 		mov	WORD PTR _VarEnd,ax
+;|*** 	StrBase=MemTop;
+; Line 420
+	*** 0005a9	a1 00 00 		mov	ax,WORD PTR _MemTop
+	*** 0005ac	a3 00 00 		mov	WORD PTR _StrBase,ax
+;|*** //  printf("RELINK: prgbase %x, varbase %x, varend %x\n",PrgBase,VarBase,VarEnd);
+;|*** 	}
+; Line 422
+	*** 0005af	8b e5 			mov	sp,bp
+	*** 0005b1	5d 			pop	bp
+	*** 0005b2	c3 			ret	
+	*** 0005b3	90 			nop	
+
+_RelinkBasic	ENDP
+;|*** 
+;|*** char *HandleVar(char mode, char *flags) {               // mode = 1 SET, 0 GET
+; Line 424
+	PUBLIC	_HandleVar
+_HandleVar	PROC NEAR
+	*** 0005b4	55 			push	bp
+	*** 0005b5	8b ec 			mov	bp,sp
+	*** 0005b7	b8 0c 00 		mov	ax,12
+	*** 0005ba	e8 00 00 		call	__aNchkstk
+	*** 0005bd	56 			push	si
+;	nome = -12
+;	i = -4
+;	ch = -6
+;	p = -2
+;	VarPtr = -8
+;	flags = 6
+;	mode = 4
+;|*** 	char nome[4];
+;|*** 	int i;
+;|*** 	char ch;
+;|*** 	char *p;
+;|*** 	char *VarPtr;
+;|*** 
+;|*** 	i=0;  
+; Line 431
+	*** 0005be	c7 46 fc 00 00 		mov	WORD PTR [bp-4],0	;i
+;|*** 	*flags=0;
+;|*** 	nome[0]=0;
+;|*** 	nome[1]=0;
+;|*** 	nome[2]=0;
+; Line 435
+	*** 0005c3	2a c0 			sub	al,al
+	*** 0005c5	8b 5e 06 		mov	bx,WORD PTR [bp+6]	;flags
+	*** 0005c8	88 07 			mov	BYTE PTR [bx],al
+	*** 0005ca	88 46 f4 		mov	BYTE PTR [bp-12],al	;nome
+	*** 0005cd	88 46 f5 		mov	BYTE PTR [bp-11],al
+;|*** 	SkipSpaces();
+; Line 436
+	*** 0005d0	e8 00 00 		call	_SkipSpaces
+;|*** 	ch=*TextP;
+; Line 437
+	*** 0005d3	8b 1e 00 00 		mov	bx,WORD PTR _TextP
+	*** 0005d7	8a 07 			mov	al,BYTE PTR [bx]
+	*** 0005d9	88 46 fa 		mov	BYTE PTR [bp-6],al	;ch
+;|*** 	if((ch>='A' && ch<='Z') || (ch>='a' && ch<='z')) {
+; Line 438
+	*** 0005dc	3c 41 			cmp	al,65
+	*** 0005de	7c 04 			jl	$I718
+	*** 0005e0	3c 5a 			cmp	al,90
+	*** 0005e2	7e 12 			jle	$I717
+					$I718:
+	*** 0005e4	80 7e fa 61 		cmp	BYTE PTR [bp-6],97	;ch
+	*** 0005e8	7d 03 			jge	$JCC1512
+	*** 0005ea	e9 13 01 		jmp	$I716
+					$JCC1512:
+	*** 0005ed	80 7e fa 7a 		cmp	BYTE PTR [bp-6],122	;ch
+	*** 0005f1	7e 03 			jle	$JCC1521
+	*** 0005f3	e9 0a 01 		jmp	$I716
+					$JCC1521:
+					$I717:
+;|*** rifo:
+;|*** 		nome[i]=*TextP++ & 0xdf;
+; Line 440
+	*** 0005f6	8b 1e 00 00 		mov	bx,WORD PTR _TextP
+	*** 0005fa	ff 06 00 00 		inc	WORD PTR _TextP
+	*** 0005fe	8a 07 			mov	al,BYTE PTR [bx]
+	*** 000600	24 df 			and	al,223
+	*** 000602	8b 76 fc 		mov	si,WORD PTR [bp-4]	;i
+	*** 000605	88 42 f4 		mov	BYTE PTR [bp-12][si],al
+;|*** rifo2:
+; Line 441
+					$rifo2720:
+;|*** 		switch(*TextP) {
+; Line 442
+	*** 000608	8b 1e 00 00 		mov	bx,WORD PTR _TextP
+	*** 00060c	8a 07 			mov	al,BYTE PTR [bx]
+	*** 00060e	98 			cbw	
+	*** 00060f	2d 24 00 		sub	ax,36
+	*** 000612	75 03 			jne	$JCC1554
+	*** 000614	e9 a7 00 		jmp	$SC726
+					$JCC1554:
+	*** 000617	48 			dec	ax
+	*** 000618	74 26 			je	$SC725
+	*** 00061a	2d 03 00 		sub	ax,3
+	*** 00061d	75 03 			jne	$JCC1565
+	*** 00061f	e9 de 00 		jmp	$I716
+					$JCC1565:
+;|*** 			case '%':
+;|*** 				*flags = *flags | INT_FLAG;
+;|*** 				nome[0]=nome[0] | 0x80;
+;|*** 				nome[1]=nome[1] | 0x80;
+;|*** 				TextP++;
+;|*** 				break;
+;|*** 			case '$':
+;|*** 				*flags = *flags | STR_FLAG;
+;|*** 				nome[1]=nome[1] | 0x80;
+;|*** 	// manca un controllo su entrambi i flags      
+;|*** 				TextP++;
+;|*** 				break;
+;|*** 			case '(':
+;|*** 				goto HndVar2;
+;|*** 				break;
+;|*** 			default:
+;|*** 				if(i<1) {
+; Line 459
+	*** 000622	83 7e fc 01 		cmp	WORD PTR [bp-4],1	;i
+	*** 000626	7c 03 			jl	$JCC1574
+	*** 000628	e9 9b 00 		jmp	$I730
+					$JCC1574:
+;|*** 					ch=*TextP;
+; Line 460
+	*** 00062b	8a 07 			mov	al,BYTE PTR [bx]
+;|*** 					if(ch && isalnum(ch)) {
+; Line 461
+	*** 00062d	0a c0 			or	al,al
+	*** 00062f	74 21 			je	$SB722
+	*** 000631	98 			cbw	
+	*** 000632	8b d8 			mov	bx,ax
+	*** 000634	f6 87 01 00 07 		test	BYTE PTR __ctype[bx+1],7
+	*** 000639	74 17 			je	$SB722
+;|*** 						i++;
+; Line 462
+	*** 00063b	ff 46 fc 		inc	WORD PTR [bp-4]	;i
+;|*** 						goto rifo;
+; Line 463
+	*** 00063e	eb b6 			jmp	SHORT $I717
+;|*** 			case '%':
+; Line 443
+					$SC725:
+;|*** 				*flags = *flags | INT_FLAG;
+; Line 444
+	*** 000640	8b 5e 06 		mov	bx,WORD PTR [bp+6]	;flags
+	*** 000643	80 0f 01 		or	BYTE PTR [bx],1
+;|*** 				nome[0]=nome[0] | 0x80;
+; Line 445
+	*** 000646	80 4e f4 80 		or	BYTE PTR [bp-12],128	;nome
+;|*** 				nome[1]=nome[1] | 0x80;
+; Line 446
+					$L20078:
+	*** 00064a	80 4e f5 80 		or	BYTE PTR [bp-11],128
+;|*** 				TextP++;
+; Line 447
+	*** 00064e	ff 06 00 00 		inc	WORD PTR _TextP
+;|*** 				break;
+; Line 448
+					$SB722:
+;|*** 			case '$':
+;|*** 				*flags = *flags | STR_FLAG;
+;|*** 				nome[1]=nome[1] | 0x80;
+;|*** 	// manca un controllo su entrambi i flags      
+;|*** 				TextP++;
+;|*** 				break;
+;|*** 			case '(':
+;|*** 				goto HndVar2;
+;|*** 				break;
+;|*** 			default:
+;|*** 				if(i<1) {
+;|*** 					ch=*TextP;
+;|*** 					if(ch && isalnum(ch)) {
+;|*** 						i++;
+;|*** 						goto rifo;
+;|*** 						}
+;|*** 					}
+;|*** 				else {
+;|*** 					ch=*TextP;
+;|*** 					if(ch && isalnum(ch)) {
+;|*** 						do {
+;|*** 							TextP++;
+;|*** 							ch=*TextP;
+;|*** 							} while(ch && isalnum(ch));
+;|*** 						goto rifo2;
+;|*** 						}
+;|*** 					}
+;|*** 				break;
+;|*** 			}
+;|*** 	//  printf("Var: %s, modo %d\n",nome,mode);
+;|*** 		VarPtr=0;
+; Line 479
+	*** 000652	c7 46 f8 00 00 		mov	WORD PTR [bp-8],0	;VarPtr
+;|*** 		p=VarBase;
+; Line 480
+	*** 000657	a1 00 00 		mov	ax,WORD PTR _VarBase
+	*** 00065a	89 46 fe 		mov	WORD PTR [bp-2],ax	;p
+;|*** 		while(p<VarEnd) {
+; Line 481
+					$FC739:
+	*** 00065d	a1 00 00 		mov	ax,WORD PTR _VarEnd
+	*** 000660	39 46 fe 		cmp	WORD PTR [bp-2],ax	;p
+	*** 000663	73 1b 			jae	$FB740
+;|*** 			if(nome[0]==*p && nome[1]==*(p+1)) {       // trovata
+; Line 482
+	*** 000665	8b 5e fe 		mov	bx,WORD PTR [bp-2]	;p
+	*** 000668	8a 46 f4 		mov	al,BYTE PTR [bp-12]	;nome
+	*** 00066b	38 07 			cmp	BYTE PTR [bx],al
+	*** 00066d	74 03 			je	$JCC1645
+	*** 00066f	e9 86 00 		jmp	$I741
+					$JCC1645:
+	*** 000672	8a 46 f5 		mov	al,BYTE PTR [bp-11]
+	*** 000675	38 47 01 		cmp	BYTE PTR [bx+1],al
+	*** 000678	75 7e 			jne	$I741
+;|*** 				VarPtr=p+2;
+; Line 483
+	*** 00067a	8d 47 02 		lea	ax,WORD PTR [bx+2]
+	*** 00067d	89 46 f8 		mov	WORD PTR [bp-8],ax	;VarPtr
+;|*** 				break;
+; Line 484
+					$FB740:
+;|*** 				}
+;|*** 			p=p+VAR_SIZE;
+;|*** 			}
+;|*** 		if(!VarPtr) {
+; Line 488
+	*** 000680	83 7e f8 00 		cmp	WORD PTR [bp-8],0	;VarPtr
+	*** 000684	75 2f 			jne	$I742
+;|*** 			p=VarEnd;
+;|*** 			*p++=nome[0];
+; Line 490
+	*** 000686	8a 46 f4 		mov	al,BYTE PTR [bp-12]	;nome
+	*** 000689	8b 1e 00 00 		mov	bx,WORD PTR _VarEnd
+	*** 00068d	89 5e fe 		mov	WORD PTR [bp-2],bx	;p
+	*** 000690	88 07 			mov	BYTE PTR [bx],al
+;|*** 			*p++=nome[1];
+; Line 491
+	*** 000692	8a 46 f5 		mov	al,BYTE PTR [bp-11]
+	*** 000695	ff 46 fe 		inc	WORD PTR [bp-2]	;p
+	*** 000698	8b 5e fe 		mov	bx,WORD PTR [bp-2]	;p
+	*** 00069b	88 07 			mov	BYTE PTR [bx],al
+;|*** 			*(long *)p=0l;
+; Line 492
+	*** 00069d	43 			inc	bx
+	*** 00069e	89 5e fe 		mov	WORD PTR [bp-2],bx	;p
+	*** 0006a1	2b c0 			sub	ax,ax
+	*** 0006a3	89 47 02 		mov	WORD PTR [bx+2],ax
+	*** 0006a6	89 07 			mov	WORD PTR [bx],ax
+;|*** 			VarPtr=VarEnd+2;
+; Line 493
+	*** 0006a8	a1 00 00 		mov	ax,WORD PTR _VarEnd
+	*** 0006ab	40 			inc	ax
+	*** 0006ac	40 			inc	ax
+	*** 0006ad	89 46 f8 		mov	WORD PTR [bp-8],ax	;VarPtr
+;|*** 			VarEnd=VarEnd+VAR_SIZE;
+; Line 494
+	*** 0006b0	83 06 00 00 06 		add	WORD PTR _VarEnd,6
+;|*** 			}
+; Line 495
+;|*** 	//  printf("ritorno var: %x\n",VarPtr);
+;|*** 		return VarPtr;
+; Line 497
+					$I742:
+	*** 0006b5	8b 46 f8 		mov	ax,WORD PTR [bp-8]	;VarPtr
+	*** 0006b8	5e 			pop	si
+	*** 0006b9	8b e5 			mov	sp,bp
+	*** 0006bb	5d 			pop	bp
+	*** 0006bc	c3 			ret	
+;|*** 			case '$':
+; Line 449
+	*** 0006bd	90 			nop	
+					$SC726:
+;|*** 				*flags = *flags | STR_FLAG;
+; Line 450
+	*** 0006be	8b 5e 06 		mov	bx,WORD PTR [bp+6]	;flags
+	*** 0006c1	80 0f 02 		or	BYTE PTR [bx],2
+	*** 0006c4	eb 84 			jmp	SHORT $L20078
+					$I730:
+;|*** 				nome[1]=nome[1] | 0x80;
+;|*** 	// manca un controllo su entrambi i flags      
+;|*** 				TextP++;
+;|*** 				break;
+;|*** 			case '(':
+;|*** 				goto HndVar2;
+;|*** 				break;
+;|*** 			default:
+;|*** 				if(i<1) {
+;|*** 					ch=*TextP;
+;|*** 					if(ch && isalnum(ch)) {
+;|*** 						i++;
+;|*** 						goto rifo;
+;|*** 						}
+;|*** 					}
+;|*** 				else {
+;|*** 					ch=*TextP;
+; Line 467
+	*** 0006c6	8a 07 			mov	al,BYTE PTR [bx]
+;|*** 					if(ch && isalnum(ch)) {
+; Line 468
+	*** 0006c8	0a c0 			or	al,al
+	*** 0006ca	74 86 			je	$SB722
+	*** 0006cc	98 			cbw	
+	*** 0006cd	8b d8 			mov	bx,ax
+	*** 0006cf	f6 87 01 00 07 		test	BYTE PTR __ctype[bx+1],7
+	*** 0006d4	75 03 			jne	$JCC1748
+	*** 0006d6	e9 79 ff 		jmp	$SB722
+					$JCC1748:
+;|*** 						do {
+; Line 469
+					$D734:
+;|*** 							TextP++;
+;|*** 							ch=*TextP;
+; Line 471
+	*** 0006d9	ff 06 00 00 		inc	WORD PTR _TextP
+	*** 0006dd	8b 1e 00 00 		mov	bx,WORD PTR _TextP
+	*** 0006e1	8a 07 			mov	al,BYTE PTR [bx]
+;|*** 							} while(ch && isalnum(ch));
+; Line 472
+	*** 0006e3	0a c0 			or	al,al
+	*** 0006e5	75 03 			jne	$JCC1765
+	*** 0006e7	e9 1e ff 		jmp	$rifo2720
+					$JCC1765:
+	*** 0006ea	98 			cbw	
+	*** 0006eb	8b d8 			mov	bx,ax
+	*** 0006ed	f6 87 01 00 07 		test	BYTE PTR __ctype[bx+1],7
+	*** 0006f2	75 e5 			jne	$D734
+;|*** 						goto rifo2;
+; Line 473
+	*** 0006f4	e9 11 ff 		jmp	$rifo2720
+	*** 0006f7	90 			nop	
+					$I741:
+	*** 0006f8	83 46 fe 06 		add	WORD PTR [bp-2],6	;p
+;|*** 						}
+;|*** 					}
+;|*** 				break;
+;|*** 			}
+;|*** 	//  printf("Var: %s, modo %d\n",nome,mode);
+;|*** 		VarPtr=0;
+;|*** 		p=VarBase;
+;|*** 		while(p<VarEnd) {
+;|*** 			if(nome[0]==*p && nome[1]==*(p+1)) {       // trovata
+;|*** 				VarPtr=p+2;
+;|*** 				break;
+;|*** 				}
+;|*** 			p=p+VAR_SIZE;
+;|*** 			}
+; Line 487
+	*** 0006fc	e9 5e ff 		jmp	$FC739
+	*** 0006ff	90 			nop	
+					$I716:
+;|*** 		if(!VarPtr) {
+;|*** 			p=VarEnd;
+;|*** 			*p++=nome[0];
+;|*** 			*p++=nome[1];
+;|*** 			*(long *)p=0l;
+;|*** 			VarPtr=VarEnd+2;
+;|*** 			VarEnd=VarEnd+VAR_SIZE;
+;|*** 			}
+;|*** 	//  printf("ritorno var: %x\n",VarPtr);
+;|*** 		return VarPtr;
+;|*** 		}
+;|*** 	else {
+;|*** HndVar2:
+;|*** 		fError=1;
+; Line 501
+	*** 000700	c6 06 c1 01 01 		mov	BYTE PTR _fError,1
+;|*** 		return 0;
+; Line 502
+	*** 000705	2b c0 			sub	ax,ax
+;|*** 		}
+; Line 503
+;|*** 	}
+; Line 504
+	*** 000707	5e 			pop	si
+	*** 000708	8b e5 			mov	sp,bp
+	*** 00070a	5d 			pop	bp
+	*** 00070b	c3 			ret	
+
+_HandleVar	ENDP
+;|*** 	
+;|*** char ExecStmt(char n) {
+; Line 506
+	PUBLIC	_ExecStmt
+_ExecStmt	PROC NEAR
+	*** 00070c	55 			push	bp
+	*** 00070d	8b ec 			mov	bp,sp
+	*** 00070f	b8 32 00 		mov	ax,50
+	*** 000712	e8 00 00 		call	__aNchkstk
+;	RetVal = -32
+;	p = -2
+;	p1 = -4
+;	Fl = -6
+;	Fl1 = -8
+;	ch = -26
+;	i = -18
+;	i1 = -24
+;	l = -30
+;	OldText = -10
+;	OldVar = -16
+;	ToVal = -14
+;	StVal = -22
+;	n = 4
+;|*** 	int RetVal=0;
+; Line 507
+	*** 000715	c7 46 e0 00 00 		mov	WORD PTR [bp-32],0	;RetVal
+;|*** 	char *p,*p1;
+;|*** 	char Fl,Fl1;
+;|*** 	char ch;
+;|*** 	int i,i1;
+;|*** 	long l;                        // deve diventare long
+;|*** 	char *OldText=0,*OldVar;         // per il gosub, for
+; Line 513
+	*** 00071a	c7 46 f6 00 00 		mov	WORD PTR [bp-10],0	;OldText
+;|*** 	long ToVal,StVal;              // per il for..next
+;|*** 
+;|*** 	switch(n) {
+; Line 516
+	*** 00071f	8a 46 04 		mov	al,BYTE PTR [bp+4]	;n
+	*** 000722	98 			cbw	
+	*** 000723	e9 a2 06 		jmp	$S759
+;|*** //    case 0:
+;|*** //      DirectMode=1;
+;|*** //      break;
+;|*** 		case '\x80':
+; Line 520
+					$SC763:
+;|*** 			RetVal=-1;
+; Line 521
+	*** 000726	c7 46 e0 ff ff 		mov	WORD PTR [bp-32],-1	;RetVal
+;|*** 			break;  
+; Line 522
+	*** 00072b	e9 4a 07 		jmp	$SB760
+;|*** 		case '\x81':                 // new
+; Line 523
+					$SC764:
+;|*** 			*(int *)PrgBase=0;
+; Line 524
+	*** 00072e	8b 1e 00 00 		mov	bx,WORD PTR _PrgBase
+	*** 000732	c7 07 00 00 		mov	WORD PTR [bx],0
+;|*** 			VarBase=PrgBase+2;
+; Line 525
+	*** 000736	a1 00 00 		mov	ax,WORD PTR _PrgBase
+	*** 000739	40 			inc	ax
+	*** 00073a	40 			inc	ax
+	*** 00073b	a3 00 00 		mov	WORD PTR _VarBase,ax
+;|*** 		case '\x83':                 // run
+; Line 526
+					$SC765:
+;|*** doClr:
+;|*** 			VarEnd=VarBase;
+; Line 528
+	*** 00073e	a1 00 00 		mov	ax,WORD PTR _VarBase
+	*** 000741	a3 00 00 		mov	WORD PTR _VarEnd,ax
+;|*** 			StrBase=MemTop;
+; Line 529
+	*** 000744	a1 00 00 		mov	ax,WORD PTR _MemTop
+	*** 000747	a3 00 00 		mov	WORD PTR _StrBase,ax
+;|*** 			if(n == '\x83') {
+; Line 530
+	*** 00074a	80 7e 04 83 		cmp	BYTE PTR [bp+4],131	;n
+	*** 00074e	74 03 			je	$JCC1870
+	*** 000750	e9 25 07 		jmp	$SB760
+					$JCC1870:
+;|*** 				DirectMode=0;
+; Line 531
+	*** 000753	c6 06 bf 01 00 		mov	BYTE PTR _DirectMode,0
+;|*** 				TextP=PrgBase+4;
+; Line 532
+	*** 000758	a1 00 00 		mov	ax,WORD PTR _PrgBase
+	*** 00075b	05 04 00 		add	ax,4
+	*** 00075e	a3 00 00 		mov	WORD PTR _TextP,ax
+;|*** 				Linea=*(int *)(TextP-2);
+; Line 533
+	*** 000761	8b d8 			mov	bx,ax
+	*** 000763	8b 47 fe 		mov	ax,WORD PTR [bx-2]
+					$L20085:
+	*** 000766	a3 00 00 		mov	WORD PTR _Linea,ax
+;|*** 				}
+; Line 534
+;|*** 			break;  
+; Line 535
+	*** 000769	e9 0c 07 		jmp	$SB760
+;|*** 		case '\x82':
+; Line 536
+					$SC768:
+;|*** 			p=PrgBase;
+; Line 537
+	*** 00076c	a1 00 00 		mov	ax,WORD PTR _PrgBase
+	*** 00076f	89 46 fe 		mov	WORD PTR [bp-2],ax	;p
+;|*** 			while(p1=(*(char **)p)) {
+; Line 538
+					$FC770:
+	*** 000772	8b 5e fe 		mov	bx,WORD PTR [bp-2]	;p
+	*** 000775	8b 07 			mov	ax,WORD PTR [bx]
+	*** 000777	89 46 fc 		mov	WORD PTR [bp-4],ax	;p1
+	*** 00077a	0b c0 			or	ax,ax
+	*** 00077c	75 03 			jne	$JCC1916
+	*** 00077e	e9 f7 06 		jmp	$SB760
+					$JCC1916:
+;|*** 				printf("%u ",*((int *)(p+2)));
+; Line 539
+	*** 000781	ff 77 02 		push	WORD PTR [bx+2]
+	*** 000784	b8 5a 02 		mov	ax,OFFSET DGROUP:$SG772
+	*** 000787	50 			push	ax
+	*** 000788	e8 00 00 		call	_printf
+	*** 00078b	83 c4 04 		add	sp,4
+;|*** 				p=p+4;
+; Line 540
+	*** 00078e	83 46 fe 04 		add	WORD PTR [bp-2],4	;p
+;|*** 				while(*p) {
+; Line 541
+	*** 000792	eb 3d 			jmp	SHORT $L20080
+					$FC774:
+;|*** 					if(*p < 0) {
+; Line 542
+	*** 000794	80 3f 00 		cmp	BYTE PTR [bx],0
+	*** 000797	7d 2b 			jge	$I776
+;|*** 						if(*p < 0xffc0)
+; Line 543
+	*** 000799	8a 07 			mov	al,BYTE PTR [bx]
+	*** 00079b	8b c8 			mov	cx,ax
+	*** 00079d	98 			cbw	
+	*** 00079e	3d c0 ff 		cmp	ax,-64
+	*** 0007a1	73 0f 			jae	$I777
+;|*** 							printf(KeyWords[*p & 0x3f]);
+; Line 544
+	*** 0007a3	8a c1 			mov	al,cl
+	*** 0007a5	25 3f 00 		and	ax,63
+	*** 0007a8	8b d8 			mov	bx,ax
+	*** 0007aa	d1 e3 			shl	bx,1
+	*** 0007ac	ff b7 c2 01 		push	WORD PTR _KeyWords[bx]
+	*** 0007b0	eb 0d 			jmp	SHORT $L20086
+					$I777:
+;|*** 						else
+;|*** 							printf(Funct[*p & 0x3f]);
+; Line 546
+	*** 0007b2	8a 07 			mov	al,BYTE PTR [bx]
+	*** 0007b4	25 3f 00 		and	ax,63
+	*** 0007b7	8b d8 			mov	bx,ax
+	*** 0007b9	d1 e3 			shl	bx,1
+	*** 0007bb	ff b7 fc 01 		push	WORD PTR _Funct[bx]
+					$L20086:
+	*** 0007bf	e8 00 00 		call	_printf
+	*** 0007c2	eb 07 			jmp	SHORT $L20079
+					$I776:
+;|*** 						}
+;|*** 					else
+;|*** 						putch(*p);
+; Line 549
+	*** 0007c4	8a 07 			mov	al,BYTE PTR [bx]
+	*** 0007c6	98 			cbw	
+	*** 0007c7	50 			push	ax
+	*** 0007c8	e8 00 00 		call	_putch
+					$L20079:
+	*** 0007cb	83 c4 02 		add	sp,2
+;|*** 					p++;
+; Line 550
+	*** 0007ce	ff 46 fe 		inc	WORD PTR [bp-2]	;p
+;|*** 					}
+; Line 551
+					$L20080:
+	*** 0007d1	8b 5e fe 		mov	bx,WORD PTR [bp-2]	;p
+	*** 0007d4	80 3f 00 		cmp	BYTE PTR [bx],0
+	*** 0007d7	75 bb 			jne	$FC774
+;|*** 				p++;
+; Line 552
+	*** 0007d9	ff 46 fe 		inc	WORD PTR [bp-2]	;p
+;|*** #ifndef Z80
+;|*** 				putch(13);
+; Line 554
+	*** 0007dc	b8 0d 00 		mov	ax,13
+	*** 0007df	50 			push	ax
+	*** 0007e0	e8 00 00 		call	_putch
+	*** 0007e3	83 c4 02 		add	sp,2
+;|*** #endif
+;|*** 				putch(10);
+; Line 556
+	*** 0007e6	b8 0a 00 		mov	ax,10
+	*** 0007e9	50 			push	ax
+	*** 0007ea	e8 00 00 		call	_putch
+	*** 0007ed	83 c4 02 		add	sp,2
+;|*** 				}
+; Line 557
+	*** 0007f0	e9 7f ff 		jmp	$FC770
+	*** 0007f3	90 			nop	
+					$SC780:
+;|*** 			break;  
+;|*** 		case '\x84':
+;|*** 			DirectMode=1;
+; Line 560
+	*** 0007f4	c6 06 bf 01 01 		mov	BYTE PTR _DirectMode,1
+;|*** 			TextP=VarBase-3;
+; Line 561
+	*** 0007f9	a1 00 00 		mov	ax,WORD PTR _VarBase
+	*** 0007fc	2d 03 00 		sub	ax,3
+	*** 0007ff	e9 4d 02 		jmp	$L20087
+;|*** 			break;  
+;|*** 		case '\x85':
+; Line 563
+					$SC781:
+;|*** 			RetVal=17;
+; Line 564
+	*** 000802	c7 46 e0 11 00 		mov	WORD PTR [bp-32],17	;RetVal
+;|*** 			break;  
+; Line 565
+	*** 000807	e9 6e 06 		jmp	$SB760
+;|*** 		case '\x86':
+; Line 566
+					$SC782:
+;|*** 			i=0;
+; Line 567
+	*** 00080a	c7 46 ee 00 00 		mov	WORD PTR [bp-18],0	;i
+;|*** myPrint:
+; Line 568
+					$myPrint783:
+;|*** 			if(!fError) {
+; Line 569
+	*** 00080f	80 3e c1 01 00 		cmp	BYTE PTR _fError,0
+	*** 000814	74 03 			je	$JCC2068
+	*** 000816	e9 5f 06 		jmp	$SB760
+					$JCC2068:
+;|*** 				switch(*TextP) {
+; Line 570
+	*** 000819	8b 1e 00 00 		mov	bx,WORD PTR _TextP
+	*** 00081d	8a 07 			mov	al,BYTE PTR [bx]
+	*** 00081f	98 			cbw	
+	*** 000820	3d 3b 00 		cmp	ax,59
+	*** 000823	74 45 			je	$SC789
+	*** 000825	77 10 			ja	$SD794
+	*** 000827	0a c0 			or	al,al
+	*** 000829	74 79 			je	$SC792
+	*** 00082b	2c 20 			sub	al,32
+	*** 00082d	74 40 			je	$SC790
+	*** 00082f	2c 0c 			sub	al,12
+	*** 000831	74 43 			je	$SC791
+	*** 000833	2c 0e 			sub	al,14
+	*** 000835	74 6d 			je	$SC792
+					$SD794:
+;|*** 					case ';':
+;|*** 						i=1;
+;|*** 					case ' ':
+;|*** 						TextP++;
+;|*** 						goto myPrint;
+;|*** 						break;
+;|*** 					case ',':
+;|*** #ifndef Z80
+;|*** 						putchar('\t');
+;|*** #else
+;|*** 						putch('\t');
+;|*** #endif        
+;|*** 						TextP++;
+;|*** 						i=1;
+;|*** 						goto myPrint;
+;|*** 						break;
+;|*** 					case 0:
+;|*** 					case ':':
+;|*** 						if(!i) {                      // indica se andare a capo...
+;|*** #ifndef Z80
+;|*** 							putch(13);
+;|*** #endif
+;|*** 							putch(10);
+;|*** 							}
+;|*** 						break;
+;|*** 					default:
+;|*** 						i=0;
+; Line 597
+	*** 000837	c7 46 ee 00 00 		mov	WORD PTR [bp-18],0	;i
+;|*** 						l=EvalExpr(15,&Fl);
+; Line 598
+	*** 00083c	8d 46 fa 		lea	ax,WORD PTR [bp-6]	;Fl
+	*** 00083f	50 			push	ax
+	*** 000840	b0 0f 			mov	al,15
+	*** 000842	50 			push	ax
+	*** 000843	e8 00 00 		call	_EvalExpr
+	*** 000846	83 c4 04 		add	sp,4
+	*** 000849	89 46 e2 		mov	WORD PTR [bp-30],ax	;l
+	*** 00084c	89 56 e4 		mov	WORD PTR [bp-28],dx
+;|*** 						if(fError)
+; Line 599
+	*** 00084f	80 3e c1 01 00 		cmp	BYTE PTR _fError,0
+	*** 000854	75 b9 			jne	$myPrint783
+;|*** 							goto myPrint;
+;|*** 						if(!(Fl & STR_FLAG)) {
+; Line 601
+	*** 000856	f6 46 fa 02 		test	BYTE PTR [bp-6],2	;Fl
+	*** 00085a	74 03 			je	$JCC2138
+	*** 00085c	e9 a9 00 		jmp	$I796
+					$JCC2138:
+;|*** 							if(l<0)
+; Line 602
+	*** 00085f	0b d2 			or	dx,dx
+	*** 000861	7d 61 			jge	$I797
+;|*** 								putch('-');
+; Line 603
+	*** 000863	b8 2d 00 		mov	ax,45
+	*** 000866	eb 5f 			jmp	SHORT $L20082
+;|*** 					case ';':
+; Line 571
+	*** 000868	90 			nop	
+	*** 000869	90 			nop	
+					$SC789:
+;|*** 						i=1;
+; Line 572
+	*** 00086a	c7 46 ee 01 00 		mov	WORD PTR [bp-18],1	;i
+;|*** 					case ' ':
+; Line 573
+					$SC790:
+;|*** 						TextP++;
+; Line 574
+	*** 00086f	ff 06 00 00 		inc	WORD PTR _TextP
+;|*** 						goto myPrint;
+; Line 575
+	*** 000873	eb 9a 			jmp	SHORT $myPrint783
+	*** 000875	90 			nop	
+					$SC791:
+;|*** 						break;
+;|*** 					case ',':
+;|*** #ifndef Z80
+;|*** 						putchar('\t');
+; Line 579
+	*** 000876	ff 0e 0a 00 		dec	WORD PTR __iob+10
+	*** 00087a	78 0e 			js	$L20005
+	*** 00087c	8b 1e 08 00 		mov	bx,WORD PTR __iob+8
+	*** 000880	c6 07 09 		mov	BYTE PTR [bx],9
+	*** 000883	ff 06 08 00 		inc	WORD PTR __iob+8
+	*** 000887	eb 0f 			jmp	SHORT $L20006
+	*** 000889	90 			nop	
+					$L20005:
+	*** 00088a	b8 08 00 		mov	ax,OFFSET __iob+8
+	*** 00088d	50 			push	ax
+	*** 00088e	b8 09 00 		mov	ax,9
+	*** 000891	50 			push	ax
+	*** 000892	e8 00 00 		call	__flsbuf
+	*** 000895	83 c4 04 		add	sp,4
+					$L20006:
+;|*** #else
+;|*** 						putch('\t');
+;|*** #endif        
+;|*** 						TextP++;
+; Line 583
+	*** 000898	ff 06 00 00 		inc	WORD PTR _TextP
+;|*** 						i=1;
+; Line 584
+	*** 00089c	c7 46 ee 01 00 		mov	WORD PTR [bp-18],1	;i
+;|*** 						goto myPrint;
+; Line 585
+	*** 0008a1	e9 6b ff 		jmp	$myPrint783
+					$SC792:
+;|*** 						break;
+;|*** 					case 0:
+;|*** 					case ':':
+;|*** 						if(!i) {                      // indica se andare a capo...
+; Line 589
+	*** 0008a4	83 7e ee 00 		cmp	WORD PTR [bp-18],0	;i
+	*** 0008a8	74 03 			je	$JCC2216
+	*** 0008aa	e9 cb 05 		jmp	$SB760
+					$JCC2216:
+;|*** #ifndef Z80
+;|*** 							putch(13);
+; Line 591
+	*** 0008ad	b8 0d 00 		mov	ax,13
+	*** 0008b0	50 			push	ax
+	*** 0008b1	e8 00 00 		call	_putch
+	*** 0008b4	83 c4 02 		add	sp,2
+;|*** #endif
+;|*** 							putch(10);
+; Line 593
+	*** 0008b7	b8 0a 00 		mov	ax,10
+	*** 0008ba	50 			push	ax
+	*** 0008bb	e8 00 00 		call	_putch
+					$L20094:
+	*** 0008be	83 c4 02 		add	sp,2
+;|*** 							}
+; Line 594
+;|*** 						break;
+;|*** 					default:
+;|*** 						i=0;
+;|*** 						l=EvalExpr(15,&Fl);
+;|*** 						if(fError)
+;|*** 							goto myPrint;
+;|*** 						if(!(Fl & STR_FLAG)) {
+;|*** 							if(l<0)
+;|*** 								putch('-');
+;|*** 							else
+;|*** 								putch(' ');
+;|*** 							if(Fl & INT_FLAG) {
+;|*** 								printf("%d",abs((int)l));
+;|*** 								}
+;|*** 							else {
+;|*** 								printf("%ld",labs(l));
+;|*** 								}
+;|*** 							}
+;|*** 						else {
+;|*** 							p=(char *)l;
+;|*** 							i1=*(((int *)&l)+1);
+;|*** 							while(i1--)
+;|*** 								putch(*p++);
+;|*** 							} 
+;|*** 						goto myPrint;
+;|*** 						break;
+;|*** 					}
+;|*** 				}
+; Line 622
+;|*** 			break;  
+; Line 623
+	*** 0008c1	e9 b4 05 		jmp	$SB760
+;|*** 					default:
+; Line 596
+					$I797:
+;|*** 						i=0;
+;|*** 						l=EvalExpr(15,&Fl);
+;|*** 						if(fError)
+;|*** 							goto myPrint;
+;|*** 						if(!(Fl & STR_FLAG)) {
+;|*** 							if(l<0)
+;|*** 								putch('-');
+;|*** 							else
+;|*** 								putch(' ');
+; Line 605
+	*** 0008c4	b8 20 00 		mov	ax,32
+					$L20082:
+	*** 0008c7	50 			push	ax
+	*** 0008c8	e8 00 00 		call	_putch
+	*** 0008cb	83 c4 02 		add	sp,2
+;|*** 							if(Fl & INT_FLAG) {
+; Line 606
+	*** 0008ce	f6 46 fa 01 		test	BYTE PTR [bp-6],1	;Fl
+	*** 0008d2	74 18 			je	$I799
+;|*** 								printf("%d",abs((int)l));
+; Line 607
+	*** 0008d4	ff 76 e2 		push	WORD PTR [bp-30]	;l
+	*** 0008d7	e8 00 00 		call	_abs
+	*** 0008da	83 c4 02 		add	sp,2
+	*** 0008dd	50 			push	ax
+	*** 0008de	b8 5e 02 		mov	ax,OFFSET DGROUP:$SG800
+	*** 0008e1	50 			push	ax
+	*** 0008e2	e8 00 00 		call	_printf
+	*** 0008e5	83 c4 04 		add	sp,4
+;|*** 								}
+; Line 608
+;|*** 							else {
+; Line 609
+	*** 0008e8	e9 24 ff 		jmp	$myPrint783
+	*** 0008eb	90 			nop	
+					$I799:
+;|*** 								printf("%ld",labs(l));
+; Line 610
+	*** 0008ec	ff 76 e4 		push	WORD PTR [bp-28]
+	*** 0008ef	ff 76 e2 		push	WORD PTR [bp-30]	;l
+	*** 0008f2	e8 00 00 		call	_labs
+	*** 0008f5	83 c4 04 		add	sp,4
+	*** 0008f8	52 			push	dx
+	*** 0008f9	50 			push	ax
+	*** 0008fa	b8 61 02 		mov	ax,OFFSET DGROUP:$SG802
+	*** 0008fd	50 			push	ax
+	*** 0008fe	e8 00 00 		call	_printf
+	*** 000901	83 c4 06 		add	sp,6
+;|*** 								}
+; Line 611
+;|*** 							}
+; Line 612
+;|*** 						else {
+; Line 613
+	*** 000904	e9 08 ff 		jmp	$myPrint783
+	*** 000907	90 			nop	
+					$I796:
+;|*** 							p=(char *)l;
+; Line 614
+	*** 000908	89 46 fe 		mov	WORD PTR [bp-2],ax	;p
+;|*** 							i1=*(((int *)&l)+1);
+; Line 615
+	*** 00090b	8b c2 			mov	ax,dx
+	*** 00090d	89 46 e8 		mov	WORD PTR [bp-24],ax	;i1
+;|*** 							while(i1--)
+; Line 616
+	*** 000910	eb 10 			jmp	SHORT $L20083
+					$FC805:
+;|*** 								putch(*p++);
+; Line 617
+	*** 000912	8b 5e fe 		mov	bx,WORD PTR [bp-2]	;p
+	*** 000915	ff 46 fe 		inc	WORD PTR [bp-2]	;p
+	*** 000918	8a 07 			mov	al,BYTE PTR [bx]
+	*** 00091a	98 			cbw	
+	*** 00091b	50 			push	ax
+	*** 00091c	e8 00 00 		call	_putch
+	*** 00091f	83 c4 02 		add	sp,2
+					$L20083:
+	*** 000922	8b 46 e8 		mov	ax,WORD PTR [bp-24]	;i1
+	*** 000925	ff 4e e8 		dec	WORD PTR [bp-24]	;i1
+	*** 000928	0b c0 			or	ax,ax
+	*** 00092a	75 e6 			jne	$FC805
+;|*** 							} 
+; Line 618
+;|*** 						goto myPrint;
+; Line 619
+	*** 00092c	e9 e0 fe 		jmp	$myPrint783
+	*** 00092f	90 			nop	
+					$SC807:
+;|*** 						break;
+;|*** 					}
+;|*** 				}
+;|*** 			break;  
+;|*** 		case '\x87':                     // REM
+;|*** myRem:
+;|*** 			TextP=CercaFine(0);
+; Line 626
+	*** 000930	2a c0 			sub	al,al
+	*** 000932	50 			push	ax
+	*** 000933	e8 00 00 		call	_CercaFine
+	*** 000936	83 c4 02 		add	sp,2
+	*** 000939	e9 13 01 		jmp	$L20087
+;|*** 			break;
+;|*** 		case '\x88':                     // for
+; Line 628
+					$SC809:
+;|*** 			p=HandleVar(1,&Fl);
+; Line 629
+	*** 00093c	8d 46 fa 		lea	ax,WORD PTR [bp-6]	;Fl
+	*** 00093f	50 			push	ax
+	*** 000940	b1 01 			mov	cl,1
+	*** 000942	51 			push	cx
+	*** 000943	e8 6e fc 		call	_HandleVar
+	*** 000946	83 c4 04 		add	sp,4
+	*** 000949	89 46 fe 		mov	WORD PTR [bp-2],ax	;p
+;|*** 			if(!fError) {
+; Line 630
+	*** 00094c	80 3e c1 01 00 		cmp	BYTE PTR _fError,0
+	*** 000951	75 0e 			jne	$I810
+;|*** 				OldVar=p;
+; Line 631
+	*** 000953	89 46 f0 		mov	WORD PTR [bp-16],ax	;OldVar
+;|*** 				if(Fl & STR_FLAG) {
+; Line 632
+	*** 000956	f6 46 fa 02 		test	BYTE PTR [bp-6],2	;Fl
+	*** 00095a	74 0e 			je	$I811
+;|*** 					RetVal=4;
+; Line 633
+	*** 00095c	c7 46 e0 04 00 		mov	WORD PTR [bp-32],4	;RetVal
+;|*** 					goto myFor1;
+; Line 634
+					$I810:
+;|*** 					}
+;|*** 				if(DoCheck('='))
+;|*** 					goto myFor1;
+;|*** 				l=GetValue(0);
+;|*** 				*(long *)OldVar=l;
+;|*** 				if(DoCheck('\x89'))
+;|*** 					goto myFor1;
+;|*** 				ToVal=GetValue(0);
+;|*** 				if(fError)
+;|*** 					goto myFor1;
+;|*** 				SkipSpaces();
+;|*** 				if(*TextP=='\x8a') {
+;|*** 					TextP++;
+;|*** 					StVal=GetValue(0);
+;|*** 					if(fError)
+;|*** 						goto myFor1;
+;|*** 					}
+;|*** 				else
+;|*** 					StVal=1;
+;|*** //        printf("eccomi con var=%ld, To %ld, Step %ld, TEXTP %x\n",*(long *)OldVar,ToVal,StVal,*TextP);
+;|*** 				OldText=TextP;
+;|*** 				for(;;) {
+;|*** 					ExecLine();
+;|*** 					SkipSpaces();
+;|*** 					if(*TextP && *TextP != ':') {
+;|*** 						p=HandleVar(0,&Fl);
+;|*** 						if(p != OldVar) {
+;|*** 							RetVal=6;
+;|*** 							goto myFor2;
+;|*** 							}
+;|*** 						}
+;|*** 					p=TextP;
+;|*** 					*(long *)OldVar=*((long *)OldVar)+StVal;
+;|*** 					TextP=OldText;
+;|*** 					if(StVal>=0) {
+;|*** 						if(*((long *)OldVar) > ToVal)
+;|*** 							break;
+;|*** 						}
+;|*** 					else {
+;|*** 						if(*((long *)OldVar) < ToVal)
+;|*** 							break;
+;|*** 						}
+;|*** 					}
+;|*** 				TextP=p;
+;|*** 				}
+;|*** 			else
+;|*** myFor1:
+;|*** 				RetVal=1;
+; Line 682
+	*** 000961	c7 46 e0 01 00 		mov	WORD PTR [bp-32],1	;RetVal
+;|*** myFor2:
+;|*** 			break;
+; Line 684
+	*** 000966	e9 0f 05 		jmp	$SB760
+;|*** 					}
+; Line 635
+;|*** 				if(DoCheck('='))
+; Line 636
+	*** 000969	90 			nop	
+					$I811:
+	*** 00096a	b0 3d 			mov	al,61
+	*** 00096c	50 			push	ax
+	*** 00096d	e8 00 00 		call	_DoCheck
+	*** 000970	83 c4 02 		add	sp,2
+	*** 000973	0a c0 			or	al,al
+	*** 000975	75 ea 			jne	$I810
+;|*** 					goto myFor1;
+;|*** 				l=GetValue(0);
+; Line 638
+	*** 000977	2b c0 			sub	ax,ax
+	*** 000979	50 			push	ax
+	*** 00097a	e8 00 00 		call	_GetValue
+	*** 00097d	83 c4 02 		add	sp,2
+	*** 000980	89 46 e2 		mov	WORD PTR [bp-30],ax	;l
+	*** 000983	89 56 e4 		mov	WORD PTR [bp-28],dx
+;|*** 				*(long *)OldVar=l;
+; Line 639
+	*** 000986	8b 5e f0 		mov	bx,WORD PTR [bp-16]	;OldVar
+	*** 000989	89 07 			mov	WORD PTR [bx],ax
+	*** 00098b	89 57 02 		mov	WORD PTR [bx+2],dx
+;|*** 				if(DoCheck('\x89'))
+; Line 640
+	*** 00098e	b0 89 			mov	al,137
+	*** 000990	50 			push	ax
+	*** 000991	e8 00 00 		call	_DoCheck
+	*** 000994	83 c4 02 		add	sp,2
+	*** 000997	0a c0 			or	al,al
+	*** 000999	75 c6 			jne	$I810
+;|*** 					goto myFor1;
+;|*** 				ToVal=GetValue(0);
+; Line 642
+	*** 00099b	2b c0 			sub	ax,ax
+	*** 00099d	50 			push	ax
+	*** 00099e	e8 00 00 		call	_GetValue
+	*** 0009a1	83 c4 02 		add	sp,2
+	*** 0009a4	89 46 f2 		mov	WORD PTR [bp-14],ax	;ToVal
+	*** 0009a7	89 56 f4 		mov	WORD PTR [bp-12],dx
+;|*** 				if(fError)
+; Line 643
+	*** 0009aa	80 3e c1 01 00 		cmp	BYTE PTR _fError,0
+	*** 0009af	75 b0 			jne	$I810
+;|*** 					goto myFor1;
+;|*** 				SkipSpaces();
+; Line 645
+	*** 0009b1	e8 00 00 		call	_SkipSpaces
+;|*** 				if(*TextP=='\x8a') {
+; Line 646
+	*** 0009b4	8b 1e 00 00 		mov	bx,WORD PTR _TextP
+	*** 0009b8	80 3f 8a 		cmp	BYTE PTR [bx],138
+	*** 0009bb	75 1d 			jne	$I816
+;|*** 					TextP++;
+; Line 647
+	*** 0009bd	ff 06 00 00 		inc	WORD PTR _TextP
+;|*** 					StVal=GetValue(0);
+; Line 648
+	*** 0009c1	2b c0 			sub	ax,ax
+	*** 0009c3	50 			push	ax
+	*** 0009c4	e8 00 00 		call	_GetValue
+	*** 0009c7	83 c4 02 		add	sp,2
+	*** 0009ca	89 46 ea 		mov	WORD PTR [bp-22],ax	;StVal
+	*** 0009cd	89 56 ec 		mov	WORD PTR [bp-20],dx
+;|*** 					if(fError)
+; Line 649
+	*** 0009d0	80 3e c1 01 00 		cmp	BYTE PTR _fError,0
+	*** 0009d5	74 0d 			je	$I818
+;|*** 						goto myFor1;
+; Line 650
+	*** 0009d7	eb 88 			jmp	SHORT $I810
+	*** 0009d9	90 			nop	
+					$I816:
+;|*** 					}
+;|*** 				else
+;|*** 					StVal=1;
+; Line 653
+	*** 0009da	c7 46 ea 01 00 		mov	WORD PTR [bp-22],1	;StVal
+	*** 0009df	c7 46 ec 00 00 		mov	WORD PTR [bp-20],0
+					$I818:
+;|*** //        printf("eccomi con var=%ld, To %ld, Step %ld, TEXTP %x\n",*(long *)OldVar,ToVal,StVal,*TextP);
+;|*** 				OldText=TextP;
+; Line 655
+	*** 0009e4	a1 00 00 		mov	ax,WORD PTR _TextP
+	*** 0009e7	89 46 f6 		mov	WORD PTR [bp-10],ax	;OldText
+;|*** 				for(;;) {
+; Line 656
+					$FC820:
+;|*** 					ExecLine();
+; Line 657
+	*** 0009ea	e8 00 00 		call	_ExecLine
+;|*** 					SkipSpaces();
+; Line 658
+	*** 0009ed	e8 00 00 		call	_SkipSpaces
+;|*** 					if(*TextP && *TextP != ':') {
+; Line 659
+	*** 0009f0	8b 1e 00 00 		mov	bx,WORD PTR _TextP
+	*** 0009f4	80 3f 00 		cmp	BYTE PTR [bx],0
+	*** 0009f7	74 23 			je	$I823
+	*** 0009f9	80 3f 3a 		cmp	BYTE PTR [bx],58
+	*** 0009fc	74 1e 			je	$I823
+;|*** 						p=HandleVar(0,&Fl);
+;|*** 						if(p != OldVar) {
+; Line 661
+	*** 0009fe	8d 46 fa 		lea	ax,WORD PTR [bp-6]	;Fl
+	*** 000a01	50 			push	ax
+	*** 000a02	2a c0 			sub	al,al
+	*** 000a04	50 			push	ax
+	*** 000a05	e8 ac fb 		call	_HandleVar
+	*** 000a08	83 c4 04 		add	sp,4
+	*** 000a0b	89 46 fe 		mov	WORD PTR [bp-2],ax	;p
+	*** 000a0e	3b 46 f0 		cmp	ax,WORD PTR [bp-16]	;OldVar
+	*** 000a11	74 09 			je	$I823
+;|*** 							RetVal=6;
+; Line 662
+	*** 000a13	c7 46 e0 06 00 		mov	WORD PTR [bp-32],6	;RetVal
+;|*** 							goto myFor2;
+; Line 663
+	*** 000a18	e9 5d 04 		jmp	$SB760
+;|*** 							}
+; Line 664
+;|*** 						}
+; Line 665
+	*** 000a1b	90 			nop	
+					$I823:
+;|*** 					p=TextP;
+; Line 666
+	*** 000a1c	a1 00 00 		mov	ax,WORD PTR _TextP
+	*** 000a1f	89 46 fe 		mov	WORD PTR [bp-2],ax	;p
+;|*** 					*(long *)OldVar=*((long *)OldVar)+StVal;
+; Line 667
+	*** 000a22	8b 46 ea 		mov	ax,WORD PTR [bp-22]	;StVal
+	*** 000a25	8b 56 ec 		mov	dx,WORD PTR [bp-20]
+	*** 000a28	8b 5e f0 		mov	bx,WORD PTR [bp-16]	;OldVar
+	*** 000a2b	01 07 			add	WORD PTR [bx],ax
+	*** 000a2d	11 57 02 		adc	WORD PTR [bx+2],dx
+;|*** 					TextP=OldText;
+; Line 668
+	*** 000a30	8b 4e f6 		mov	cx,WORD PTR [bp-10]	;OldText
+	*** 000a33	89 0e 00 00 		mov	WORD PTR _TextP,cx
+;|*** 					if(StVal>=0) {
+; Line 669
+	*** 000a37	0b d2 			or	dx,dx
+	*** 000a39	7c 1b 			jl	$I825
+;|*** 						if(*((long *)OldVar) > ToVal)
+; Line 670
+	*** 000a3b	8b 46 f2 		mov	ax,WORD PTR [bp-14]	;ToVal
+	*** 000a3e	8b 56 f4 		mov	dx,WORD PTR [bp-12]
+	*** 000a41	39 57 02 		cmp	WORD PTR [bx+2],dx
+	*** 000a44	7c a4 			jl	$FC820
+	*** 000a46	7f 04 			jg	$FB821
+	*** 000a48	39 07 			cmp	WORD PTR [bx],ax
+	*** 000a4a	76 9e 			jbe	$FC820
+;|*** 							break;
+; Line 671
+					$FB821:
+;|*** 						}
+;|*** 					else {
+;|*** 						if(*((long *)OldVar) < ToVal)
+;|*** 							break;
+;|*** 						}
+;|*** 					}
+;|*** 				TextP=p;
+; Line 678
+	*** 000a4c	8b 46 fe 		mov	ax,WORD PTR [bp-2]	;p
+					$L20087:
+	*** 000a4f	a3 00 00 		mov	WORD PTR _TextP,ax
+;|*** 				}
+; Line 679
+;|*** 			else
+; Line 680
+	*** 000a52	e9 23 04 		jmp	$SB760
+	*** 000a55	90 			nop	
+					$I825:
+;|*** 						if(*((long *)OldVar) < ToVal)
+; Line 674
+	*** 000a56	8b 46 f2 		mov	ax,WORD PTR [bp-14]	;ToVal
+	*** 000a59	8b 56 f4 		mov	dx,WORD PTR [bp-12]
+	*** 000a5c	8b 5e f0 		mov	bx,WORD PTR [bp-16]	;OldVar
+	*** 000a5f	39 57 02 		cmp	WORD PTR [bx+2],dx
+	*** 000a62	7f 86 			jg	$FC820
+	*** 000a64	7c e6 			jl	$FB821
+	*** 000a66	39 07 			cmp	WORD PTR [bx],ax
+	*** 000a68	72 03 			jb	$JCC2664
+	*** 000a6a	e9 7d ff 		jmp	$FC820
+					$JCC2664:
+;|*** 							break;
+; Line 675
+	*** 000a6d	eb dd 			jmp	SHORT $FB821
+	*** 000a6f	90 			nop	
+					$SC830:
+;|*** 						}
+;|*** 					}
+;|*** 				TextP=p;
+;|*** 				}
+;|*** 			else
+;|*** myFor1:
+;|*** 				RetVal=1;
+;|*** myFor2:
+;|*** 			break;
+;|*** 		case '\x8b':
+;|*** 			RetVal=-6;
+; Line 686
+	*** 000a70	c7 46 e0 fa ff 		mov	WORD PTR [bp-32],-6	;RetVal
+;|*** 			break;
+; Line 687
+	*** 000a75	e9 00 04 		jmp	$SB760
+;|*** 		case '\x8d':                     // gosub
+; Line 688
+					$SC831:
+;|*** 			OldText=CercaFine(1);
+; Line 689
+	*** 000a78	b0 01 			mov	al,1
+	*** 000a7a	50 			push	ax
+	*** 000a7b	e8 00 00 		call	_CercaFine
+	*** 000a7e	83 c4 02 		add	sp,2
+	*** 000a81	89 46 f6 		mov	WORD PTR [bp-10],ax	;OldText
+;|*** //      printf("fine: %x, %x\n",OldText,*OldText);
+;|*** 			RetVal=ExecStmt('\x8c');
+; Line 691
+	*** 000a84	b0 8c 			mov	al,140
+	*** 000a86	50 			push	ax
+	*** 000a87	e8 82 fc 		call	_ExecStmt
+	*** 000a8a	83 c4 02 		add	sp,2
+	*** 000a8d	98 			cbw	
+	*** 000a8e	89 46 e0 		mov	WORD PTR [bp-32],ax	;RetVal
+;|*** 			ExecLine();
+; Line 692
+	*** 000a91	e8 00 00 		call	_ExecLine
+;|*** 			TextP=OldText;
+; Line 693
+	*** 000a94	8b 46 f6 		mov	ax,WORD PTR [bp-10]	;OldText
+	*** 000a97	eb b6 			jmp	SHORT $L20087
+;|*** 			break;
+;|*** 		case '\x8c':                     // goto
+; Line 695
+	*** 000a99	90 			nop	
+					$SC832:
+;|*** myGoto:
+;|*** 			i=(int)GetValue(0);
+;|*** //      printf("eseguo goto %d\n",i);
+;|*** 			p=CercaLine(i,0);
+;|*** 			if(p) {
+; Line 700
+	*** 000a9a	2a c0 			sub	al,al
+	*** 000a9c	50 			push	ax
+	*** 000a9d	2b c0 			sub	ax,ax
+	*** 000a9f	50 			push	ax
+	*** 000aa0	e8 00 00 		call	_GetValue
+	*** 000aa3	83 c4 02 		add	sp,2
+	*** 000aa6	89 46 ee 		mov	WORD PTR [bp-18],ax	;i
+	*** 000aa9	50 			push	ax
+	*** 000aaa	e8 00 00 		call	_CercaLine
+	*** 000aad	83 c4 04 		add	sp,4
+	*** 000ab0	89 46 fe 		mov	WORD PTR [bp-2],ax	;p
+	*** 000ab3	0b c0 			or	ax,ax
+	*** 000ab5	74 0d 			je	$I834
+;|*** 				TextP=p+4;
+; Line 701
+	*** 000ab7	05 04 00 		add	ax,4
+	*** 000aba	a3 00 00 		mov	WORD PTR _TextP,ax
+;|*** 				Linea=l;
+; Line 702
+	*** 000abd	8b 46 e2 		mov	ax,WORD PTR [bp-30]	;l
+	*** 000ac0	e9 a3 fc 		jmp	$L20085
+	*** 000ac3	90 			nop	
+					$I834:
+;|*** 				}
+;|*** 			else
+;|*** 				RetVal=3;
+; Line 705
+	*** 000ac4	c7 46 e0 03 00 		mov	WORD PTR [bp-32],3	;RetVal
+;|*** 			break;
+; Line 706
+	*** 000ac9	e9 ac 03 		jmp	$SB760
+;|*** 		case '\x8e':                     // return
+; Line 707
+					$SC836:
+;|*** //      if(OldText)
+;|*** //        TextP=OldText;
+;|*** //      else
+;|*** //        RetVal=5;
+;|*** 				RetVal=-5;
+; Line 712
+	*** 000acc	c7 46 e0 fb ff 		mov	WORD PTR [bp-32],-5	;RetVal
+;|*** 			break;
+; Line 713
+	*** 000ad1	e9 a4 03 		jmp	$SB760
+;|*** 		case '\x8f':                     // if
+; Line 714
+					$SC837:
+;|*** 			i=(int)GetValue(0);
+;|*** 			if(i) {
+; Line 716
+	*** 000ad4	2b c0 			sub	ax,ax
+	*** 000ad6	50 			push	ax
+	*** 000ad7	e8 00 00 		call	_GetValue
+	*** 000ada	83 c4 02 		add	sp,2
+	*** 000add	89 46 ee 		mov	WORD PTR [bp-18],ax	;i
+	*** 000ae0	0b c0 			or	ax,ax
+	*** 000ae2	75 03 			jne	$JCC2786
+	*** 000ae4	e9 49 fe 		jmp	$SC807
+					$JCC2786:
+;|*** 				DoCheck('\x90');
+; Line 717
+	*** 000ae7	b0 90 			mov	al,144
+	*** 000ae9	50 			push	ax
+	*** 000aea	e8 00 00 		call	_DoCheck
+	*** 000aed	e9 ce fd 		jmp	$L20094
+					$SC840:
+;|*** 				}
+;|*** 			else {
+;|*** 				goto myRem;
+;|*** 				}
+;|*** 			break;
+;|*** 		case '\x92':                     // on .. goto
+;|*** 			i1=(int)GetValue(0);
+; Line 724
+	*** 000af0	2b c0 			sub	ax,ax
+	*** 000af2	50 			push	ax
+	*** 000af3	e8 00 00 		call	_GetValue
+	*** 000af6	83 c4 02 		add	sp,2
+	*** 000af9	89 46 e8 		mov	WORD PTR [bp-24],ax	;i1
+;|*** 			DoCheck('\x8c');
+; Line 725
+	*** 000afc	b0 8c 			mov	al,140
+	*** 000afe	50 			push	ax
+	*** 000aff	e8 00 00 		call	_DoCheck
+	*** 000b02	83 c4 02 		add	sp,2
+;|*** 			if(i1<0)
+; Line 726
+	*** 000b05	83 7e e8 00 		cmp	WORD PTR [bp-24],0	;i1
+	*** 000b09	7d 09 			jge	$I841
+;|*** 				RetVal=2;
+; Line 727
+	*** 000b0b	c7 46 e0 02 00 		mov	WORD PTR [bp-32],2	;RetVal
+;|*** 			else {
+;|*** 				if(!i1)
+;|*** 					goto myRem;
+;|*** 				while(--i1) {
+;|*** 					GetValue(0);
+;|*** 					DoCheck(',');
+;|*** 					}            
+;|*** 				goto myGoto;  
+;|*** 				}
+;|*** 			break;
+; Line 737
+	*** 000b10	e9 65 03 		jmp	$SB760
+	*** 000b13	90 			nop	
+					$I841:
+;|*** 				if(!i1)
+; Line 729
+	*** 000b14	83 7e e8 00 		cmp	WORD PTR [bp-24],0	;i1
+	*** 000b18	75 03 			jne	$JCC2840
+	*** 000b1a	e9 13 fe 		jmp	$SC807
+					$JCC2840:
+;|*** 					goto myRem;
+;|*** 				while(--i1) {
+; Line 731
+					$FC845:
+	*** 000b1d	ff 4e e8 		dec	WORD PTR [bp-24]	;i1
+	*** 000b20	75 03 			jne	$JCC2848
+	*** 000b22	e9 75 ff 		jmp	$SC832
+					$JCC2848:
+;|*** 					GetValue(0);
+; Line 732
+	*** 000b25	2b c0 			sub	ax,ax
+	*** 000b27	50 			push	ax
+	*** 000b28	e8 00 00 		call	_GetValue
+	*** 000b2b	83 c4 02 		add	sp,2
+;|*** 					DoCheck(',');
+; Line 733
+	*** 000b2e	b0 2c 			mov	al,44
+	*** 000b30	50 			push	ax
+	*** 000b31	e8 00 00 		call	_DoCheck
+	*** 000b34	83 c4 02 		add	sp,2
+;|*** 					}            
+; Line 734
+	*** 000b37	eb e4 			jmp	SHORT $FC845
+	*** 000b39	90 			nop	
+					$SC847:
+;|*** 				goto myGoto;  
+;|*** 				}
+;|*** 			break;
+;|*** 		case '\x93':                     // sys
+;|*** 			i=(int)GetValue(0);
+; Line 739
+	*** 000b3a	2b c0 			sub	ax,ax
+	*** 000b3c	50 			push	ax
+	*** 000b3d	e8 00 00 		call	_GetValue
+	*** 000b40	83 c4 02 		add	sp,2
+	*** 000b43	89 46 ee 		mov	WORD PTR [bp-18],ax	;i
+;|*** #ifdef Z80  
+;|*** _asm {
+;|*** 	ld hl,i
+;|*** 	jp (hl)
+;|*** 	}
+;|*** #endif
+;|*** 			break;
+; Line 746
+	*** 000b46	e9 2f 03 		jmp	$SB760
+;|*** 		case '\x94':                     // poke
+; Line 747
+	*** 000b49	90 			nop	
+					$SC848:
+;|*** 			p=(char *)GetValue(0);
+; Line 748
+	*** 000b4a	2b c0 			sub	ax,ax
+	*** 000b4c	50 			push	ax
+	*** 000b4d	e8 00 00 		call	_GetValue
+	*** 000b50	83 c4 02 		add	sp,2
+	*** 000b53	89 46 fe 		mov	WORD PTR [bp-2],ax	;p
+;|*** 			DoCheck(',');
+; Line 749
+	*** 000b56	b0 2c 			mov	al,44
+	*** 000b58	50 			push	ax
+	*** 000b59	e8 00 00 		call	_DoCheck
+	*** 000b5c	83 c4 02 		add	sp,2
+;|*** 			i=(int)GetValue(0);
+;|*** 			*p=i;
+; Line 751
+	*** 000b5f	2b c0 			sub	ax,ax
+	*** 000b61	50 			push	ax
+	*** 000b62	e8 00 00 		call	_GetValue
+	*** 000b65	83 c4 02 		add	sp,2
+	*** 000b68	89 46 ee 		mov	WORD PTR [bp-18],ax	;i
+	*** 000b6b	8b 5e fe 		mov	bx,WORD PTR [bp-2]	;p
+	*** 000b6e	e9 5d 01 		jmp	$L20091
+;|*** 			break;
+;|*** 		case '\x95':                     // out
+; Line 753
+	*** 000b71	90 			nop	
+					$SC849:
+;|*** 			i=(int)GetValue(0);
+; Line 754
+	*** 000b72	2b c0 			sub	ax,ax
+	*** 000b74	50 			push	ax
+	*** 000b75	e8 00 00 		call	_GetValue
+	*** 000b78	83 c4 02 		add	sp,2
+	*** 000b7b	89 46 ee 		mov	WORD PTR [bp-18],ax	;i
+;|*** 			DoCheck(',');
+; Line 755
+	*** 000b7e	b0 2c 			mov	al,44
+	*** 000b80	50 			push	ax
+	*** 000b81	e8 00 00 		call	_DoCheck
+	*** 000b84	83 c4 02 		add	sp,2
+;|*** 			i1=(int)GetValue(0);
+;|*** 			outp(i,i1);
+; Line 757
+	*** 000b87	2b c0 			sub	ax,ax
+	*** 000b89	50 			push	ax
+	*** 000b8a	e8 00 00 		call	_GetValue
+	*** 000b8d	83 c4 02 		add	sp,2
+	*** 000b90	89 46 e8 		mov	WORD PTR [bp-24],ax	;i1
+	*** 000b93	50 			push	ax
+	*** 000b94	ff 76 ee 		push	WORD PTR [bp-18]	;i
+	*** 000b97	e8 00 00 		call	_outp
+					$L20089:
+	*** 000b9a	83 c4 04 		add	sp,4
+;|*** 			break;
+; Line 758
+	*** 000b9d	e9 d8 02 		jmp	$SB760
+;|*** 		case '\x96':                     // input
+; Line 759
+					$SC850:
+;|*** 			SkipSpaces();
+; Line 760
+	*** 000ba0	e8 00 00 		call	_SkipSpaces
+;|*** 			if(*TextP=='\"') {
+; Line 761
+	*** 000ba3	8b 1e 00 00 		mov	bx,WORD PTR _TextP
+	*** 000ba7	80 3f 22 		cmp	BYTE PTR [bx],34
+	*** 000baa	75 2d 			jne	$I851
+;|*** 				TextP++;
+; Line 762
+	*** 000bac	ff 06 00 00 		inc	WORD PTR _TextP
+;|*** 				while(*TextP != '\"') {
+; Line 763
+	*** 000bb0	eb 11 			jmp	SHORT $L20084
+					$FC853:
+;|*** 					putch(*TextP++);
+; Line 764
+	*** 000bb2	89 5e dc 		mov	WORD PTR [bp-36],bx
+	*** 000bb5	ff 06 00 00 		inc	WORD PTR _TextP
+	*** 000bb9	8a 07 			mov	al,BYTE PTR [bx]
+	*** 000bbb	98 			cbw	
+	*** 000bbc	50 			push	ax
+	*** 000bbd	e8 00 00 		call	_putch
+	*** 000bc0	83 c4 02 		add	sp,2
+;|*** 					}
+; Line 765
+					$L20084:
+	*** 000bc3	8b 1e 00 00 		mov	bx,WORD PTR _TextP
+	*** 000bc7	80 3f 22 		cmp	BYTE PTR [bx],34
+	*** 000bca	75 e6 			jne	$FC853
+;|*** 				TextP++;
+; Line 766
+	*** 000bcc	ff 06 00 00 		inc	WORD PTR _TextP
+;|*** 				DoCheck(';');
+; Line 767
+	*** 000bd0	b0 3b 			mov	al,59
+	*** 000bd2	50 			push	ax
+	*** 000bd3	e8 00 00 		call	_DoCheck
+	*** 000bd6	83 c4 02 		add	sp,2
+;|*** 				}
+; Line 768
+;|*** 			p=HandleVar(1,&Fl);
+; Line 769
+					$I851:
+	*** 000bd9	8d 46 fa 		lea	ax,WORD PTR [bp-6]	;Fl
+	*** 000bdc	50 			push	ax
+	*** 000bdd	b1 01 			mov	cl,1
+	*** 000bdf	51 			push	cx
+	*** 000be0	e8 d1 f9 		call	_HandleVar
+	*** 000be3	83 c4 04 		add	sp,4
+	*** 000be6	89 46 fe 		mov	WORD PTR [bp-2],ax	;p
+;|*** 			if(!fError) {
+; Line 770
+	*** 000be9	80 3e c1 01 00 		cmp	BYTE PTR _fError,0
+	*** 000bee	74 03 			je	$JCC3054
+	*** 000bf0	e9 85 02 		jmp	$SB760
+					$JCC3054:
+;|*** 				putch('?');
+; Line 771
+	*** 000bf3	b8 3f 00 		mov	ax,63
+	*** 000bf6	50 			push	ax
+	*** 000bf7	e8 00 00 		call	_putch
+	*** 000bfa	83 c4 02 		add	sp,2
+;|*** 				putch(' ');
+; Line 772
+	*** 000bfd	b8 20 00 		mov	ax,32
+	*** 000c00	50 			push	ax
+	*** 000c01	e8 00 00 		call	_putch
+	*** 000c04	83 c4 02 		add	sp,2
+;|*** 				scanf("%s",DirectBuf);
+; Line 773
+	*** 000c07	b8 00 00 		mov	ax,OFFSET DGROUP:_DirectBuf
+	*** 000c0a	50 			push	ax
+	*** 000c0b	b9 65 02 		mov	cx,OFFSET DGROUP:$SG856
+	*** 000c0e	51 			push	cx
+	*** 000c0f	e8 00 00 		call	_scanf
+	*** 000c12	83 c4 04 		add	sp,4
+;|*** 				if(Fl & STR_FLAG) {
+; Line 774
+	*** 000c15	f6 46 fa 02 		test	BYTE PTR [bp-6],2	;Fl
+	*** 000c19	74 39 			je	$I857
+;|*** 					i=strlen(DirectBuf);
+;|*** //          printf("la stringa è lunga %d\n",i);
+;|*** 					p1=AllocaString(i);
+;|*** 					if(p1) {
+; Line 778
+	*** 000c1b	b8 00 00 		mov	ax,OFFSET DGROUP:_DirectBuf
+	*** 000c1e	50 			push	ax
+	*** 000c1f	e8 00 00 		call	_strlen
+	*** 000c22	83 c4 02 		add	sp,2
+	*** 000c25	89 46 ee 		mov	WORD PTR [bp-18],ax	;i
+	*** 000c28	50 			push	ax
+	*** 000c29	e8 00 00 		call	_AllocaString
+	*** 000c2c	83 c4 02 		add	sp,2
+	*** 000c2f	89 46 fc 		mov	WORD PTR [bp-4],ax	;p1
+	*** 000c32	0b c0 			or	ax,ax
+	*** 000c34	75 03 			jne	$JCC3124
+	*** 000c36	e9 3f 02 		jmp	$SB760
+					$JCC3124:
+;|*** 						*(char **)p=p1;
+; Line 779
+	*** 000c39	8b 5e fe 		mov	bx,WORD PTR [bp-2]	;p
+	*** 000c3c	89 07 			mov	WORD PTR [bx],ax
+;|*** 						*(((int *)p)+1)=i;
+; Line 780
+	*** 000c3e	8b 4e ee 		mov	cx,WORD PTR [bp-18]	;i
+	*** 000c41	89 4f 02 		mov	WORD PTR [bx+2],cx
+;|*** 						memmove(p1,DirectBuf,i);
+; Line 781
+	*** 000c44	51 			push	cx
+	*** 000c45	b9 00 00 		mov	cx,OFFSET DGROUP:_DirectBuf
+	*** 000c48	51 			push	cx
+	*** 000c49	50 			push	ax
+	*** 000c4a	e8 00 00 		call	_memmove
+					$L20090:
+	*** 000c4d	83 c4 06 		add	sp,6
+;|*** 						}
+; Line 782
+;|*** 					}
+; Line 783
+;|*** 				else {
+; Line 784
+	*** 000c50	e9 25 02 		jmp	$SB760
+	*** 000c53	90 			nop	
+					$I857:
+;|*** 					if(Fl & INT_FLAG) {
+; Line 785
+	*** 000c54	f6 46 fa 01 		test	BYTE PTR [bp-6],1	;Fl
+	*** 000c58	74 0e 			je	$I860
+;|*** 						*(int *)p=atoi(DirectBuf);
+; Line 786
+	*** 000c5a	b8 00 00 		mov	ax,OFFSET DGROUP:_DirectBuf
+	*** 000c5d	50 			push	ax
+	*** 000c5e	e8 00 00 		call	_atoi
+	*** 000c61	83 c4 02 		add	sp,2
+	*** 000c64	e9 58 01 		jmp	$L20093
+	*** 000c67	90 			nop	
+					$I860:
+;|*** 						}
+;|*** 					else
+;|*** 						*(long *)p=atol(DirectBuf);
+; Line 789
+	*** 000c68	b8 00 00 		mov	ax,OFFSET DGROUP:_DirectBuf
+	*** 000c6b	50 			push	ax
+	*** 000c6c	e8 00 00 		call	_atol
+	*** 000c6f	83 c4 02 		add	sp,2
+					$L20096:
+	*** 000c72	8b 5e fe 		mov	bx,WORD PTR [bp-2]	;p
+	*** 000c75	89 07 			mov	WORD PTR [bx],ax
+	*** 000c77	89 57 02 		mov	WORD PTR [bx+2],dx
+;|*** 					}
+; Line 790
+;|*** 				}
+; Line 791
+;|*** 			break;
+; Line 792
+	*** 000c7a	e9 fb 01 		jmp	$SB760
+;|*** 		case '\x97':                     // get
+; Line 793
+	*** 000c7d	90 			nop	
+					$SC862:
+;|*** 			p=HandleVar(1,&Fl);
+; Line 794
+	*** 000c7e	8d 46 fa 		lea	ax,WORD PTR [bp-6]	;Fl
+	*** 000c81	50 			push	ax
+	*** 000c82	b1 01 			mov	cl,1
+	*** 000c84	51 			push	cx
+	*** 000c85	e8 2c f9 		call	_HandleVar
+	*** 000c88	83 c4 04 		add	sp,4
+	*** 000c8b	89 46 fe 		mov	WORD PTR [bp-2],ax	;p
+;|*** 			if(!fError) {
+; Line 795
+	*** 000c8e	80 3e c1 01 00 		cmp	BYTE PTR _fError,0
+	*** 000c93	74 03 			je	$JCC3219
+	*** 000c95	e9 e0 01 		jmp	$SB760
+					$JCC3219:
+;|*** 				if(Fl & STR_FLAG) {
+; Line 796
+	*** 000c98	f6 46 fa 02 		test	BYTE PTR [bp-6],2	;Fl
+	*** 000c9c	74 46 			je	$I864
+;|*** 					if(kbhit()) {
+; Line 797
+	*** 000c9e	e8 00 00 		call	_kbhit
+	*** 000ca1	0b c0 			or	ax,ax
+	*** 000ca3	74 2f 			je	$I865
+;|*** 						ch=getch();
+; Line 798
+	*** 000ca5	e8 00 00 		call	_getch
+	*** 000ca8	88 46 e6 		mov	BYTE PTR [bp-26],al	;ch
+;|*** 						p1=AllocaString(1);
+;|*** 						if(p1) {
+; Line 800
+	*** 000cab	b8 01 00 		mov	ax,1
+	*** 000cae	50 			push	ax
+	*** 000caf	e8 00 00 		call	_AllocaString
+	*** 000cb2	83 c4 02 		add	sp,2
+	*** 000cb5	89 46 fc 		mov	WORD PTR [bp-4],ax	;p1
+	*** 000cb8	0b c0 			or	ax,ax
+	*** 000cba	75 03 			jne	$JCC3258
+	*** 000cbc	e9 b9 01 		jmp	$SB760
+					$JCC3258:
+;|*** 							*(char **)p=p1;
+; Line 801
+	*** 000cbf	8b 5e fe 		mov	bx,WORD PTR [bp-2]	;p
+	*** 000cc2	89 07 			mov	WORD PTR [bx],ax
+;|*** 							*(((int *)p)+1)=1;
+; Line 802
+	*** 000cc4	c7 47 02 01 00 		mov	WORD PTR [bx+2],1
+;|*** 							*p1=ch;
+; Line 803
+	*** 000cc9	8b d8 			mov	bx,ax
+	*** 000ccb	8a 46 e6 		mov	al,BYTE PTR [bp-26]	;ch
+					$L20091:
+	*** 000cce	88 07 			mov	BYTE PTR [bx],al
+;|*** 							}
+; Line 804
+;|*** 						}
+; Line 805
+;|*** 					else {
+; Line 806
+	*** 000cd0	e9 a5 01 		jmp	$SB760
+	*** 000cd3	90 			nop	
+					$I865:
+;|*** 						*(char **)p=StrBase;
+; Line 807
+	*** 000cd4	a1 00 00 		mov	ax,WORD PTR _StrBase
+	*** 000cd7	8b 5e fe 		mov	bx,WORD PTR [bp-2]	;p
+	*** 000cda	89 07 			mov	WORD PTR [bx],ax
+;|*** 						*(((int *)p)+1)=0;
+; Line 808
+	*** 000cdc	c7 47 02 00 00 		mov	WORD PTR [bx+2],0
+;|*** 						}
+; Line 809
+;|*** 					}
+; Line 810
+;|*** 				else
+; Line 811
+	*** 000ce1	e9 94 01 		jmp	$SB760
+					$I864:
+;|*** 					fError=2;
+; Line 812
+	*** 000ce4	c6 06 c1 01 02 		mov	BYTE PTR _fError,2
+;|*** 				}
+; Line 813
+;|*** 			break;
+; Line 814
+	*** 000ce9	e9 8c 01 		jmp	$SB760
+;|*** 		case '\x98':
+; Line 815
+					$SC869:
+;|*** #ifndef Z80  
+;|*** 			{
+; Line 817
+;	ir = -50
+;|*** 				union REGS ir;
+;|*** 				
+;|*** 				ir.h.ah = 6;
+; Line 820
+	*** 000cec	c6 46 cf 06 		mov	BYTE PTR [bp-49],6
+;|*** 				ir.h.al = 0;
+; Line 821
+	*** 000cf0	c6 46 ce 00 		mov	BYTE PTR [bp-50],0	;ir
+;|*** 				ir.x.cx = 0;
+; Line 822
+	*** 000cf4	c7 46 d2 00 00 		mov	WORD PTR [bp-46],0
+;|*** 				ir.h.dh = 24;
+; Line 823
+	*** 000cf9	c6 46 d5 18 		mov	BYTE PTR [bp-43],24
+;|*** 				ir.h.dl = 79;
+; Line 824
+	*** 000cfd	c6 46 d4 4f 		mov	BYTE PTR [bp-44],79
+;|*** 				ir.h.bh = 7;
+; Line 825
+	*** 000d01	c6 46 d1 07 		mov	BYTE PTR [bp-47],7
+;|*** 				int86(0x10, &ir, &ir);
+; Line 826
+	*** 000d05	8d 46 ce 		lea	ax,WORD PTR [bp-50]	;ir
+	*** 000d08	50 			push	ax
+	*** 000d09	50 			push	ax
+	*** 000d0a	b9 10 00 		mov	cx,16
+	*** 000d0d	51 			push	cx
+	*** 000d0e	e8 00 00 		call	_int86
+	*** 000d11	83 c4 06 		add	sp,6
+;|*** 
+;|*** 				ir.h.ah = 2;
+; Line 828
+	*** 000d14	c6 46 cf 02 		mov	BYTE PTR [bp-49],2
+;|*** 				ir.h.bh = 0;
+; Line 829
+	*** 000d18	c6 46 d1 00 		mov	BYTE PTR [bp-47],0
+;|*** 				ir.x.dx = 0;
+; Line 830
+	*** 000d1c	c7 46 d4 00 00 		mov	WORD PTR [bp-44],0
+;|*** 				int86(0x10, &ir, &ir);
+; Line 831
+	*** 000d21	8d 46 ce 		lea	ax,WORD PTR [bp-50]	;ir
+	*** 000d24	50 			push	ax
+	*** 000d25	50 			push	ax
+	*** 000d26	b8 10 00 		mov	ax,16
+	*** 000d29	50 			push	ax
+	*** 000d2a	e8 00 00 		call	_int86
+	*** 000d2d	e9 1d ff 		jmp	$L20090
+;|*** 				}
+;|*** #else
+;|*** #endif
+;|*** 			break;
+;|*** 		case '\x99':
+; Line 836
+					$SC871:
+;|*** #ifndef Z80  
+;|*** 			putchar(7);
+; Line 838
+	*** 000d30	ff 0e 0a 00 		dec	WORD PTR __iob+10
+	*** 000d34	78 0e 			js	$L20009
+	*** 000d36	8b 1e 08 00 		mov	bx,WORD PTR __iob+8
+	*** 000d3a	c6 07 07 		mov	BYTE PTR [bx],7
+	*** 000d3d	ff 06 08 00 		inc	WORD PTR __iob+8
+	*** 000d41	e9 34 01 		jmp	$SB760
+					$L20009:
+	*** 000d44	b8 08 00 		mov	ax,OFFSET __iob+8
+	*** 000d47	50 			push	ax
+	*** 000d48	b8 07 00 		mov	ax,7
+	*** 000d4b	50 			push	ax
+	*** 000d4c	e8 00 00 		call	__flsbuf
+	*** 000d4f	e9 48 fe 		jmp	$L20089
+;|*** #else
+;|*** _asm {
+;|*** 	ld a,50
+;|*** 	rst 8
+;|*** 	}
+;|*** #endif
+;|*** 			break;
+;|*** 		case '\x9a':                     // save
+; Line 846
+					$SC872:
+;|*** #ifndef Z80   
+;|*** 			puts("Scrittura...");
+; Line 848
+	*** 000d52	b8 68 02 		mov	ax,OFFSET DGROUP:$SG873
+	*** 000d55	50 			push	ax
+	*** 000d56	e8 00 00 		call	_puts
+	*** 000d59	83 c4 02 		add	sp,2
+;|*** //      i=open("c:\\sky.bas",_O_CREAT | _O_TRUNC | _O_WRONLY | _O_BINARY/*,_S_IREAD | _S_IWRITE*/);
+;|*** 			write(i,PrgBase,VarBase-PrgBase);
+; Line 850
+	*** 000d5c	a1 00 00 		mov	ax,WORD PTR _VarBase
+	*** 000d5f	2b 06 00 00 		sub	ax,WORD PTR _PrgBase
+	*** 000d63	50 			push	ax
+	*** 000d64	ff 36 00 00 		push	WORD PTR _PrgBase
+	*** 000d68	ff 76 ee 		push	WORD PTR [bp-18]	;i
+	*** 000d6b	e8 00 00 		call	_write
+	*** 000d6e	83 c4 06 		add	sp,6
+;|*** 			close(i);
+; Line 851
+	*** 000d71	ff 76 ee 		push	WORD PTR [bp-18]	;i
+	*** 000d74	e8 00 00 		call	_close
+	*** 000d77	e9 44 fb 		jmp	$L20094
+;|*** #endif
+;|*** 			break;
+;|*** 		case '\x9b':                     // load
+; Line 854
+					$SC874:
+;|*** #ifndef Z80
+;|*** 			puts("Lettura...");
+; Line 856
+	*** 000d7a	b8 75 02 		mov	ax,OFFSET DGROUP:$SG875
+	*** 000d7d	50 			push	ax
+	*** 000d7e	e8 00 00 		call	_puts
+	*** 000d81	83 c4 02 		add	sp,2
+;|*** //      i=open("c:\\sky.bas",_O_RDONLY | _O_BINARY);
+;|*** 			i1=read(i,PrgBase,8000);
+; Line 858
+	*** 000d84	b8 40 1f 		mov	ax,8000
+	*** 000d87	50 			push	ax
+	*** 000d88	ff 36 00 00 		push	WORD PTR _PrgBase
+	*** 000d8c	ff 76 ee 		push	WORD PTR [bp-18]	;i
+	*** 000d8f	e8 00 00 		call	_read
+	*** 000d92	83 c4 06 		add	sp,6
+	*** 000d95	89 46 e8 		mov	WORD PTR [bp-24],ax	;i1
+;|*** 			close(i);
+; Line 859
+	*** 000d98	ff 76 ee 		push	WORD PTR [bp-18]	;i
+	*** 000d9b	e8 00 00 		call	_close
+	*** 000d9e	83 c4 02 		add	sp,2
+;|*** //      VarBase=PrgBase+i1;                   // cancella variabili, compreso in Relink
+;|*** #endif
+;|*** 			RelinkBasic();
+; Line 862
+	*** 000da1	e8 cc f7 		call	_RelinkBasic
+;|*** 			break;
+; Line 863
+	*** 000da4	e9 d1 00 		jmp	$SB760
+	*** 000da7	90 			nop	
+					$I881:
+;|*** 		case ':':
+;|*** 		case ' ':
+;|*** 			break;
+;|*** 		default:
+;|*** 			TextP--;
+;|*** //    printf("TEXTP %s\n",TextP);
+;|*** 			p=HandleVar(1,&Fl);
+;|*** 			if(!fError) {
+;|*** 				DoCheck('=');
+;|*** 				l=EvalExpr(15,&Fl1);
+;|*** 				if(fError) {
+;|*** 					goto myLet2;
+;|*** 					}
+;|*** 				if(Fl & STR_FLAG) {
+;|*** 					if(!(Fl1 & STR_FLAG)) {
+;|*** 						RetVal=4;
+;|*** 						}
+;|*** 					else {
+;|*** 						*(long *)p=l;
+;|*** 						}
+;|*** 					}
+;|*** 				else {
+;|*** 					if(Fl1 & STR_FLAG) {
+; Line 886
+	*** 000da8	f6 46 f8 02 		test	BYTE PTR [bp-8],2	;Fl1
+	*** 000dac	74 08 			je	$I885
+;|*** 						RetVal=4;
+; Line 887
+					$L20092:
+	*** 000dae	c7 46 e0 04 00 		mov	WORD PTR [bp-32],4	;RetVal
+;|*** 						}
+; Line 888
+;|*** 					else {
+; Line 889
+	*** 000db3	e9 c2 00 		jmp	$SB760
+					$I885:
+;|*** 						if(Fl & INT_FLAG) {
+; Line 890
+	*** 000db6	f6 46 fa 01 		test	BYTE PTR [bp-6],1	;Fl
+	*** 000dba	75 03 			jne	$JCC3514
+	*** 000dbc	e9 b3 fe 		jmp	$L20096
+					$JCC3514:
+;|*** 							*(int *)p=l;
+; Line 891
+					$L20093:
+	*** 000dbf	8b 5e fe 		mov	bx,WORD PTR [bp-2]	;p
+	*** 000dc2	89 07 			mov	WORD PTR [bx],ax
+;|*** 							}
+; Line 892
+;|*** 						else {
+; Line 893
+	*** 000dc4	e9 b1 00 		jmp	$SB760
+	*** 000dc7	90 			nop	
+					$S759:
+	*** 000dc8	3d 20 00 		cmp	ax,32
+	*** 000dcb	75 03 			jne	$JCC3531
+	*** 000dcd	e9 a8 00 		jmp	$SB760
+					$JCC3531:
+	*** 000dd0	7f 48 			jg	$L20011
+	*** 000dd2	2d 80 ff 		sub	ax,-128
+	*** 000dd5	3d 1b 00 		cmp	ax,27
+	*** 000dd8	77 45 			ja	$SD877
+	*** 000dda	d1 e0 			shl	ax,1
+	*** 000ddc	93 			xchg	ax,bx
+	*** 000ddd	2e ff a7 e2 0d 		jmp	WORD PTR cs:$L20012[bx]
+					$L20012:
+	*** 000de2	26 07 				DW	$SC763
+	*** 000de4	2e 07 				DW	$SC764
+	*** 000de6	6c 07 				DW	$SC768
+	*** 000de8	3e 07 				DW	$SC765
+	*** 000dea	f4 07 				DW	$SC780
+	*** 000dec	02 08 				DW	$SC781
+	*** 000dee	0a 08 				DW	$SC782
+	*** 000df0	30 09 				DW	$SC807
+	*** 000df2	3c 09 				DW	$SC809
+	*** 000df4	1f 0e 				DW	$SD877
+	*** 000df6	1f 0e 				DW	$SD877
+	*** 000df8	70 0a 				DW	$SC830
+	*** 000dfa	9a 0a 				DW	$SC832
+	*** 000dfc	78 0a 				DW	$SC831
+	*** 000dfe	cc 0a 				DW	$SC836
+	*** 000e00	d4 0a 				DW	$SC837
+	*** 000e02	1f 0e 				DW	$SD877
+	*** 000e04	1f 0e 				DW	$SD877
+	*** 000e06	f0 0a 				DW	$SC840
+	*** 000e08	3a 0b 				DW	$SC847
+	*** 000e0a	4a 0b 				DW	$SC848
+	*** 000e0c	72 0b 				DW	$SC849
+	*** 000e0e	a0 0b 				DW	$SC850
+	*** 000e10	7e 0c 				DW	$SC862
+	*** 000e12	ec 0c 				DW	$SC869
+	*** 000e14	30 0d 				DW	$SC871
+	*** 000e16	52 0d 				DW	$SC872
+	*** 000e18	7a 0d 				DW	$SC874
+					$L20011:
+	*** 000e1a	2d 3a 00 		sub	ax,58
+	*** 000e1d	74 59 			je	$SB760
+					$SD877:
+;|*** 			TextP--;
+; Line 868
+	*** 000e1f	ff 0e 00 00 		dec	WORD PTR _TextP
+;|*** //    printf("TEXTP %s\n",TextP);
+;|*** 			p=HandleVar(1,&Fl);
+; Line 870
+	*** 000e23	8d 46 fa 		lea	ax,WORD PTR [bp-6]	;Fl
+	*** 000e26	50 			push	ax
+	*** 000e27	b0 01 			mov	al,1
+	*** 000e29	50 			push	ax
+	*** 000e2a	e8 87 f7 		call	_HandleVar
+	*** 000e2d	83 c4 04 		add	sp,4
+	*** 000e30	89 46 fe 		mov	WORD PTR [bp-2],ax	;p
+;|*** 			if(!fError) {
+; Line 871
+	*** 000e33	80 3e c1 01 00 		cmp	BYTE PTR _fError,0
+	*** 000e38	74 03 			je	$JCC3640
+	*** 000e3a	e9 24 fb 		jmp	$I810
+					$JCC3640:
+;|*** 				DoCheck('=');
+; Line 872
+	*** 000e3d	b0 3d 			mov	al,61
+	*** 000e3f	50 			push	ax
+	*** 000e40	e8 00 00 		call	_DoCheck
+	*** 000e43	83 c4 02 		add	sp,2
+;|*** 				l=EvalExpr(15,&Fl1);
+; Line 873
+	*** 000e46	8d 46 f8 		lea	ax,WORD PTR [bp-8]	;Fl1
+	*** 000e49	50 			push	ax
+	*** 000e4a	b0 0f 			mov	al,15
+	*** 000e4c	50 			push	ax
+	*** 000e4d	e8 00 00 		call	_EvalExpr
+	*** 000e50	83 c4 04 		add	sp,4
+	*** 000e53	89 46 e2 		mov	WORD PTR [bp-30],ax	;l
+	*** 000e56	89 56 e4 		mov	WORD PTR [bp-28],dx
+;|*** 				if(fError) {
+; Line 874
+	*** 000e59	80 3e c1 01 00 		cmp	BYTE PTR _fError,0
+	*** 000e5e	74 03 			je	$JCC3678
+	*** 000e60	e9 fe fa 		jmp	$I810
+					$JCC3678:
+;|*** 					goto myLet2;
+;|*** 					}
+; Line 876
+;|*** 				if(Fl & STR_FLAG) {
+; Line 877
+	*** 000e63	f6 46 fa 02 		test	BYTE PTR [bp-6],2	;Fl
+	*** 000e67	75 03 			jne	$JCC3687
+	*** 000e69	e9 3c ff 		jmp	$I881
+					$JCC3687:
+;|*** 					if(!(Fl1 & STR_FLAG)) {
+; Line 878
+	*** 000e6c	f6 46 f8 02 		test	BYTE PTR [bp-8],2	;Fl1
+	*** 000e70	74 03 			je	$JCC3696
+	*** 000e72	e9 fd fd 		jmp	$L20096
+					$JCC3696:
+	*** 000e75	e9 36 ff 		jmp	$L20092
+					$SB760:
+;|*** 						RetVal=4;
+;|*** 						}
+;|*** 					else {
+;|*** 						*(long *)p=l;
+;|*** 						}
+;|*** 					}
+;|*** 				else {
+;|*** 					if(Fl1 & STR_FLAG) {
+;|*** 						RetVal=4;
+;|*** 						}
+;|*** 					else {
+;|*** 						if(Fl & INT_FLAG) {
+;|*** 							*(int *)p=l;
+;|*** 							}
+;|*** 						else {
+;|*** 							*(long *)p=l;
+;|*** 							}
+;|*** 						}
+;|*** 					}
+;|*** 				}
+;|*** 			else {
+;|*** myLet2:
+;|*** 				RetVal=1;
+;|*** 				}
+;|*** 			break;
+;|*** 		}
+;|*** 	return RetVal;
+; Line 905
+	*** 000e78	8a 46 e0 		mov	al,BYTE PTR [bp-32]	;RetVal
+;|*** 	} 
+; Line 906
+	*** 000e7b	8b e5 			mov	sp,bp
+	*** 000e7d	5d 			pop	bp
+	*** 000e7e	c3 			ret	
+	*** 000e7f	90 			nop	
+
+_ExecStmt	ENDP
+;|*** 
+;|*** int ExecLine() {
+; Line 908
+	PUBLIC	_ExecLine
+_ExecLine	PROC NEAR
+	*** 000e80	55 			push	bp
+	*** 000e81	8b ec 			mov	bp,sp
+	*** 000e83	b8 08 00 		mov	ax,8
+	*** 000e86	e8 00 00 		call	__aNchkstk
+;	p = -2
+;	RetVal = -6
+;	i = -4
+;|*** 	char *p;
+;|*** 	int RetVal=0;
+; Line 910
+	*** 000e89	c7 46 fa 00 00 		mov	WORD PTR [bp-6],0	;RetVal
+;|*** 	int i;
+;|*** 	
+;|*** rifo:
+; Line 913
+					$rifo894:
+;|*** 	if(!DirectMode)
+; Line 914
+	*** 000e8e	80 3e bf 01 00 		cmp	BYTE PTR _DirectMode,0
+	*** 000e93	75 3e 			jne	$L20097
+;|*** 		Linea=*(int *)(TextP-2);
+; Line 915
+	*** 000e95	8b 1e 00 00 		mov	bx,WORD PTR _TextP
+	*** 000e99	8b 47 fe 		mov	ax,WORD PTR [bx-2]
+	*** 000e9c	a3 00 00 		mov	WORD PTR _Linea,ax
+;|*** 	while(*TextP && !RetVal) {
+; Line 916
+	*** 000e9f	eb 32 			jmp	SHORT $L20097
+	*** 000ea1	90 			nop	
+					$FC897:
+	*** 000ea2	83 7e fa 00 		cmp	WORD PTR [bp-6],0	;RetVal
+	*** 000ea6	75 34 			jne	$FB898
+;|*** 		RetVal=ExecStmt(*TextP++);
+; Line 917
+	*** 000ea8	ff 06 00 00 		inc	WORD PTR _TextP
+	*** 000eac	8a 07 			mov	al,BYTE PTR [bx]
+	*** 000eae	50 			push	ax
+	*** 000eaf	e8 5a f8 		call	_ExecStmt
+	*** 000eb2	83 c4 02 		add	sp,2
+	*** 000eb5	98 			cbw	
+	*** 000eb6	89 46 fa 		mov	WORD PTR [bp-6],ax	;RetVal
+;|*** 		if(fStop)
+; Line 918
+	*** 000eb9	80 3e c0 01 00 		cmp	BYTE PTR _fStop,0
+	*** 000ebe	74 05 			je	$I899
+;|*** 			RetVal=17;
+; Line 919
+	*** 000ec0	c7 46 fa 11 00 		mov	WORD PTR [bp-6],17	;RetVal
+;|*** 		if(fError)
+; Line 920
+					$I899:
+	*** 000ec5	80 3e c1 01 00 		cmp	BYTE PTR _fError,0
+	*** 000eca	74 07 			je	$L20097
+;|*** 			RetVal=fError;
+; Line 921
+	*** 000ecc	a0 c1 01 		mov	al,BYTE PTR _fError
+	*** 000ecf	98 			cbw	
+	*** 000ed0	89 46 fa 		mov	WORD PTR [bp-6],ax	;RetVal
+;|*** 		}
+; Line 922
+					$L20097:
+	*** 000ed3	8b 1e 00 00 		mov	bx,WORD PTR _TextP
+	*** 000ed7	80 3f 00 		cmp	BYTE PTR [bx],0
+	*** 000eda	75 c6 			jne	$FC897
+					$FB898:
+;|*** 	if(RetVal)
+; Line 923
+	*** 000edc	83 7e fa 00 		cmp	WORD PTR [bp-6],0	;RetVal
+	*** 000ee0	74 08 			je	$I901
+;|*** 		return RetVal;
+; Line 924
+	*** 000ee2	8b 46 fa 		mov	ax,WORD PTR [bp-6]	;RetVal
+	*** 000ee5	8b e5 			mov	sp,bp
+	*** 000ee7	5d 			pop	bp
+	*** 000ee8	c3 			ret	
+;|*** 	if(!DirectMode) {
+; Line 925
+	*** 000ee9	90 			nop	
+					$I901:
+	*** 000eea	80 3e bf 01 00 		cmp	BYTE PTR _DirectMode,0
+	*** 000eef	75 15 			jne	$I903
+;|*** 		TextP++;
+;|*** 		if(*(int *)TextP) {
+; Line 927
+	*** 000ef1	ff 06 00 00 		inc	WORD PTR _TextP
+	*** 000ef5	8b 1e 00 00 		mov	bx,WORD PTR _TextP
+	*** 000ef9	83 3f 00 		cmp	WORD PTR [bx],0
+	*** 000efc	74 08 			je	$I903
+;|*** 			TextP=TextP+4;
+; Line 928
+	*** 000efe	8d 47 04 		lea	ax,WORD PTR [bx+4]
+	*** 000f01	a3 00 00 		mov	WORD PTR _TextP,ax
+;|*** 			goto rifo;
+; Line 929
+	*** 000f04	eb 88 			jmp	SHORT $rifo894
+;|*** 			}
+; Line 930
+;|*** 		}
+; Line 931
+					$I903:
+;|*** 	return 0;
+; Line 932
+	*** 000f06	2b c0 			sub	ax,ax
+;|*** 	}
+; Line 933
+	*** 000f08	8b e5 			mov	sp,bp
+	*** 000f0a	5d 			pop	bp
+	*** 000f0b	c3 			ret	
+
+_ExecLine	ENDP
+;|*** 	 
+;|*** char *CercaLine(int n, char m) {        //m =0 per ricerca esatta, 1 per = o superiore
+; Line 935
+	PUBLIC	_CercaLine
+_CercaLine	PROC NEAR
+	*** 000f0c	55 			push	bp
+	*** 000f0d	8b ec 			mov	bp,sp
+	*** 000f0f	b8 04 00 		mov	ax,4
+	*** 000f12	e8 00 00 		call	__aNchkstk
+;	p = -2
+;	p1 = -4
+;	m = 6
+;	n = 4
+;|*** 	char *p,*p1;
+;|*** 					
+;|*** 	p=PrgBase;
+; Line 938
+	*** 000f15	a1 00 00 		mov	ax,WORD PTR _PrgBase
+	*** 000f18	eb 1c 			jmp	SHORT $L20100
+					$FC910:
+;|*** 	while(p1=*((char **)p)) {
+;|*** 		if(*((int *)(p+2)) == n)
+; Line 940
+	*** 000f1a	8b 46 04 		mov	ax,WORD PTR [bp+4]	;n
+	*** 000f1d	39 47 02 		cmp	WORD PTR [bx+2],ax
+	*** 000f20	75 06 			jne	$I912
+;|*** 			return p;
+; Line 941
+					$L20098:
+	*** 000f22	8b c3 			mov	ax,bx
+	*** 000f24	8b e5 			mov	sp,bp
+	*** 000f26	5d 			pop	bp
+	*** 000f27	c3 			ret	
+;|*** 		if(m) {
+; Line 942
+					$I912:
+	*** 000f28	80 7e 06 00 		cmp	BYTE PTR [bp+6],0	;m
+	*** 000f2c	74 05 			je	$I913
+;|*** 			if(*((int *)(p+2)) > n)
+; Line 943
+	*** 000f2e	39 47 02 		cmp	WORD PTR [bx+2],ax
+	*** 000f31	7f ef 			jg	$L20098
+;|*** 				return p;
+;|*** 			}
+; Line 945
+;|*** 		p=p1;
+; Line 946
+					$I913:
+	*** 000f33	8b 46 fc 		mov	ax,WORD PTR [bp-4]	;p1
+					$L20100:
+;|*** 		}
+; Line 947
+	*** 000f36	8b d8 			mov	bx,ax
+	*** 000f38	8b 07 			mov	ax,WORD PTR [bx]
+	*** 000f3a	89 46 fc 		mov	WORD PTR [bp-4],ax	;p1
+	*** 000f3d	0b c0 			or	ax,ax
+	*** 000f3f	75 d9 			jne	$FC910
+;|*** 	return 0;
+;|*** 	}
+; Line 949
+	*** 000f41	8b e5 			mov	sp,bp
+	*** 000f43	5d 			pop	bp
+	*** 000f44	c3 			ret	
+	*** 000f45	90 			nop	
+
+_CercaLine	ENDP
+;|*** 	
+;|*** char *CercaFine(char m) {
+; Line 951
+	PUBLIC	_CercaFine
+_CercaFine	PROC NEAR
+	*** 000f46	55 			push	bp
+	*** 000f47	8b ec 			mov	bp,sp
+	*** 000f49	b8 02 00 		mov	ax,2
+	*** 000f4c	e8 00 00 		call	__aNchkstk
+;	p = -2
+;	m = 4
+;|*** 	char *p;
+;|*** 	
+;|*** 	p=TextP;
+; Line 954
+	*** 000f4f	a1 00 00 		mov	ax,WORD PTR _TextP
+	*** 000f52	89 46 fe 		mov	WORD PTR [bp-2],ax	;p
+;|*** 	while(*p) {
+; Line 955
+	*** 000f55	eb 0f 			jmp	SHORT $L20101
+	*** 000f57	90 			nop	
+					$FC919:
+;|*** 		if(m && *p==':')
+; Line 956
+	*** 000f58	80 7e 04 00 		cmp	BYTE PTR [bp+4],0	;m
+	*** 000f5c	74 05 			je	$I921
+	*** 000f5e	80 3f 3a 		cmp	BYTE PTR [bx],58
+	*** 000f61	74 0b 			je	$FB920
+;|*** 			break;
+;|*** 		p++;
+; Line 958
+					$I921:
+	*** 000f63	ff 46 fe 		inc	WORD PTR [bp-2]	;p
+;|*** 		}
+; Line 959
+					$L20101:
+	*** 000f66	8b 5e fe 		mov	bx,WORD PTR [bp-2]	;p
+	*** 000f69	80 3f 00 		cmp	BYTE PTR [bx],0
+	*** 000f6c	75 ea 			jne	$FC919
+					$FB920:
+;|*** 		
+;|*** 	return p;
+; Line 961
+	*** 000f6e	8b c3 			mov	ax,bx
+;|*** 	}
+; Line 962
+	*** 000f70	8b e5 			mov	sp,bp
+	*** 000f72	5d 			pop	bp
+	*** 000f73	c3 			ret	
+
+_CercaFine	ENDP
+;|*** 	
+;|*** char GetAritmElem(long *l) {              // deve diventare long
+; Line 964
+	PUBLIC	_GetAritmElem
+_GetAritmElem	PROC NEAR
+	*** 000f74	55 			push	bp
+	*** 000f75	8b ec 			mov	bp,sp
+	*** 000f77	b8 16 00 		mov	ax,22
+	*** 000f7a	e8 00 00 		call	__aNchkstk
+;	p = -2
+;	ch = -12
+;	Fl = -4
+;	i = -6
+;	j = -10
+;	i1 = -8
+;	l1 = -16
+;	RetVal = -18
+;	l = 4
+;|*** 	char *p;
+;|*** 	char ch,Fl;
+;|*** 	int i,j,i1;
+;|*** 	long l1;
+;|*** 	char RetVal;
+;|*** 	
+;|*** rifo:
+; Line 971
+					$rifo933:
+;|*** 	ch=*TextP;
+; Line 972
+	*** 000f7d	8b 1e 00 00 		mov	bx,WORD PTR _TextP
+	*** 000f81	8a 07 			mov	al,BYTE PTR [bx]
+	*** 000f83	88 46 f4 		mov	BYTE PTR [bp-12],al	;ch
+;|*** 	if((ch >= '0' && ch <='9') || ch=='.') {
+; Line 973
+	*** 000f86	3c 30 			cmp	al,48
+	*** 000f88	7c 04 			jl	$I936
+	*** 000f8a	3c 39 			cmp	al,57
+	*** 000f8c	7e 06 			jle	$I935
+					$I936:
+	*** 000f8e	80 7e f4 2e 		cmp	BYTE PTR [bp-12],46	;ch
+	*** 000f92	75 12 			jne	$I934
+					$I935:
+;|*** 		*l=myAtoi();
+; Line 974
+	*** 000f94	e8 65 f1 		call	_myAtoi
+					$L20102:
+	*** 000f97	8b 5e 04 		mov	bx,WORD PTR [bp+4]	;l
+	*** 000f9a	89 07 			mov	WORD PTR [bx],ax
+	*** 000f9c	89 57 02 		mov	WORD PTR [bx+2],dx
+;|*** //    while(*TextP >= '0' && *TextP<='9')
+;|*** //      TextP++;
+;|*** //  printf("aritm: %ld, flags %x\n",*l,0);
+;|*** 		return 0;
+; Line 978
+	*** 000f9f	2a c0 			sub	al,al
+	*** 000fa1	8b e5 			mov	sp,bp
+	*** 000fa3	5d 			pop	bp
+	*** 000fa4	c3 			ret	
+	*** 000fa5	90 			nop	
+					$I934:
+	*** 000fa6	80 7e f4 00 		cmp	BYTE PTR [bp-12],0	;ch
+	*** 000faa	7c 03 			jl	$JCC4010
+	*** 000fac	e9 ad 03 		jmp	$I938
+					$JCC4010:
+;|*** 		}
+;|*** 	else if(ch < 0) {                // prima ho i diadici...
+;|*** 		ch=ch & 0x3f;
+;|*** 		TextP++;
+; Line 982
+	*** 000faf	ff 06 00 00 		inc	WORD PTR _TextP
+;|*** 		DoCheck('(');
+; Line 983
+	*** 000fb3	b0 28 			mov	al,40
+	*** 000fb5	50 			push	ax
+	*** 000fb6	e8 00 00 		call	_DoCheck
+	*** 000fb9	83 c4 02 		add	sp,2
+;|*** 		switch(ch) {
+; Line 984
+	*** 000fbc	80 66 f4 3f 		and	BYTE PTR [bp-12],63	;ch
+	*** 000fc0	8a 46 f4 		mov	al,BYTE PTR [bp-12]	;ch
+	*** 000fc3	98 			cbw	
+	*** 000fc4	e9 47 03 		jmp	$S939
+;|*** 			case 2:                          // not
+; Line 985
+	*** 000fc7	90 			nop	
+					$SC943:
+;|*** 				l1=GetValue(0);
+; Line 986
+	*** 000fc8	2b c0 			sub	ax,ax
+	*** 000fca	50 			push	ax
+	*** 000fcb	e8 00 00 		call	_GetValue
+	*** 000fce	83 c4 02 		add	sp,2
+	*** 000fd1	89 46 f0 		mov	WORD PTR [bp-16],ax	;l1
+	*** 000fd4	89 56 f2 		mov	WORD PTR [bp-14],dx
+;|*** 				*l=(!l1) ? 1 : 0;
+; Line 987
+	*** 000fd7	8b c2 			mov	ax,dx
+	*** 000fd9	0b 46 f0 		or	ax,WORD PTR [bp-16]	;l1
+	*** 000fdc	74 2c 			je	$L20115
+	*** 000fde	2b c0 			sub	ax,ax
+					$L20014:
+	*** 000fe0	99 			cwd	
+					$L20111:
+	*** 000fe1	8b 5e 04 		mov	bx,WORD PTR [bp+4]	;l
+	*** 000fe4	89 07 			mov	WORD PTR [bx],ax
+	*** 000fe6	89 57 02 		mov	WORD PTR [bx+2],dx
+;|*** 				RetVal=INT_FLAG;
+; Line 988
+					$L20103:
+	*** 000fe9	c6 46 ee 01 		mov	BYTE PTR [bp-18],1	;RetVal
+;|*** 				break;
+; Line 989
+	*** 000fed	e9 5c 03 		jmp	$SB940
+;|*** 			case 3:                          // SGN
+; Line 990
+					$SC944:
+;|*** 				l1=GetValue(0);
+; Line 991
+	*** 000ff0	2b c0 			sub	ax,ax
+	*** 000ff2	50 			push	ax
+	*** 000ff3	e8 00 00 		call	_GetValue
+	*** 000ff6	83 c4 02 		add	sp,2
+	*** 000ff9	89 46 f0 		mov	WORD PTR [bp-16],ax	;l1
+	*** 000ffc	89 56 f2 		mov	WORD PTR [bp-14],dx
+;|*** 				if(l1)
+; Line 992
+	*** 000fff	8b c2 			mov	ax,dx
+	*** 001001	0b 46 f0 		or	ax,WORD PTR [bp-16]	;l1
+	*** 001004	74 10 			je	$I945
+;|*** 					*l=(l1 >= 0) ? 1 : -1;
+; Line 993
+	*** 001006	0b d2 			or	dx,dx
+	*** 001008	7c 06 			jl	$L20015
+					$L20115:
+	*** 00100a	b8 01 00 		mov	ax,1
+	*** 00100d	eb d1 			jmp	SHORT $L20014
+	*** 00100f	90 			nop	
+					$L20015:
+	*** 001010	b8 ff ff 		mov	ax,-1
+	*** 001013	eb cb 			jmp	SHORT $L20014
+	*** 001015	90 			nop	
+					$I945:
+;|*** 				else
+;|*** 					*l=0;
+; Line 995
+	*** 001016	8b 5e 04 		mov	bx,WORD PTR [bp+4]	;l
+	*** 001019	2b c0 			sub	ax,ax
+	*** 00101b	89 47 02 		mov	WORD PTR [bx+2],ax
+	*** 00101e	89 07 			mov	WORD PTR [bx],ax
+	*** 001020	eb c7 			jmp	SHORT $L20103
+;|*** 				RetVal=INT_FLAG;
+;|*** 				break;
+;|*** 			case 4:                          // ABS
+; Line 998
+					$SC947:
+;|*** 				l1=GetValue(0);
+; Line 999
+	*** 001022	2b c0 			sub	ax,ax
+	*** 001024	50 			push	ax
+	*** 001025	e8 00 00 		call	_GetValue
+	*** 001028	83 c4 02 		add	sp,2
+	*** 00102b	89 46 f0 		mov	WORD PTR [bp-16],ax	;l1
+	*** 00102e	89 56 f2 		mov	WORD PTR [bp-14],dx
+;|*** 				*l=labs(l1);
+; Line 1000
+	*** 001031	52 			push	dx
+	*** 001032	50 			push	ax
+	*** 001033	e8 00 00 		call	_labs
+	*** 001036	83 c4 04 		add	sp,4
+					$L20105:
+	*** 001039	8b 5e 04 		mov	bx,WORD PTR [bp+4]	;l
+	*** 00103c	89 07 			mov	WORD PTR [bx],ax
+	*** 00103e	89 57 02 		mov	WORD PTR [bx+2],dx
+;|*** 				RetVal=0;
+; Line 1001
+					$L20104:
+	*** 001041	c6 46 ee 00 		mov	BYTE PTR [bp-18],0	;RetVal
+;|*** 				break;
+; Line 1002
+	*** 001045	e9 04 03 		jmp	$SB940
+;|*** 			case 5:                          // int
+; Line 1003
+					$SC948:
+;|*** 				l1=GetValue(0);
+; Line 1004
+	*** 001048	2b c0 			sub	ax,ax
+	*** 00104a	50 			push	ax
+	*** 00104b	e8 00 00 		call	_GetValue
+	*** 00104e	83 c4 02 		add	sp,2
+	*** 001051	89 46 f0 		mov	WORD PTR [bp-16],ax	;l1
+	*** 001054	89 56 f2 		mov	WORD PTR [bp-14],dx
+;|*** 				*l=l1;
+; Line 1005
+	*** 001057	eb e0 			jmp	SHORT $L20105
+;|*** 				RetVal=0;
+;|*** 				break;
+;|*** 			case 6:                          // sqr
+; Line 1008
+	*** 001059	90 			nop	
+					$SC949:
+;|*** 				l1=GetValue(0);
+; Line 1009
+	*** 00105a	2b c0 			sub	ax,ax
+	*** 00105c	50 			push	ax
+	*** 00105d	e8 00 00 		call	_GetValue
+	*** 001060	83 c4 02 		add	sp,2
+	*** 001063	89 46 f0 		mov	WORD PTR [bp-16],ax	;l1
+	*** 001066	89 56 f2 		mov	WORD PTR [bp-14],dx
+;|*** 				*l=sqrt(l1);
+; Line 1010
+	*** 001069	9b db 46 f0 		fild	DWORD PTR [bp-16]	;l1
+	*** 00106d	83 ec 08 		sub	sp,8
+	*** 001070	8b dc 			mov	bx,sp
+	*** 001072	9b dd 1f 		fstp	QWORD PTR [bx]
+	*** 001075	90 9b 			fwait	
+	*** 001077	e8 00 00 		call	_sqrt
+	*** 00107a	e9 ab 00 		jmp	$L20110
+;|*** 				RetVal=0;
+;|*** 				break;
+;|*** 			case 7:                          // sin
+; Line 1013
+	*** 00107d	90 			nop	
+					$SC950:
+;|*** 				l1=GetValue(0);
+; Line 1014
+	*** 00107e	2b c0 			sub	ax,ax
+	*** 001080	50 			push	ax
+	*** 001081	e8 00 00 		call	_GetValue
+	*** 001084	83 c4 02 		add	sp,2
+	*** 001087	89 46 f0 		mov	WORD PTR [bp-16],ax	;l1
+	*** 00108a	89 56 f2 		mov	WORD PTR [bp-14],dx
+;|*** 				*l=sin(l1);                    // sarà in gradi 360° su Z80...
+; Line 1015
+	*** 00108d	9b db 46 f0 		fild	DWORD PTR [bp-16]	;l1
+	*** 001091	83 ec 08 		sub	sp,8
+	*** 001094	8b dc 			mov	bx,sp
+	*** 001096	9b dd 1f 		fstp	QWORD PTR [bx]
+	*** 001099	90 9b 			fwait	
+	*** 00109b	e8 00 00 		call	_sin
+	*** 00109e	e9 87 00 		jmp	$L20110
+;|*** 				RetVal=0;
+;|*** 				break;
+;|*** 			case 8:
+; Line 1018
+	*** 0010a1	90 			nop	
+					$SC951:
+;|*** 				l1=GetValue(0);
+; Line 1019
+	*** 0010a2	2b c0 			sub	ax,ax
+	*** 0010a4	50 			push	ax
+	*** 0010a5	e8 00 00 		call	_GetValue
+	*** 0010a8	83 c4 02 		add	sp,2
+	*** 0010ab	89 46 f0 		mov	WORD PTR [bp-16],ax	;l1
+	*** 0010ae	89 56 f2 		mov	WORD PTR [bp-14],dx
+;|*** 				*l=cos(l1);
+; Line 1020
+	*** 0010b1	9b db 46 f0 		fild	DWORD PTR [bp-16]	;l1
+	*** 0010b5	83 ec 08 		sub	sp,8
+	*** 0010b8	8b dc 			mov	bx,sp
+	*** 0010ba	9b dd 1f 		fstp	QWORD PTR [bx]
+	*** 0010bd	90 9b 			fwait	
+	*** 0010bf	e8 00 00 		call	_cos
+	*** 0010c2	eb 64 			jmp	SHORT $L20110
+;|*** 				RetVal=0;
+;|*** 				break;
+;|*** 			case 9:
+; Line 1023
+					$SC952:
+;|*** 				l1=GetValue(0);
+; Line 1024
+	*** 0010c4	2b c0 			sub	ax,ax
+	*** 0010c6	50 			push	ax
+	*** 0010c7	e8 00 00 		call	_GetValue
+	*** 0010ca	83 c4 02 		add	sp,2
+	*** 0010cd	89 46 f0 		mov	WORD PTR [bp-16],ax	;l1
+	*** 0010d0	89 56 f2 		mov	WORD PTR [bp-14],dx
+;|*** 				*l=tan(l1);
+; Line 1025
+	*** 0010d3	9b db 46 f0 		fild	DWORD PTR [bp-16]	;l1
+	*** 0010d7	83 ec 08 		sub	sp,8
+	*** 0010da	8b dc 			mov	bx,sp
+	*** 0010dc	9b dd 1f 		fstp	QWORD PTR [bx]
+	*** 0010df	90 9b 			fwait	
+	*** 0010e1	e8 00 00 		call	_tan
+	*** 0010e4	eb 42 			jmp	SHORT $L20110
+;|*** 				RetVal=0;
+;|*** 				break;
+;|*** 			case 10:
+; Line 1028
+					$SC953:
+;|*** 				l1=GetValue(0);
+; Line 1029
+	*** 0010e6	2b c0 			sub	ax,ax
+	*** 0010e8	50 			push	ax
+	*** 0010e9	e8 00 00 		call	_GetValue
+	*** 0010ec	83 c4 02 		add	sp,2
+	*** 0010ef	89 46 f0 		mov	WORD PTR [bp-16],ax	;l1
+	*** 0010f2	89 56 f2 		mov	WORD PTR [bp-14],dx
+;|*** 				*l=log(l1);
+; Line 1030
+	*** 0010f5	9b db 46 f0 		fild	DWORD PTR [bp-16]	;l1
+	*** 0010f9	83 ec 08 		sub	sp,8
+	*** 0010fc	8b dc 			mov	bx,sp
+	*** 0010fe	9b dd 1f 		fstp	QWORD PTR [bx]
+	*** 001101	90 9b 			fwait	
+	*** 001103	e8 00 00 		call	_log
+	*** 001106	eb 20 			jmp	SHORT $L20110
+;|*** 				RetVal=0;
+;|*** 				break;
+;|*** 			case 11:
+; Line 1033
+					$SC954:
+;|*** 				l1=GetValue(0);
+; Line 1034
+	*** 001108	2b c0 			sub	ax,ax
+	*** 00110a	50 			push	ax
+	*** 00110b	e8 00 00 		call	_GetValue
+	*** 00110e	83 c4 02 		add	sp,2
+	*** 001111	89 46 f0 		mov	WORD PTR [bp-16],ax	;l1
+	*** 001114	89 56 f2 		mov	WORD PTR [bp-14],dx
+;|*** 				*l=exp(l1);
+; Line 1035
+	*** 001117	9b db 46 f0 		fild	DWORD PTR [bp-16]	;l1
+	*** 00111b	83 ec 08 		sub	sp,8
+	*** 00111e	8b dc 			mov	bx,sp
+	*** 001120	9b dd 1f 		fstp	QWORD PTR [bx]
+	*** 001123	90 9b 			fwait	
+	*** 001125	e8 00 00 		call	_exp
+					$L20110:
+	*** 001128	83 c4 08 		add	sp,8
+	*** 00112b	8b d8 			mov	bx,ax
+	*** 00112d	9b dd 07 		fld	QWORD PTR [bx]
+	*** 001130	e8 00 00 		call	__aNftol
+	*** 001133	e9 03 ff 		jmp	$L20105
+;|*** 				RetVal=0;
+;|*** 				break;
+;|*** 			case 12:                          // fre
+; Line 1038
+					$SC955:
+;|*** //        i=GetValue(0);
+;|*** 				*l=(long)(StrBase-VarEnd);
+; Line 1040
+	*** 001136	a1 00 00 		mov	ax,WORD PTR _StrBase
+	*** 001139	2b 06 00 00 		sub	ax,WORD PTR _VarEnd
+	*** 00113d	1b d2 			sbb	dx,dx
+	*** 00113f	e9 9f fe 		jmp	$L20111
+;|*** 				RetVal=INT_FLAG;
+;|*** 				break;
+;|*** 			case 13:                          // rnd
+; Line 1043
+					$SC956:
+;|*** 				l1=GetValue(0);
+; Line 1044
+	*** 001142	2b c0 			sub	ax,ax
+	*** 001144	50 			push	ax
+	*** 001145	e8 00 00 		call	_GetValue
+	*** 001148	83 c4 02 		add	sp,2
+	*** 00114b	89 46 f0 		mov	WORD PTR [bp-16],ax	;l1
+	*** 00114e	89 56 f2 		mov	WORD PTR [bp-14],dx
+;|*** 				if(l1<0) {
+; Line 1045
+	*** 001151	0b d2 			or	dx,dx
+	*** 001153	7d 07 			jge	$I957
+;|*** 					srand((int)l1);
+; Line 1046
+	*** 001155	50 			push	ax
+	*** 001156	e8 00 00 		call	_srand
+	*** 001159	83 c4 02 		add	sp,2
+;|*** 					}
+; Line 1047
+;|*** 				*l=(long)rand();
+; Line 1048
+					$I957:
+	*** 00115c	e8 00 00 		call	_rand
+	*** 00115f	99 			cwd	
+	*** 001160	e9 d6 fe 		jmp	$L20105
+;|*** 				RetVal=0;
+;|*** 				break;
+;|*** 			case 14:                          // peek
+; Line 1051
+	*** 001163	90 			nop	
+					$SC958:
+;|*** 				l1=GetValue(0);
+; Line 1052
+	*** 001164	2b c0 			sub	ax,ax
+	*** 001166	50 			push	ax
+	*** 001167	e8 00 00 		call	_GetValue
+	*** 00116a	83 c4 02 		add	sp,2
+	*** 00116d	89 46 f0 		mov	WORD PTR [bp-16],ax	;l1
+	*** 001170	89 56 f2 		mov	WORD PTR [bp-14],dx
+;|*** 				*l=(long)*((char *)l1);
+; Line 1053
+	*** 001173	8b d8 			mov	bx,ax
+	*** 001175	8a 07 			mov	al,BYTE PTR [bx]
+	*** 001177	98 			cbw	
+	*** 001178	e9 65 fe 		jmp	$L20014
+;|*** 				RetVal=INT_FLAG;
+;|*** 				break;
+;|*** 			case 15:                          // inp
+; Line 1056
+	*** 00117b	90 			nop	
+					$SC959:
+;|*** 				i=GetValue(0);
+;|*** 				if(i<0 || i>255) {
+; Line 1058
+	*** 00117c	2b c0 			sub	ax,ax
+	*** 00117e	50 			push	ax
+	*** 00117f	e8 00 00 		call	_GetValue
+	*** 001182	83 c4 02 		add	sp,2
+	*** 001185	89 46 fa 		mov	WORD PTR [bp-6],ax	;i
+	*** 001188	0b c0 			or	ax,ax
+	*** 00118a	7c 05 			jl	$I961
+	*** 00118c	3d ff 00 		cmp	ax,255
+	*** 00118f	7e 09 			jle	$I960
+					$I961:
+;|*** 					fError=2;
+; Line 1059
+	*** 001191	c6 06 c1 01 02 		mov	BYTE PTR _fError,2
+;|*** 					}
+; Line 1060
+;|*** 				else {
+; Line 1061
+	*** 001196	e9 b3 01 		jmp	$SB940
+	*** 001199	90 			nop	
+					$I960:
+;|*** 					*l=(long)inp(i);
+; Line 1062
+	*** 00119a	50 			push	ax
+	*** 00119b	e8 00 00 		call	_inp
+	*** 00119e	83 c4 02 		add	sp,2
+	*** 0011a1	e9 3c fe 		jmp	$L20014
+;|*** 					RetVal=INT_FLAG;
+;|*** 					}
+;|*** 				break;
+;|*** 			case 16:                          // len
+; Line 1066
+					$SC963:
+;|*** 				l1=GetValue(1);
+; Line 1067
+	*** 0011a4	b8 01 00 		mov	ax,1
+	*** 0011a7	50 			push	ax
+	*** 0011a8	e8 00 00 		call	_GetValue
+	*** 0011ab	83 c4 02 		add	sp,2
+	*** 0011ae	89 46 f0 		mov	WORD PTR [bp-16],ax	;l1
+	*** 0011b1	89 56 f2 		mov	WORD PTR [bp-14],dx
+;|*** 				*l=*(((int *)&l1)+1);
+; Line 1068
+	*** 0011b4	8b c2 			mov	ax,dx
+	*** 0011b6	e9 27 fe 		jmp	$L20014
+	*** 0011b9	90 			nop	
+					$SC965:
+;|*** 				RetVal=INT_FLAG;
+;|*** 				break;
+;|*** 			case 17:                          // str
+;|*** 				break;
+;|*** 			case 18:                          // val
+;|*** 				l1=GetValue(1);
+; Line 1074
+	*** 0011ba	b8 01 00 		mov	ax,1
+	*** 0011bd	50 			push	ax
+	*** 0011be	e8 00 00 		call	_GetValue
+	*** 0011c1	83 c4 02 		add	sp,2
+	*** 0011c4	89 46 f0 		mov	WORD PTR [bp-16],ax	;l1
+	*** 0011c7	89 56 f2 		mov	WORD PTR [bp-14],dx
+;|*** 				i=*(((int *)&l1)+1);
+; Line 1075
+	*** 0011ca	8b c2 			mov	ax,dx
+	*** 0011cc	89 46 fa 		mov	WORD PTR [bp-6],ax	;i
+;|*** 				p=((char *)l1)+i;               // truschino per le zero-term...
+; Line 1076
+	*** 0011cf	03 46 f0 		add	ax,WORD PTR [bp-16]	;l1
+	*** 0011d2	89 46 fe 		mov	WORD PTR [bp-2],ax	;p
+;|*** 				ch=*p;
+; Line 1077
+	*** 0011d5	8b d8 			mov	bx,ax
+	*** 0011d7	8a 0f 			mov	cl,BYTE PTR [bx]
+	*** 0011d9	88 4e f4 		mov	BYTE PTR [bp-12],cl	;ch
+;|*** 				*p=0;
+; Line 1078
+	*** 0011dc	c6 07 00 		mov	BYTE PTR [bx],0
+;|*** 				*l=atol((char *)l1);
+; Line 1079
+	*** 0011df	ff 76 f0 		push	WORD PTR [bp-16]	;l1
+	*** 0011e2	e8 00 00 		call	_atol
+	*** 0011e5	83 c4 02 		add	sp,2
+	*** 0011e8	8b 5e 04 		mov	bx,WORD PTR [bp+4]	;l
+	*** 0011eb	89 07 			mov	WORD PTR [bx],ax
+	*** 0011ed	89 57 02 		mov	WORD PTR [bx+2],dx
+;|*** 				*p=ch;
+; Line 1080
+	*** 0011f0	8a 46 f4 		mov	al,BYTE PTR [bp-12]	;ch
+	*** 0011f3	8b 5e fe 		mov	bx,WORD PTR [bp-2]	;p
+	*** 0011f6	88 07 			mov	BYTE PTR [bx],al
+	*** 0011f8	e9 46 fe 		jmp	$L20104
+;|*** 				RetVal=0;
+;|*** 				break;
+;|*** 			case 19:                          // chr
+; Line 1083
+	*** 0011fb	90 			nop	
+					$SC966:
+;|*** 				i=GetValue(0);
+; Line 1084
+	*** 0011fc	2b c0 			sub	ax,ax
+	*** 0011fe	50 			push	ax
+	*** 0011ff	e8 00 00 		call	_GetValue
+	*** 001202	83 c4 02 		add	sp,2
+	*** 001205	89 46 fa 		mov	WORD PTR [bp-6],ax	;i
+;|*** 				p=AllocaString(1);
+;|*** 				if(p) {
+; Line 1086
+	*** 001208	b8 01 00 		mov	ax,1
+	*** 00120b	50 			push	ax
+	*** 00120c	e8 00 00 		call	_AllocaString
+	*** 00120f	83 c4 02 		add	sp,2
+	*** 001212	89 46 fe 		mov	WORD PTR [bp-2],ax	;p
+	*** 001215	0b c0 			or	ax,ax
+	*** 001217	75 03 			jne	$JCC4631
+	*** 001219	e9 30 01 		jmp	$SB940
+					$JCC4631:
+;|*** 					*(char **)l=p;
+; Line 1087
+	*** 00121c	8b 5e 04 		mov	bx,WORD PTR [bp+4]	;l
+	*** 00121f	89 07 			mov	WORD PTR [bx],ax
+;|*** 					*(((int *)l)+1)=1;
+; Line 1088
+	*** 001221	c7 47 02 01 00 		mov	WORD PTR [bx+2],1
+;|*** 					*p=i;
+; Line 1089
+	*** 001226	8b d8 			mov	bx,ax
+	*** 001228	8a 46 fa 		mov	al,BYTE PTR [bp-6]	;i
+	*** 00122b	88 07 			mov	BYTE PTR [bx],al
+	*** 00122d	e9 a0 00 		jmp	$I974
+;|*** 					RetVal=STR_FLAG;
+;|*** 					}
+;|*** 				break;
+;|*** 			case 20:                          // asc
+; Line 1093
+					$SC968:
+;|*** 				l1=GetValue(1);
+; Line 1094
+	*** 001230	b8 01 00 		mov	ax,1
+	*** 001233	50 			push	ax
+	*** 001234	e8 00 00 		call	_GetValue
+	*** 001237	83 c4 02 		add	sp,2
+	*** 00123a	89 46 f0 		mov	WORD PTR [bp-16],ax	;l1
+	*** 00123d	89 56 f2 		mov	WORD PTR [bp-14],dx
+;|*** 				*l=*(unsigned char *)l1;
+; Line 1095
+	*** 001240	8b d8 			mov	bx,ax
+	*** 001242	8a 07 			mov	al,BYTE PTR [bx]
+	*** 001244	2a e4 			sub	ah,ah
+	*** 001246	8b 5e 04 		mov	bx,WORD PTR [bp+4]	;l
+	*** 001249	89 07 			mov	WORD PTR [bx],ax
+	*** 00124b	c7 47 02 00 00 		mov	WORD PTR [bx+2],0
+	*** 001250	e9 96 fd 		jmp	$L20103
+;|*** 				RetVal=INT_FLAG;
+;|*** 				break;
+;|*** 			case 21:                          // mid
+; Line 1098
+	*** 001253	90 			nop	
+					$SC969:
+;|*** 				l1=GetValue(1);
+; Line 1099
+	*** 001254	b8 01 00 		mov	ax,1
+	*** 001257	50 			push	ax
+	*** 001258	e8 00 00 		call	_GetValue
+	*** 00125b	83 c4 02 		add	sp,2
+	*** 00125e	89 46 f0 		mov	WORD PTR [bp-16],ax	;l1
+	*** 001261	89 56 f2 		mov	WORD PTR [bp-14],dx
+;|*** 				if(!DoCheck(',')) {
+; Line 1100
+	*** 001264	b0 2c 			mov	al,44
+	*** 001266	50 			push	ax
+	*** 001267	e8 00 00 		call	_DoCheck
+	*** 00126a	83 c4 02 		add	sp,2
+	*** 00126d	0a c0 			or	al,al
+	*** 00126f	74 03 			je	$JCC4719
+	*** 001271	e9 d8 00 		jmp	$SB940
+					$JCC4719:
+;|*** 					i=GetValue(0);
+; Line 1101
+	*** 001274	2b c0 			sub	ax,ax
+	*** 001276	50 			push	ax
+	*** 001277	e8 00 00 		call	_GetValue
+	*** 00127a	83 c4 02 		add	sp,2
+	*** 00127d	89 46 fa 		mov	WORD PTR [bp-6],ax	;i
+;|*** 					i--;
+;|*** 					j=*(((int *)&l1)+1);
+; Line 1103
+	*** 001280	8b 46 f2 		mov	ax,WORD PTR [bp-14]
+	*** 001283	89 46 f6 		mov	WORD PTR [bp-10],ax	;j
+;|*** 					if(i <= j) {
+; Line 1104
+	*** 001286	ff 4e fa 		dec	WORD PTR [bp-6]	;i
+	*** 001289	8b 4e fa 		mov	cx,WORD PTR [bp-6]	;i
+	*** 00128c	3b c1 			cmp	ax,cx
+	*** 00128e	7d 03 			jge	$JCC4750
+	*** 001290	e9 fe fe 		jmp	$I961
+					$JCC4750:
+;|*** 						*(int *)l=(l1 & 0xffff)+i;
+; Line 1105
+	*** 001293	03 4e f0 		add	cx,WORD PTR [bp-16]	;l1
+	*** 001296	8b 5e 04 		mov	bx,WORD PTR [bp+4]	;l
+	*** 001299	89 0f 			mov	WORD PTR [bx],cx
+;|*** 						SkipSpaces();
+; Line 1106
+	*** 00129b	e8 00 00 		call	_SkipSpaces
+;|*** 						if(*TextP == ',') {
+; Line 1107
+	*** 00129e	8b 1e 00 00 		mov	bx,WORD PTR _TextP
+	*** 0012a2	80 3f 2c 		cmp	BYTE PTR [bx],44
+	*** 0012a5	75 1d 			jne	$I972
+;|*** 							TextP++;
+; Line 1108
+	*** 0012a7	ff 06 00 00 		inc	WORD PTR _TextP
+;|*** 							i1=GetValue(0);
+;|*** 							if(i1 <= (j-i)) {
+; Line 1110
+	*** 0012ab	2b c0 			sub	ax,ax
+	*** 0012ad	50 			push	ax
+	*** 0012ae	e8 00 00 		call	_GetValue
+	*** 0012b1	83 c4 02 		add	sp,2
+	*** 0012b4	89 46 f8 		mov	WORD PTR [bp-8],ax	;i1
+	*** 0012b7	8b 4e f6 		mov	cx,WORD PTR [bp-10]	;j
+	*** 0012ba	2b 4e fa 		sub	cx,WORD PTR [bp-6]	;i
+	*** 0012bd	3b c1 			cmp	ax,cx
+	*** 0012bf	7f 0f 			jg	$I974
+	*** 0012c1	eb 07 			jmp	SHORT $L20117
+	*** 0012c3	90 			nop	
+					$I972:
+;|*** 								*(((int *)l)+1)=i1;
+;|*** 								}
+;|*** 							}
+;|*** 						else {
+;|*** 							*(((int *)l)+1)=*(((int *)&l1)+1) -i;
+; Line 1115
+	*** 0012c4	8b 46 f2 		mov	ax,WORD PTR [bp-14]
+	*** 0012c7	2b 46 fa 		sub	ax,WORD PTR [bp-6]	;i
+					$L20117:
+	*** 0012ca	8b 5e 04 		mov	bx,WORD PTR [bp+4]	;l
+	*** 0012cd	89 47 02 		mov	WORD PTR [bx+2],ax
+;|*** 							}
+; Line 1116
+					$I974:
+;|*** 						RetVal=STR_FLAG;
+; Line 1117
+	*** 0012d0	c6 46 ee 02 		mov	BYTE PTR [bp-18],2	;RetVal
+;|*** 						}
+; Line 1118
+;|*** 					else
+; Line 1119
+	*** 0012d4	eb 76 			jmp	SHORT $SB940
+					$SC976:
+;|*** 						fError=2;
+;|*** 					}
+;|*** 				break;
+;|*** 			case 24:                          // Digital In
+;|*** 				i=GetValue(0);
+;|*** 				i1=i & 7;
+; Line 1125
+	*** 0012d6	2b c0 			sub	ax,ax
+	*** 0012d8	50 			push	ax
+	*** 0012d9	e8 00 00 		call	_GetValue
+	*** 0012dc	83 c4 02 		add	sp,2
+	*** 0012df	89 46 fa 		mov	WORD PTR [bp-6],ax	;i
+	*** 0012e2	25 07 00 		and	ax,7
+	*** 0012e5	89 46 f8 		mov	WORD PTR [bp-8],ax	;i1
+;|*** 				i=i >> 3;
+;|*** 				i=inp(i);
+; Line 1127
+	*** 0012e8	b1 03 			mov	cl,3
+	*** 0012ea	8b 46 fa 		mov	ax,WORD PTR [bp-6]	;i
+	*** 0012ed	d3 f8 			sar	ax,cl
+	*** 0012ef	50 			push	ax
+	*** 0012f0	e8 00 00 		call	_inp
+	*** 0012f3	83 c4 02 		add	sp,2
+	*** 0012f6	89 46 fa 		mov	WORD PTR [bp-6],ax	;i
+;|*** 				*l=i & BitTable[i1] ? 0 : 1;
+; Line 1128
+	*** 0012f9	8b 5e f8 		mov	bx,WORD PTR [bp-8]	;i1
+	*** 0012fc	8a 87 52 02 		mov	al,BYTE PTR _BitTable[bx]
+	*** 001300	98 			cbw	
+	*** 001301	23 46 fa 		and	ax,WORD PTR [bp-6]	;i
+	*** 001304	3d 01 00 		cmp	ax,1
+	*** 001307	1b c0 			sbb	ax,ax
+	*** 001309	f7 d8 			neg	ax
+	*** 00130b	e9 d2 fc 		jmp	$L20014
+					$S939:
+	*** 00130e	48 			dec	ax
+	*** 00130f	48 			dec	ax
+	*** 001310	3d 16 00 		cmp	ax,22
+	*** 001313	77 37 			ja	$SB940
+	*** 001315	d1 e0 			shl	ax,1
+	*** 001317	93 			xchg	ax,bx
+	*** 001318	2e ff a7 1e 13 		jmp	WORD PTR cs:$L20020[bx]
+	*** 00131d	90 			nop	
+					$L20020:
+	*** 00131e	c8 0f 				DW	$SC943
+	*** 001320	f0 0f 				DW	$SC944
+	*** 001322	22 10 				DW	$SC947
+	*** 001324	48 10 				DW	$SC948
+	*** 001326	5a 10 				DW	$SC949
+	*** 001328	7e 10 				DW	$SC950
+	*** 00132a	a2 10 				DW	$SC951
+	*** 00132c	c4 10 				DW	$SC952
+	*** 00132e	e6 10 				DW	$SC953
+	*** 001330	08 11 				DW	$SC954
+	*** 001332	36 11 				DW	$SC955
+	*** 001334	42 11 				DW	$SC956
+	*** 001336	64 11 				DW	$SC958
+	*** 001338	7c 11 				DW	$SC959
+	*** 00133a	a4 11 				DW	$SC963
+	*** 00133c	4c 13 				DW	$SB940
+	*** 00133e	ba 11 				DW	$SC965
+	*** 001340	fc 11 				DW	$SC966
+	*** 001342	30 12 				DW	$SC968
+	*** 001344	54 12 				DW	$SC969
+	*** 001346	4c 13 				DW	$SB940
+	*** 001348	4c 13 				DW	$SB940
+	*** 00134a	d6 12 				DW	$SC976
+					$SB940:
+;|*** 				RetVal=INT_FLAG;
+;|*** 				break;
+;|*** 			}
+;|*** 		DoCheck(')');
+; Line 1132
+	*** 00134c	b0 29 			mov	al,41
+	*** 00134e	50 			push	ax
+	*** 00134f	e8 00 00 		call	_DoCheck
+	*** 001352	83 c4 02 		add	sp,2
+;|*** 		return RetVal;
+; Line 1133
+	*** 001355	8a 46 ee 		mov	al,BYTE PTR [bp-18]	;RetVal
+	*** 001358	8b e5 			mov	sp,bp
+	*** 00135a	5d 			pop	bp
+	*** 00135b	c3 			ret	
+					$I938:
+	*** 00135c	8a 46 f4 		mov	al,BYTE PTR [bp-12]	;ch
+	*** 00135f	98 			cbw	
+	*** 001360	8b d8 			mov	bx,ax
+	*** 001362	f6 87 01 00 03 		test	BYTE PTR __ctype[bx+1],3
+	*** 001367	75 03 			jne	$JCC4967
+	*** 001369	e9 82 00 		jmp	$I978
+					$JCC4967:
+;|*** 		}
+;|*** 	else if(isalpha(ch)) {
+;|*** 		if(toupper(ch)=='T' && toupper(*(TextP+1))=='I') {
+; Line 1136
+	*** 00136c	f6 87 01 00 02 		test	BYTE PTR __ctype[bx+1],2
+	*** 001371	74 05 			je	$L20021
+	*** 001373	8d 47 e0 		lea	ax,WORD PTR [bx-32]
+	*** 001376	eb 04 			jmp	SHORT $L20022
+					$L20021:
+	*** 001378	8a 46 f4 		mov	al,BYTE PTR [bp-12]	;ch
+	*** 00137b	98 			cbw	
+					$L20022:
+	*** 00137c	3d 54 00 		cmp	ax,84
+	*** 00137f	75 2f 			jne	$I979
+	*** 001381	8b 1e 00 00 		mov	bx,WORD PTR _TextP
+	*** 001385	8a 47 01 		mov	al,BYTE PTR [bx+1]
+	*** 001388	98 			cbw	
+	*** 001389	8b d8 			mov	bx,ax
+	*** 00138b	f6 87 01 00 02 		test	BYTE PTR __ctype[bx+1],2
+	*** 001390	74 06 			je	$L20023
+	*** 001392	8d 47 e0 		lea	ax,WORD PTR [bx-32]
+	*** 001395	eb 09 			jmp	SHORT $L20024
+	*** 001397	90 			nop	
+					$L20023:
+	*** 001398	8b 1e 00 00 		mov	bx,WORD PTR _TextP
+	*** 00139c	8a 47 01 		mov	al,BYTE PTR [bx+1]
+	*** 00139f	98 			cbw	
+					$L20024:
+	*** 0013a0	3d 49 00 		cmp	ax,73
+	*** 0013a3	75 0b 			jne	$I979
+;|*** 			TextP=TextP+2;
+; Line 1137
+	*** 0013a5	83 06 00 00 02 		add	WORD PTR _TextP,2
+;|*** 			*l=clock();
+; Line 1138
+	*** 0013aa	e8 00 00 		call	_clock
+	*** 0013ad	e9 e7 fb 		jmp	$L20102
+					$I979:
+;|*** 			return 0;
+;|*** 			}
+;|*** 		else {
+;|*** 			p=HandleVar(0,&Fl);
+; Line 1142
+	*** 0013b0	8d 46 fc 		lea	ax,WORD PTR [bp-4]	;Fl
+	*** 0013b3	50 			push	ax
+	*** 0013b4	2a c9 			sub	cl,cl
+	*** 0013b6	51 			push	cx
+	*** 0013b7	e8 fa f1 		call	_HandleVar
+	*** 0013ba	83 c4 04 		add	sp,4
+	*** 0013bd	89 46 fe 		mov	WORD PTR [bp-2],ax	;p
+;|*** 			if(!fError) {
+; Line 1143
+	*** 0013c0	80 3e c1 01 00 		cmp	BYTE PTR _fError,0
+	*** 0013c5	74 03 			je	$JCC5061
+	*** 0013c7	e9 eb 00 		jmp	$SB986
+					$JCC5061:
+;|*** 				if(Fl & INT_FLAG) {
+; Line 1144
+	*** 0013ca	f6 46 fc 01 		test	BYTE PTR [bp-4],1	;Fl
+	*** 0013ce	74 08 			je	$I982
+;|*** 					*l=(long)(*(int *)p);
+; Line 1145
+	*** 0013d0	8b d8 			mov	bx,ax
+	*** 0013d2	8b 07 			mov	ax,WORD PTR [bx]
+	*** 0013d4	99 			cwd	
+	*** 0013d5	eb 08 			jmp	SHORT $L20113
+	*** 0013d7	90 			nop	
+					$I982:
+;|*** 					}
+;|*** 				else {
+;|*** 					*l=*(long *)p;
+; Line 1148
+	*** 0013d8	8b d8 			mov	bx,ax
+	*** 0013da	8b 07 			mov	ax,WORD PTR [bx]
+	*** 0013dc	8b 57 02 		mov	dx,WORD PTR [bx+2]
+					$L20113:
+	*** 0013df	8b 5e 04 		mov	bx,WORD PTR [bp+4]	;l
+	*** 0013e2	89 07 			mov	WORD PTR [bx],ax
+	*** 0013e4	89 57 02 		mov	WORD PTR [bx+2],dx
+;|*** 					}
+; Line 1149
+;|*** 				return Fl;
+; Line 1150
+	*** 0013e7	8a 46 fc 		mov	al,BYTE PTR [bp-4]	;Fl
+	*** 0013ea	8b e5 			mov	sp,bp
+	*** 0013ec	5d 			pop	bp
+	*** 0013ed	c3 			ret	
+					$I978:
+;|*** 				}
+;|*** 			}
+;|*** 		}
+;|*** 	else {
+;|*** 		switch(ch) {
+; Line 1155
+	*** 0013ee	8a 46 f4 		mov	al,BYTE PTR [bp-12]	;ch
+	*** 0013f1	98 			cbw	
+	*** 0013f2	3d 5c 00 		cmp	ax,92
+	*** 0013f5	75 03 			jne	$JCC5109
+	*** 0013f7	e9 98 00 		jmp	$SC997
+					$JCC5109:
+	*** 0013fa	76 03 			jbe	$JCC5114
+	*** 0013fc	e9 b6 00 		jmp	$SB986
+					$JCC5114:
+	*** 0013ff	3c 22 			cmp	al,34
+	*** 001401	74 1b 			je	$SC990
+	*** 001403	7e 03 			jle	$JCC5123
+	*** 001405	e9 9a 00 		jmp	$L20025
+					$JCC5123:
+	*** 001408	2c 20 			sub	al,32
+	*** 00140a	75 03 			jne	$JCC5130
+	*** 00140c	e9 8b 00 		jmp	$SC998
+					$JCC5130:
+	*** 00140f	e9 9f 00 		jmp	$L20119
+;|*** 			case '&':
+; Line 1156
+					$SC989:
+;|*** 				TextP++;
+;|*** 				TextP++;                  // H
+; Line 1158
+	*** 001412	83 06 00 00 02 		add	WORD PTR _TextP,2
+;|*** 				*l=myXtoi();
+; Line 1159
+	*** 001417	e8 5e ed 		call	_myXtoi
+	*** 00141a	99 			cwd	
+	*** 00141b	e9 79 fb 		jmp	$L20102
+					$SC990:
+;|*** 				return 0;
+;|*** 				break;
+;|*** 			case '\"':
+;|*** 				*(char **)l=++TextP;
+; Line 1163
+	*** 00141e	ff 06 00 00 		inc	WORD PTR _TextP
+	*** 001422	a1 00 00 		mov	ax,WORD PTR _TextP
+	*** 001425	8b 5e 04 		mov	bx,WORD PTR [bp+4]	;l
+	*** 001428	89 07 			mov	WORD PTR [bx],ax
+;|*** 				i=0;
+; Line 1164
+	*** 00142a	c7 46 fa 00 00 		mov	WORD PTR [bp-6],0	;i
+;|*** 				while(*TextP != '\"' && *TextP) {
+; Line 1165
+	*** 00142f	eb 0d 			jmp	SHORT $L20114
+	*** 001431	90 			nop	
+					$FC992:
+	*** 001432	80 3f 00 		cmp	BYTE PTR [bx],0
+	*** 001435	74 10 			je	$FB993
+;|*** 					i++;
+; Line 1166
+	*** 001437	ff 46 fa 		inc	WORD PTR [bp-6]	;i
+;|*** 					TextP++;
+; Line 1167
+	*** 00143a	ff 06 00 00 		inc	WORD PTR _TextP
+;|*** 					}
+; Line 1168
+					$L20114:
+	*** 00143e	8b 1e 00 00 		mov	bx,WORD PTR _TextP
+	*** 001442	80 3f 22 		cmp	BYTE PTR [bx],34
+	*** 001445	75 eb 			jne	$FC992
+					$FB993:
+;|*** 				*(((int *)l)+1)=i;
+; Line 1169
+	*** 001447	8b 46 fa 		mov	ax,WORD PTR [bp-6]	;i
+	*** 00144a	8b 5e 04 		mov	bx,WORD PTR [bp+4]	;l
+	*** 00144d	89 47 02 		mov	WORD PTR [bx+2],ax
+;|*** 				if(*TextP)
+; Line 1170
+	*** 001450	8b 1e 00 00 		mov	bx,WORD PTR _TextP
+	*** 001454	80 3f 00 		cmp	BYTE PTR [bx],0
+	*** 001457	74 04 			je	$I994
+;|*** 					TextP++;
+; Line 1171
+	*** 001459	ff 06 00 00 		inc	WORD PTR _TextP
+;|*** 				if(DirectMode) {
+; Line 1172
+					$I994:
+	*** 00145d	80 3e bf 01 00 		cmp	BYTE PTR _DirectMode,0
+	*** 001462	74 27 			je	$I996
+;|*** 					p=AllocaString(i);
+;|*** 					if(p) {
+; Line 1174
+	*** 001464	ff 76 fa 		push	WORD PTR [bp-6]	;i
+	*** 001467	e8 00 00 		call	_AllocaString
+	*** 00146a	83 c4 02 		add	sp,2
+	*** 00146d	89 46 fe 		mov	WORD PTR [bp-2],ax	;p
+	*** 001470	0b c0 			or	ax,ax
+	*** 001472	74 17 			je	$I996
+;|*** 						memmove(p,*(char **)l,i);
+; Line 1175
+	*** 001474	ff 76 fa 		push	WORD PTR [bp-6]	;i
+	*** 001477	8b 5e 04 		mov	bx,WORD PTR [bp+4]	;l
+	*** 00147a	ff 37 			push	WORD PTR [bx]
+	*** 00147c	50 			push	ax
+	*** 00147d	e8 00 00 		call	_memmove
+	*** 001480	83 c4 06 		add	sp,6
+;|*** 						*(char **)l=p;
+; Line 1176
+	*** 001483	8b 46 fe 		mov	ax,WORD PTR [bp-2]	;p
+	*** 001486	8b 5e 04 		mov	bx,WORD PTR [bp+4]	;l
+	*** 001489	89 07 			mov	WORD PTR [bx],ax
+;|*** 						}
+; Line 1177
+;|*** 					}
+; Line 1178
+					$I996:
+;|*** 				return STR_FLAG;
+; Line 1179
+	*** 00148b	b0 02 			mov	al,2
+	*** 00148d	8b e5 			mov	sp,bp
+	*** 00148f	5d 			pop	bp
+	*** 001490	c3 			ret	
+	*** 001491	90 			nop	
+					$SC997:
+;|*** 				break;
+;|*** //      case '-':
+;|*** //        break;
+;|*** 			case '\\':
+;|*** 			case '$':
+;|*** 			case '!':
+;|*** 			case '#':
+;|*** 			case '\'':
+;|*** 				fError=1;
+; Line 1188
+	*** 001492	c6 06 c1 01 01 		mov	BYTE PTR _fError,1
+;|*** 				break;
+; Line 1189
+	*** 001497	eb 1c 			jmp	SHORT $SB986
+;|*** 			case ' ':
+; Line 1190
+	*** 001499	90 			nop	
+					$SC998:
+;|*** 				TextP++;
+; Line 1191
+	*** 00149a	ff 06 00 00 		inc	WORD PTR _TextP
+;|*** 				goto rifo;
+; Line 1192
+	*** 00149e	e9 dc fa 		jmp	$rifo933
+	*** 0014a1	90 			nop	
+					$L20025:
+	*** 0014a2	2c 23 			sub	al,35
+	*** 0014a4	7c 0f 			jl	$SB986
+	*** 0014a6	fe c8 			dec	al
+	*** 0014a8	7e e8 			jle	$SC997
+	*** 0014aa	2c 02 			sub	al,2
+	*** 0014ac	75 03 			jne	$JCC5292
+	*** 0014ae	e9 61 ff 		jmp	$SC989
+					$JCC5292:
+					$L20119:
+	*** 0014b1	fe c8 			dec	al
+	*** 0014b3	74 dd 			je	$SC997
+					$SB986:
+;|*** 				break;
+;|*** 				
+;|*** 			}
+;|*** 		}
+; Line 1196
+;|*** 	return -1;
+; Line 1197
+	*** 0014b5	b0 ff 			mov	al,255
+;|*** 	}
+; Line 1198
+	*** 0014b7	8b e5 			mov	sp,bp
+	*** 0014b9	5d 			pop	bp
+	*** 0014ba	c3 			ret	
+	*** 0014bb	90 			nop	
+
+_GetAritmElem	ENDP
+;|*** 
+;|*** char RecursEval(char Pty, long *l1, char *f1) {
+; Line 1200
+	PUBLIC	_RecursEval
+_RecursEval	PROC NEAR
+	*** 0014bc	55 			push	bp
+	*** 0014bd	8b ec 			mov	bp,sp
+	*** 0014bf	b8 18 00 		mov	ax,24
+	*** 0014c2	e8 00 00 		call	__aNchkstk
+;	l2 = -24
+;	f2 = -10
+;	ch = -20
+;	Go = -8
+;	InBrack = -18
+;	Times = -6
+;	p = -2
+;	p1 = -4
+;	i = -12
+;	i1 = -16
+;	j = -14
+;	f1 = 8
+;	l1 = 6
+;	Pty = 4
+;|*** 	long l2;
+;|*** 	char f2;
+;|*** 	char ch;
+;|*** 	char Go=0,InBrack=0,Times=0;
+; Line 1204
+	*** 0014c5	2a c0 			sub	al,al
+	*** 0014c7	88 46 f8 		mov	BYTE PTR [bp-8],al	;Go
+	*** 0014ca	88 46 ee 		mov	BYTE PTR [bp-18],al	;InBrack
+	*** 0014cd	88 46 fa 		mov	BYTE PTR [bp-6],al	;Times
+;|*** 	char *p,*p1;
+;|*** 	int i,i1,j;
+;|*** 	
+;|*** 	do {
+; Line 1208
+					$D1015:
+;|*** 		ch=*TextP;
+; Line 1209
+	*** 0014d0	8b 1e 00 00 		mov	bx,WORD PTR _TextP
+	*** 0014d4	8a 07 			mov	al,BYTE PTR [bx]
+	*** 0014d6	88 46 ec 		mov	BYTE PTR [bp-20],al	;ch
+;|*** //    printf("sono sul %c(%x), T %d, pty %d\n",ch,ch,Times,Pty);
+;|*** 		switch(ch) {
+; Line 1211
+	*** 0014d9	98 			cbw	
+	*** 0014da	3d 29 00 		cmp	ax,41
+	*** 0014dd	74 4b 			je	$SC1023
+	*** 0014df	7e 03 			jle	$JCC5343
+	*** 0014e1	e9 50 04 		jmp	$L20063
+					$JCC5343:
+	*** 0014e4	3d c1 ff 		cmp	ax,-63
+	*** 0014e7	7e 03 			jle	$JCC5351
+	*** 0014e9	e9 1e 04 		jmp	$L20064
+					$JCC5351:
+	*** 0014ec	3d c0 ff 		cmp	ax,-64
+	*** 0014ef	7c 03 			jl	$JCC5359
+	*** 0014f1	e9 ac 03 		jmp	$SC1093
+					$JCC5359:
+	*** 0014f4	2d 89 ff 		sub	ax,-119
+	*** 0014f7	7d 03 			jge	$JCC5367
+	*** 0014f9	e9 27 04 		jmp	$SD1103
+					$JCC5367:
+	*** 0014fc	48 			dec	ax
+	*** 0014fd	7f 03 			jg	$JCC5373
+	*** 0014ff	e9 02 04 		jmp	$I1024
+					$JCC5373:
+	*** 001502	48 			dec	ax
+	*** 001503	48 			dec	ax
+	*** 001504	7d 03 			jge	$JCC5380
+	*** 001506	e9 1a 04 		jmp	$SD1103
+					$JCC5380:
+	*** 001509	48 			dec	ax
+	*** 00150a	7f 03 			jg	$JCC5386
+	*** 00150c	e9 f5 03 		jmp	$I1024
+					$JCC5386:
+	*** 00150f	2d 03 00 		sub	ax,3
+	*** 001512	7d 03 			jge	$JCC5394
+	*** 001514	e9 0c 04 		jmp	$SD1103
+					$JCC5394:
+	*** 001517	48 			dec	ax
+	*** 001518	7f 03 			jg	$JCC5400
+	*** 00151a	e9 e7 03 		jmp	$I1024
+					$JCC5400:
+	*** 00151d	e9 03 04 		jmp	$SD1103
+;|*** 			case '(':
+; Line 1212
+					$SC1022:
+;|*** 				TextP++;
+; Line 1213
+	*** 001520	ff 06 00 00 		inc	WORD PTR _TextP
+;|*** 				InBrack++;
+; Line 1214
+	*** 001524	fe 46 ee 		inc	BYTE PTR [bp-18]	;InBrack
+;|*** 				break;
+; Line 1215
+	*** 001527	e9 4e 04 		jmp	$SB1019
+;|*** 			case ')':
+; Line 1216
+					$SC1023:
+;|*** 				if(InBrack) {
+; Line 1217
+	*** 00152a	80 7e ee 00 		cmp	BYTE PTR [bp-18],0	;InBrack
+	*** 00152e	75 03 			jne	$JCC5422
+	*** 001530	e9 d1 03 		jmp	$I1024
+					$JCC5422:
+;|*** 					TextP++;
+; Line 1218
+	*** 001533	ff 06 00 00 		inc	WORD PTR _TextP
+;|*** 					InBrack--;
+; Line 1219
+	*** 001537	fe 4e ee 		dec	BYTE PTR [bp-18]	;InBrack
+;|*** 					}
+; Line 1220
+;|*** 				else
+; Line 1221
+	*** 00153a	e9 3b 04 		jmp	$SB1019
+;|*** 					Go=1;
+;|*** 				break;
+;|*** 			case '+':
+; Line 1224
+	*** 00153d	90 			nop	
+					$SC1026:
+;|*** 			case '-':
+;|*** //            printf("- ??unario: f %x,l %ld, pty %d, times %d\n",*f1,*l1,Pty,Times);
+;|*** 				if(Times) {
+; Line 1227
+	*** 00153e	80 7e fa 00 		cmp	BYTE PTR [bp-6],0	;Times
+	*** 001542	75 03 			jne	$JCC5442
+	*** 001544	e9 b1 00 		jmp	$I1027
+					$JCC5442:
+;|*** 					if(Pty > 4) {
+; Line 1228
+	*** 001547	80 7e 04 04 		cmp	BYTE PTR [bp+4],4	;Pty
+	*** 00154b	7f 03 			jg	$JCC5451
+	*** 00154d	e9 b4 03 		jmp	$I1024
+					$JCC5451:
+;|*** 						TextP++;
+; Line 1229
+	*** 001550	ff 06 00 00 		inc	WORD PTR _TextP
+;|*** 						RecursEval(4,&l2,&f2);
+; Line 1230
+	*** 001554	8d 46 f6 		lea	ax,WORD PTR [bp-10]	;f2
+	*** 001557	50 			push	ax
+	*** 001558	8d 4e e8 		lea	cx,WORD PTR [bp-24]	;l2
+	*** 00155b	51 			push	cx
+	*** 00155c	b2 04 			mov	dl,4
+	*** 00155e	52 			push	dx
+	*** 00155f	e8 5a ff 		call	_RecursEval
+	*** 001562	83 c4 06 		add	sp,6
+;|*** 						if(*f1 & STR_FLAG) {
+; Line 1231
+	*** 001565	8b 5e 08 		mov	bx,WORD PTR [bp+8]	;f1
+	*** 001568	f6 07 02 		test	BYTE PTR [bx],2
+	*** 00156b	74 61 			je	$I1029
+;|*** 							if(f2 & STR_FLAG) {
+; Line 1232
+	*** 00156d	f6 46 f6 02 		test	BYTE PTR [bp-10],2	;f2
+	*** 001571	75 03 			jne	$JCC5489
+	*** 001573	e9 bb 00 		jmp	$L20126
+					$JCC5489:
+;|*** 								i=*(((int *)l1)+1);
+; Line 1233
+	*** 001576	8b 5e 06 		mov	bx,WORD PTR [bp+6]	;l1
+	*** 001579	8b 47 02 		mov	ax,WORD PTR [bx+2]
+	*** 00157c	89 46 f4 		mov	WORD PTR [bp-12],ax	;i
+;|*** 								i1=*(((int *)&l2)+1);
+; Line 1234
+	*** 00157f	8b 4e ea 		mov	cx,WORD PTR [bp-22]
+	*** 001582	89 4e f0 		mov	WORD PTR [bp-16],cx	;i1
+;|*** 								p=AllocaString(i+i1);
+;|*** 								if(p) {
+; Line 1236
+	*** 001585	03 c8 			add	cx,ax
+	*** 001587	51 			push	cx
+	*** 001588	e8 00 00 		call	_AllocaString
+	*** 00158b	83 c4 02 		add	sp,2
+	*** 00158e	89 46 fe 		mov	WORD PTR [bp-2],ax	;p
+	*** 001591	0b c0 			or	ax,ax
+	*** 001593	75 03 			jne	$JCC5523
+	*** 001595	e9 e0 03 		jmp	$SB1019
+					$JCC5523:
+;|*** 									memmove(p,(char *)*(int *)l1,i);
+; Line 1237
+	*** 001598	ff 76 f4 		push	WORD PTR [bp-12]	;i
+	*** 00159b	8b 5e 06 		mov	bx,WORD PTR [bp+6]	;l1
+	*** 00159e	ff 37 			push	WORD PTR [bx]
+	*** 0015a0	50 			push	ax
+	*** 0015a1	e8 00 00 		call	_memmove
+	*** 0015a4	83 c4 06 		add	sp,6
+;|*** 									memmove(p+i,(char *)*((int *)&l2),i1);
+; Line 1238
+	*** 0015a7	ff 76 f0 		push	WORD PTR [bp-16]	;i1
+	*** 0015aa	ff 76 e8 		push	WORD PTR [bp-24]	;l2
+	*** 0015ad	8b 46 fe 		mov	ax,WORD PTR [bp-2]	;p
+	*** 0015b0	03 46 f4 		add	ax,WORD PTR [bp-12]	;i
+	*** 0015b3	50 			push	ax
+	*** 0015b4	e8 00 00 		call	_memmove
+	*** 0015b7	83 c4 06 		add	sp,6
+;|*** 									*(char **)l1=p;
+; Line 1239
+	*** 0015ba	8b 46 fe 		mov	ax,WORD PTR [bp-2]	;p
+	*** 0015bd	8b 5e 06 		mov	bx,WORD PTR [bp+6]	;l1
+	*** 0015c0	89 07 			mov	WORD PTR [bx],ax
+;|*** 									*(((int *)l1)+1)=i+i1;
+; Line 1240
+	*** 0015c2	8b 46 f0 		mov	ax,WORD PTR [bp-16]	;i1
+	*** 0015c5	03 46 f4 		add	ax,WORD PTR [bp-12]	;i
+	*** 0015c8	89 47 02 		mov	WORD PTR [bx+2],ax
+;|*** 									}
+; Line 1241
+;|*** 								}
+; Line 1242
+;|*** 							else
+; Line 1243
+	*** 0015cb	e9 aa 03 		jmp	$SB1019
+					$I1029:
+;|*** 								fError=4;
+;|*** 							}
+;|*** 						else {
+;|*** 							if(ch=='+')
+; Line 1247
+	*** 0015ce	80 7e ec 2b 		cmp	BYTE PTR [bp-20],43	;ch
+	*** 0015d2	75 12 			jne	$I1034
+;|*** 								*l1=*l1+l2;
+; Line 1248
+	*** 0015d4	8b 46 e8 		mov	ax,WORD PTR [bp-24]	;l2
+	*** 0015d7	8b 56 ea 		mov	dx,WORD PTR [bp-22]
+	*** 0015da	8b 5e 06 		mov	bx,WORD PTR [bp+6]	;l1
+	*** 0015dd	01 07 			add	WORD PTR [bx],ax
+	*** 0015df	11 57 02 		adc	WORD PTR [bx+2],dx
+;|*** 							else
+; Line 1249
+	*** 0015e2	e9 93 03 		jmp	$SB1019
+	*** 0015e5	90 			nop	
+					$I1034:
+;|*** 								*l1=*l1-l2;
+; Line 1250
+	*** 0015e6	8b 46 e8 		mov	ax,WORD PTR [bp-24]	;l2
+	*** 0015e9	8b 56 ea 		mov	dx,WORD PTR [bp-22]
+	*** 0015ec	8b 5e 06 		mov	bx,WORD PTR [bp+6]	;l1
+	*** 0015ef	29 07 			sub	WORD PTR [bx],ax
+	*** 0015f1	19 57 02 		sbb	WORD PTR [bx+2],dx
+;|*** 							}  
+; Line 1251
+;|*** 						}
+; Line 1252
+;|*** 					else
+; Line 1253
+	*** 0015f4	e9 81 03 		jmp	$SB1019
+	*** 0015f7	90 			nop	
+					$I1027:
+;|*** 						Go=1;
+;|*** 					}
+;|*** 				else {
+;|*** 					if(Pty > 2) {
+; Line 1257
+	*** 0015f8	80 7e 04 02 		cmp	BYTE PTR [bp+4],2	;Pty
+	*** 0015fc	7f 03 			jg	$JCC5628
+	*** 0015fe	e9 03 03 		jmp	$I1024
+					$JCC5628:
+;|*** 						TextP++;
+; Line 1258
+	*** 001601	ff 06 00 00 		inc	WORD PTR _TextP
+;|*** 						RecursEval(2,l1,f1);
+; Line 1259
+	*** 001605	ff 76 08 		push	WORD PTR [bp+8]	;f1
+	*** 001608	ff 76 06 		push	WORD PTR [bp+6]	;l1
+	*** 00160b	b0 02 			mov	al,2
+	*** 00160d	50 			push	ax
+	*** 00160e	e8 ab fe 		call	_RecursEval
+	*** 001611	83 c4 06 		add	sp,6
+;|*** 						if(ch=='-')
+; Line 1260
+	*** 001614	80 7e ec 2d 		cmp	BYTE PTR [bp-20],45	;ch
+	*** 001618	75 0c 			jne	$I1039
+;|*** 							*l1=-*l1;
+; Line 1261
+	*** 00161a	8b 5e 06 		mov	bx,WORD PTR [bp+6]	;l1
+	*** 00161d	f7 1f 			neg	WORD PTR [bx]
+	*** 00161f	83 57 02 00 		adc	WORD PTR [bx+2],0
+	*** 001623	f7 5f 02 		neg	WORD PTR [bx+2]
+;|*** 						if(*f1 & STR_FLAG)
+; Line 1262
+					$I1039:
+	*** 001626	8b 5e 08 		mov	bx,WORD PTR [bp+8]	;f1
+	*** 001629	f6 07 02 		test	BYTE PTR [bx],2
+	*** 00162c	75 03 			jne	$JCC5676
+	*** 00162e	e9 47 03 		jmp	$SB1019
+					$JCC5676:
+;|*** 							fError=4;
+; Line 1263
+					$L20126:
+	*** 001631	c6 06 c1 01 04 		mov	BYTE PTR _fError,4
+;|*** 						}
+; Line 1264
+;|*** 					else
+; Line 1265
+	*** 001636	e9 3f 03 		jmp	$SB1019
+	*** 001639	90 			nop	
+					$SC1042:
+;|*** 						Go=1;
+;|*** 					}
+;|*** 				break;
+;|*** 			case '*':
+;|*** 			case '/':
+;|*** 			case '^':
+;|*** 			case '%':
+;|*** 				if(Pty > 3) {
+; Line 1273
+	*** 00163a	80 7e 04 03 		cmp	BYTE PTR [bp+4],3	;Pty
+	*** 00163e	7f 03 			jg	$JCC5694
+	*** 001640	e9 c1 02 		jmp	$I1024
+					$JCC5694:
+;|*** 					TextP++;
+; Line 1274
+	*** 001643	ff 06 00 00 		inc	WORD PTR _TextP
+;|*** 					RecursEval(3,&l2,&f2);
+; Line 1275
+	*** 001647	8d 46 f6 		lea	ax,WORD PTR [bp-10]	;f2
+	*** 00164a	50 			push	ax
+	*** 00164b	8d 4e e8 		lea	cx,WORD PTR [bp-24]	;l2
+	*** 00164e	51 			push	cx
+	*** 00164f	b1 03 			mov	cl,3
+	*** 001651	51 			push	cx
+	*** 001652	e8 67 fe 		call	_RecursEval
+	*** 001655	83 c4 06 		add	sp,6
+;|*** 					if((*f1 & STR_FLAG) || (f2 & STR_FLAG)) {
+; Line 1276
+	*** 001658	8b 5e 08 		mov	bx,WORD PTR [bp+8]	;f1
+	*** 00165b	f6 07 02 		test	BYTE PTR [bx],2
+	*** 00165e	75 d1 			jne	$L20126
+	*** 001660	f6 46 f6 02 		test	BYTE PTR [bp-10],2	;f2
+	*** 001664	75 cb 			jne	$L20126
+;|*** 						fError=4;
+;|*** 						}
+;|*** 					else {
+;|*** 						switch(ch) {
+; Line 1280
+	*** 001666	8a 46 ec 		mov	al,BYTE PTR [bp-20]	;ch
+	*** 001669	98 			cbw	
+	*** 00166a	3d 5e 00 		cmp	ax,94
+	*** 00166d	74 35 			je	$SC1053
+	*** 00166f	76 03 			jbe	$JCC5743
+	*** 001671	e9 04 03 		jmp	$SB1019
+					$JCC5743:
+	*** 001674	2c 25 			sub	al,37
+	*** 001676	74 5c 			je	$SC1054
+	*** 001678	2c 05 			sub	al,5
+	*** 00167a	74 08 			je	$SC1051
+	*** 00167c	2c 05 			sub	al,5
+	*** 00167e	74 14 			je	$SC1052
+	*** 001680	e9 f5 02 		jmp	$SB1019
+;|*** 							case '*':
+; Line 1281
+	*** 001683	90 			nop	
+					$SC1051:
+;|*** 								*l1=*l1 * l2;
+; Line 1282
+	*** 001684	ff 76 ea 		push	WORD PTR [bp-22]
+	*** 001687	ff 76 e8 		push	WORD PTR [bp-24]	;l2
+	*** 00168a	ff 76 06 		push	WORD PTR [bp+6]	;l1
+	*** 00168d	e8 00 00 		call	__aNNalmul
+;|*** 								break;
+;|*** 							case '/':
+;|*** 								*l1=*l1 / l2;
+;|*** 								break;
+;|*** 							case '^':
+;|*** 								*l1=pow(*l1,l2);
+;|*** 								break;
+;|*** 							case '%':
+;|*** 								*l1=*l1 % l2;
+;|*** 								break;
+;|*** 							}
+;|*** 						}
+; Line 1294
+;|*** 					}
+; Line 1295
+;|*** 				else
+; Line 1296
+	*** 001690	e9 e5 02 		jmp	$SB1019
+;|*** 							case '/':
+; Line 1284
+	*** 001693	90 			nop	
+					$SC1052:
+;|*** 								*l1=*l1 / l2;
+; Line 1285
+	*** 001694	ff 76 ea 		push	WORD PTR [bp-22]
+	*** 001697	ff 76 e8 		push	WORD PTR [bp-24]	;l2
+	*** 00169a	ff 76 06 		push	WORD PTR [bp+6]	;l1
+	*** 00169d	e8 00 00 		call	__aNNaldiv
+;|*** 								break;
+; Line 1286
+	*** 0016a0	e9 d5 02 		jmp	$SB1019
+;|*** 							case '^':
+; Line 1287
+	*** 0016a3	90 			nop	
+					$SC1053:
+;|*** 								*l1=pow(*l1,l2);
+; Line 1288
+	*** 0016a4	9b db 46 e8 		fild	DWORD PTR [bp-24]	;l2
+	*** 0016a8	83 ec 08 		sub	sp,8
+	*** 0016ab	8b dc 			mov	bx,sp
+	*** 0016ad	9b dd 1f 		fstp	QWORD PTR [bx]
+	*** 0016b0	90 9b 			fwait	
+	*** 0016b2	8b 5e 06 		mov	bx,WORD PTR [bp+6]	;l1
+	*** 0016b5	9b db 07 		fild	DWORD PTR [bx]
+	*** 0016b8	83 ec 08 		sub	sp,8
+	*** 0016bb	8b dc 			mov	bx,sp
+	*** 0016bd	9b dd 1f 		fstp	QWORD PTR [bx]
+	*** 0016c0	90 9b 			fwait	
+	*** 0016c2	e8 00 00 		call	_pow
+	*** 0016c5	83 c4 10 		add	sp,16
+	*** 0016c8	8b d8 			mov	bx,ax
+	*** 0016ca	9b dd 07 		fld	QWORD PTR [bx]
+	*** 0016cd	e8 00 00 		call	__aNftol
+	*** 0016d0	e9 3e 01 		jmp	$L20127
+;|*** 								break;
+;|*** 							case '%':
+; Line 1290
+	*** 0016d3	90 			nop	
+					$SC1054:
+;|*** 								*l1=*l1 % l2;
+; Line 1291
+	*** 0016d4	ff 76 ea 		push	WORD PTR [bp-22]
+	*** 0016d7	ff 76 e8 		push	WORD PTR [bp-24]	;l2
+	*** 0016da	ff 76 06 		push	WORD PTR [bp+6]	;l1
+	*** 0016dd	e8 00 00 		call	__aNNalrem
+;|*** 								break;
+; Line 1292
+	*** 0016e0	e9 95 02 		jmp	$SB1019
+	*** 0016e3	90 			nop	
+					$SC1056:
+;|*** 							}
+;|*** 						}
+;|*** 					}
+;|*** 				else
+;|*** 					Go=1;
+;|*** 				break;
+;|*** 			case '<':
+;|*** 			case '=':
+;|*** 			case '>':
+;|*** 				i=0;
+; Line 1302
+	*** 0016e4	c7 46 f4 00 00 		mov	WORD PTR [bp-12],0	;i
+;|*** 				if(Pty > 5) {
+; Line 1303
+	*** 0016e9	80 7e 04 05 		cmp	BYTE PTR [bp+4],5	;Pty
+	*** 0016ed	7f 03 			jg	$JCC5869
+	*** 0016ef	e9 12 02 		jmp	$I1024
+					$JCC5869:
+;|*** 					TextP++;
+;|*** 					if(*TextP == '=') {
+; Line 1305
+	*** 0016f2	ff 06 00 00 		inc	WORD PTR _TextP
+	*** 0016f6	8b 1e 00 00 		mov	bx,WORD PTR _TextP
+	*** 0016fa	80 3f 3d 		cmp	BYTE PTR [bx],61
+	*** 0016fd	75 0d 			jne	$I1058
+;|*** 						i=1;
+; Line 1306
+	*** 0016ff	c7 46 f4 01 00 		mov	WORD PTR [bp-12],1	;i
+;|*** 						TextP++;
+; Line 1307
+	*** 001704	8d 47 01 		lea	ax,WORD PTR [bx+1]
+	*** 001707	a3 00 00 		mov	WORD PTR _TextP,ax
+;|*** 						}
+; Line 1308
+;|*** 					else {
+; Line 1309
+	*** 00170a	eb 0e 			jmp	SHORT $I1060
+					$I1058:
+;|*** 						if(*TextP == '>') {
+; Line 1310
+	*** 00170c	80 3f 3e 		cmp	BYTE PTR [bx],62
+	*** 00170f	75 09 			jne	$I1060
+;|*** 							i=-1;
+; Line 1311
+	*** 001711	c7 46 f4 ff ff 		mov	WORD PTR [bp-12],-1	;i
+;|*** 							TextP++;
+; Line 1312
+	*** 001716	ff 06 00 00 		inc	WORD PTR _TextP
+;|*** 							}
+; Line 1313
+;|*** 						}  
+; Line 1314
+					$I1060:
+;|*** 					RecursEval(5,&l2,&f2);
+; Line 1315
+	*** 00171a	8d 46 f6 		lea	ax,WORD PTR [bp-10]	;f2
+	*** 00171d	50 			push	ax
+	*** 00171e	8d 4e e8 		lea	cx,WORD PTR [bp-24]	;l2
+	*** 001721	51 			push	cx
+	*** 001722	b2 05 			mov	dl,5
+	*** 001724	52 			push	dx
+	*** 001725	e8 94 fd 		call	_RecursEval
+	*** 001728	83 c4 06 		add	sp,6
+;|*** 					if(*f1 & STR_FLAG) {
+; Line 1316
+	*** 00172b	8b 5e 08 		mov	bx,WORD PTR [bp+8]	;f1
+	*** 00172e	f6 07 02 		test	BYTE PTR [bx],2
+	*** 001731	75 03 			jne	$JCC5937
+	*** 001733	e9 aa 00 		jmp	$I1061
+					$JCC5937:
+;|*** 						if(f2 & STR_FLAG) {
+; Line 1317
+	*** 001736	f6 46 f6 02 		test	BYTE PTR [bp-10],2	;f2
+	*** 00173a	75 03 			jne	$JCC5946
+	*** 00173c	e9 f2 fe 		jmp	$L20126
+					$JCC5946:
+;|*** 							p=*(char **)l1;
+; Line 1318
+	*** 00173f	8b 5e 06 		mov	bx,WORD PTR [bp+6]	;l1
+	*** 001742	8b 07 			mov	ax,WORD PTR [bx]
+	*** 001744	89 46 fe 		mov	WORD PTR [bp-2],ax	;p
+;|*** 							p1=*((char **)&l2);
+; Line 1319
+	*** 001747	8b 46 e8 		mov	ax,WORD PTR [bp-24]	;l2
+	*** 00174a	89 46 fc 		mov	WORD PTR [bp-4],ax	;p1
+;|*** 							i=*(((int *)l1)+1);
+; Line 1320
+	*** 00174d	8b 47 02 		mov	ax,WORD PTR [bx+2]
+	*** 001750	89 46 f4 		mov	WORD PTR [bp-12],ax	;i
+;|*** 							i1=*(((int *)&l2)+1);
+; Line 1321
+	*** 001753	8b 4e ea 		mov	cx,WORD PTR [bp-22]
+	*** 001756	89 4e f0 		mov	WORD PTR [bp-16],cx	;i1
+;|*** 							if(i1>i)
+; Line 1322
+	*** 001759	3b c1 			cmp	ax,cx
+	*** 00175b	7d 03 			jge	$I1063
+;|*** 								i=i1;                // prendo la +lunga
+; Line 1323
+	*** 00175d	89 4e f4 		mov	WORD PTR [bp-12],cx	;i
+;|*** 							j=strncmp(p,p1,i);
+; Line 1324
+					$I1063:
+	*** 001760	ff 76 f4 		push	WORD PTR [bp-12]	;i
+	*** 001763	ff 76 fc 		push	WORD PTR [bp-4]	;p1
+	*** 001766	ff 76 fe 		push	WORD PTR [bp-2]	;p
+	*** 001769	e8 00 00 		call	_strncmp
+	*** 00176c	83 c4 06 		add	sp,6
+	*** 00176f	89 46 f2 		mov	WORD PTR [bp-14],ax	;j
+;|*** 							switch(ch) {
+; Line 1325
+	*** 001772	8a 46 ec 		mov	al,BYTE PTR [bp-20]	;ch
+	*** 001775	98 			cbw	
+	*** 001776	2d 3c 00 		sub	ax,60
+	*** 001779	74 09 			je	$SC1068
+	*** 00177b	48 			dec	ax
+	*** 00177c	74 3e 			je	$SC1073
+	*** 00177e	48 			dec	ax
+	*** 00177f	74 45 			je	$SC1074
+	*** 001781	eb 2f 			jmp	SHORT $SB1065
+;|*** 								case '<':
+; Line 1326
+	*** 001783	90 			nop	
+					$SC1068:
+;|*** 									if(!i)
+; Line 1327
+	*** 001784	83 7e f4 00 		cmp	WORD PTR [bp-12],0	;i
+	*** 001788	75 0a 			jne	$I1069
+;|*** 										*l1=j <= 0 ? 1 : 0;
+; Line 1328
+	*** 00178a	83 7e f2 00 		cmp	WORD PTR [bp-14],0	;j
+	*** 00178e	7e 4a 			jle	$L20131
+					$L20037:
+	*** 001790	2b c0 			sub	ax,ax
+	*** 001792	eb 15 			jmp	SHORT $L20121
+					$I1069:
+;|*** 									else {
+;|*** 										if(i>0)
+; Line 1330
+	*** 001794	83 7e f4 00 		cmp	WORD PTR [bp-12],0	;i
+	*** 001798	7e 08 			jle	$I1071
+;|*** 											*l1=j < 0 ? 1 : 0;
+; Line 1331
+	*** 00179a	83 7e f2 00 		cmp	WORD PTR [bp-14],0	;j
+	*** 00179e	7c 3a 			jl	$L20131
+	*** 0017a0	eb ee 			jmp	SHORT $L20037
+					$I1071:
+;|*** 										else
+;|*** 											*l1=j != 0;
+; Line 1333
+	*** 0017a2	83 7e f2 01 		cmp	WORD PTR [bp-14],1	;j
+	*** 0017a6	1b c0 			sbb	ax,ax
+	*** 0017a8	40 			inc	ax
+					$L20121:
+	*** 0017a9	99 			cwd	
+	*** 0017aa	8b 5e 06 		mov	bx,WORD PTR [bp+6]	;l1
+	*** 0017ad	89 07 			mov	WORD PTR [bx],ax
+	*** 0017af	89 57 02 		mov	WORD PTR [bx+2],dx
+;|*** 										} 
+; Line 1334
+;|*** 									break;
+; Line 1335
+					$SB1065:
+;|*** 								case '=':
+;|*** 									*l1=j == 0;
+;|*** 									break;
+;|*** 								case '>':
+;|*** 									if(i)
+;|*** 										*l1=j >= 0 ? 1 : 0;
+;|*** 									else
+;|*** 										*l1=j > 0 ? 1 : 0;
+;|*** 									break;
+;|*** 								}
+;|*** 							*f1=INT_FLAG;
+; Line 1346
+	*** 0017b2	8b 5e 08 		mov	bx,WORD PTR [bp+8]	;f1
+	*** 0017b5	c6 07 01 		mov	BYTE PTR [bx],1
+;|*** 							}
+; Line 1347
+;|*** 						else
+; Line 1348
+	*** 0017b8	e9 bd 01 		jmp	$SB1019
+;|*** 								case '=':
+; Line 1336
+	*** 0017bb	90 			nop	
+					$SC1073:
+;|*** 									*l1=j == 0;
+; Line 1337
+	*** 0017bc	83 7e f2 01 		cmp	WORD PTR [bp-14],1	;j
+	*** 0017c0	1b c0 			sbb	ax,ax
+	*** 0017c2	f7 d8 			neg	ax
+	*** 0017c4	eb e3 			jmp	SHORT $L20121
+;|*** 									break;
+;|*** 								case '>':
+; Line 1339
+					$SC1074:
+;|*** 									if(i)
+; Line 1340
+	*** 0017c6	83 7e f4 00 		cmp	WORD PTR [bp-12],0	;i
+	*** 0017ca	74 08 			je	$I1075
+;|*** 										*l1=j >= 0 ? 1 : 0;
+; Line 1341
+	*** 0017cc	83 7e f2 00 		cmp	WORD PTR [bp-14],0	;j
+	*** 0017d0	7c be 			jl	$L20037
+	*** 0017d2	eb 06 			jmp	SHORT $L20131
+					$I1075:
+;|*** 									else
+;|*** 										*l1=j > 0 ? 1 : 0;
+; Line 1343
+	*** 0017d4	83 7e f2 00 		cmp	WORD PTR [bp-14],0	;j
+	*** 0017d8	7e b6 			jle	$L20037
+					$L20131:
+	*** 0017da	b8 01 00 		mov	ax,1
+	*** 0017dd	eb ca 			jmp	SHORT $L20121
+	*** 0017df	90 			nop	
+					$I1061:
+;|*** 									break;
+;|*** 								}
+;|*** 							*f1=INT_FLAG;
+;|*** 							}
+;|*** 						else
+;|*** 							fError=4;
+;|*** 						}
+;|*** 					else {
+;|*** 						switch(ch) {
+; Line 1352
+	*** 0017e0	8a 46 ec 		mov	al,BYTE PTR [bp-20]	;ch
+	*** 0017e3	98 			cbw	
+	*** 0017e4	2d 3c 00 		sub	ax,60
+	*** 0017e7	74 0b 			je	$SC1083
+	*** 0017e9	48 			dec	ax
+	*** 0017ea	74 66 			je	$SC1088
+	*** 0017ec	48 			dec	ax
+	*** 0017ed	74 7b 			je	$SC1089
+	*** 0017ef	e9 86 01 		jmp	$SB1019
+;|*** 							case '<':
+; Line 1353
+	*** 0017f2	90 			nop	
+	*** 0017f3	90 			nop	
+					$SC1083:
+;|*** 								if(!i)
+; Line 1354
+	*** 0017f4	83 7e f4 00 		cmp	WORD PTR [bp-12],0	;i
+	*** 0017f8	75 1c 			jne	$I1084
+;|*** 									*l1=*l1 < l2;
+; Line 1355
+	*** 0017fa	8b 46 e8 		mov	ax,WORD PTR [bp-24]	;l2
+	*** 0017fd	8b 56 ea 		mov	dx,WORD PTR [bp-22]
+	*** 001800	8b 5e 06 		mov	bx,WORD PTR [bp+6]	;l1
+	*** 001803	39 57 02 		cmp	WORD PTR [bx+2],dx
+	*** 001806	7f 06 			jg	$L20055
+	*** 001808	7c 5a 			jl	$L20122
+	*** 00180a	39 07 			cmp	WORD PTR [bx],ax
+	*** 00180c	72 56 			jb	$L20122
+					$L20055:
+	*** 00180e	2b c0 			sub	ax,ax
+					$L20056:
+	*** 001810	99 			cwd	
+					$L20127:
+	*** 001811	8b 5e 06 		mov	bx,WORD PTR [bp+6]	;l1
+	*** 001814	eb 33 			jmp	SHORT $L20132
+					$I1084:
+;|*** 								else {
+;|*** 									if(i>0) 
+; Line 1357
+	*** 001816	83 7e f4 00 		cmp	WORD PTR [bp-12],0	;i
+	*** 00181a	7e 18 			jle	$I1086
+;|*** 										*l1=*l1 <= l2;
+; Line 1358
+	*** 00181c	8b 46 e8 		mov	ax,WORD PTR [bp-24]	;l2
+	*** 00181f	8b 56 ea 		mov	dx,WORD PTR [bp-22]
+	*** 001822	8b 5e 06 		mov	bx,WORD PTR [bp+6]	;l1
+	*** 001825	39 57 02 		cmp	WORD PTR [bx+2],dx
+	*** 001828	7f 1c 			jg	$L20049
+	*** 00182a	7c 6e 			jl	$L20062
+	*** 00182c	39 07 			cmp	WORD PTR [bx],ax
+	*** 00182e	77 16 			ja	$L20049
+	*** 001830	eb 68 			jmp	SHORT $L20062
+	*** 001832	90 			nop	
+	*** 001833	90 			nop	
+					$I1086:
+;|*** 									else
+;|*** 										*l1=*l1 != l2;
+; Line 1360
+	*** 001834	8b 46 e8 		mov	ax,WORD PTR [bp-24]	;l2
+	*** 001837	8b 56 ea 		mov	dx,WORD PTR [bp-22]
+	*** 00183a	8b 5e 06 		mov	bx,WORD PTR [bp+6]	;l1
+	*** 00183d	39 07 			cmp	WORD PTR [bx],ax
+	*** 00183f	75 59 			jne	$L20062
+	*** 001841	39 57 02 		cmp	WORD PTR [bx+2],dx
+	*** 001844	75 54 			jne	$L20062
+					$L20049:
+	*** 001846	2b c0 			sub	ax,ax
+					$L20050:
+	*** 001848	99 			cwd	
+					$L20132:
+	*** 001849	89 07 			mov	WORD PTR [bx],ax
+	*** 00184b	89 57 02 		mov	WORD PTR [bx+2],dx
+;|*** 									}
+; Line 1361
+;|*** 								break;
+;|*** 							case '=':
+;|*** 								*l1=*l1 == l2;
+;|*** 								break;
+;|*** 							case '>':
+;|*** 								if(i)
+;|*** 									*l1=*l1 >= l2;
+;|*** 								else
+;|*** 									*l1=*l1 > l2;
+;|*** 								break;
+;|*** 							}
+;|*** 						}
+; Line 1373
+;|*** 					}
+; Line 1374
+;|*** 				else
+; Line 1375
+	*** 00184e	e9 27 01 		jmp	$SB1019
+;|*** 							case '=':
+; Line 1363
+	*** 001851	90 			nop	
+					$SC1088:
+;|*** 								*l1=*l1 == l2;
+; Line 1364
+	*** 001852	8b 46 e8 		mov	ax,WORD PTR [bp-24]	;l2
+	*** 001855	8b 56 ea 		mov	dx,WORD PTR [bp-22]
+	*** 001858	8b 5e 06 		mov	bx,WORD PTR [bp+6]	;l1
+	*** 00185b	39 07 			cmp	WORD PTR [bx],ax
+	*** 00185d	75 af 			jne	$L20055
+	*** 00185f	39 57 02 		cmp	WORD PTR [bx+2],dx
+	*** 001862	75 aa 			jne	$L20055
+					$L20122:
+	*** 001864	b8 01 00 		mov	ax,1
+	*** 001867	eb a7 			jmp	SHORT $L20056
+;|*** 								break;
+;|*** 							case '>':
+; Line 1366
+	*** 001869	90 			nop	
+					$SC1089:
+;|*** 								if(i)
+; Line 1367
+	*** 00186a	83 7e f4 00 		cmp	WORD PTR [bp-12],0	;i
+	*** 00186e	74 16 			je	$I1090
+;|*** 									*l1=*l1 >= l2;
+; Line 1368
+	*** 001870	8b 46 e8 		mov	ax,WORD PTR [bp-24]	;l2
+	*** 001873	8b 56 ea 		mov	dx,WORD PTR [bp-22]
+	*** 001876	8b 5e 06 		mov	bx,WORD PTR [bp+6]	;l1
+	*** 001879	39 57 02 		cmp	WORD PTR [bx+2],dx
+	*** 00187c	7c 90 			jl	$L20055
+	*** 00187e	7f e4 			jg	$L20122
+	*** 001880	39 07 			cmp	WORD PTR [bx],ax
+	*** 001882	72 8a 			jb	$L20055
+	*** 001884	eb de 			jmp	SHORT $L20122
+					$I1090:
+;|*** 								else
+;|*** 									*l1=*l1 > l2;
+; Line 1370
+	*** 001886	8b 46 e8 		mov	ax,WORD PTR [bp-24]	;l2
+	*** 001889	8b 56 ea 		mov	dx,WORD PTR [bp-22]
+	*** 00188c	8b 5e 06 		mov	bx,WORD PTR [bp+6]	;l1
+	*** 00188f	39 57 02 		cmp	WORD PTR [bx+2],dx
+	*** 001892	7c b2 			jl	$L20049
+	*** 001894	7f 04 			jg	$L20062
+	*** 001896	39 07 			cmp	WORD PTR [bx],ax
+	*** 001898	76 ac 			jbe	$L20049
+					$L20062:
+	*** 00189a	b8 01 00 		mov	ax,1
+	*** 00189d	eb a9 			jmp	SHORT $L20050
+	*** 00189f	90 			nop	
+					$SC1093:
+;|*** 								break;
+;|*** 							}
+;|*** 						}
+;|*** 					}
+;|*** 				else
+;|*** 					Go=1;
+;|*** 				break;
+;|*** 			case '\xc0':                        // and,or
+;|*** 			case '\xc1':
+;|*** 				if(Pty > 6) {
+; Line 1380
+	*** 0018a0	80 7e 04 06 		cmp	BYTE PTR [bp+4],6	;Pty
+	*** 0018a4	7e 5e 			jle	$I1024
+;|*** 					TextP++;
+; Line 1381
+	*** 0018a6	ff 06 00 00 		inc	WORD PTR _TextP
+;|*** 					RecursEval(6,&l2,&f2);
+; Line 1382
+	*** 0018aa	8d 46 f6 		lea	ax,WORD PTR [bp-10]	;f2
+	*** 0018ad	50 			push	ax
+	*** 0018ae	8d 4e e8 		lea	cx,WORD PTR [bp-24]	;l2
+	*** 0018b1	51 			push	cx
+	*** 0018b2	b1 06 			mov	cl,6
+	*** 0018b4	51 			push	cx
+	*** 0018b5	e8 04 fc 		call	_RecursEval
+	*** 0018b8	83 c4 06 		add	sp,6
+;|*** 					if((*f1 & STR_FLAG) || (f2 & STR_FLAG)) {
+; Line 1383
+	*** 0018bb	8b 5e 08 		mov	bx,WORD PTR [bp+8]	;f1
+	*** 0018be	f6 07 02 		test	BYTE PTR [bx],2
+	*** 0018c1	74 03 			je	$JCC6337
+	*** 0018c3	e9 6b fd 		jmp	$L20126
+					$JCC6337:
+	*** 0018c6	f6 46 f6 02 		test	BYTE PTR [bp-10],2	;f2
+	*** 0018ca	74 03 			je	$JCC6346
+	*** 0018cc	e9 62 fd 		jmp	$L20126
+					$JCC6346:
+;|*** 						fError=4;
+;|*** 						}
+;|*** 					else {
+;|*** 						if(ch=='\xc0')
+; Line 1387
+	*** 0018cf	80 7e ec c0 		cmp	BYTE PTR [bp-20],192	;ch
+	*** 0018d3	75 11 			jne	$I1098
+;|*** 							*l1=*l1 & l2;
+; Line 1388
+	*** 0018d5	8b 46 e8 		mov	ax,WORD PTR [bp-24]	;l2
+	*** 0018d8	8b 56 ea 		mov	dx,WORD PTR [bp-22]
+	*** 0018db	8b 5e 06 		mov	bx,WORD PTR [bp+6]	;l1
+	*** 0018de	21 07 			and	WORD PTR [bx],ax
+	*** 0018e0	21 57 02 		and	WORD PTR [bx+2],dx
+;|*** 						else
+; Line 1389
+	*** 0018e3	e9 92 00 		jmp	$SB1019
+					$I1098:
+;|*** 							*l1=*l1 | l2;
+; Line 1390
+	*** 0018e6	8b 46 e8 		mov	ax,WORD PTR [bp-24]	;l2
+	*** 0018e9	8b 56 ea 		mov	dx,WORD PTR [bp-22]
+	*** 0018ec	8b 5e 06 		mov	bx,WORD PTR [bp+6]	;l1
+	*** 0018ef	09 07 			or	WORD PTR [bx],ax
+	*** 0018f1	09 57 02 		or	WORD PTR [bx+2],dx
+;|*** 						}
+; Line 1391
+;|*** 					}
+; Line 1392
+;|*** 				else
+; Line 1393
+	*** 0018f4	e9 81 00 		jmp	$SB1019
+	*** 0018f7	90 			nop	
+	*** 0018f8	90 			nop	
+	*** 0018f9	90 			nop	
+					$SC1101:
+;|*** 					Go=1;
+;|*** 				break;
+;|*** 			case ' ':
+;|*** 				TextP++;
+; Line 1397
+	*** 0018fa	ff 06 00 00 		inc	WORD PTR _TextP
+;|*** 				Times--;
+; Line 1398
+	*** 0018fe	fe 4e fa 		dec	BYTE PTR [bp-6]	;Times
+;|*** 				break;
+; Line 1399
+	*** 001901	eb 75 			jmp	SHORT $SB1019
+;|*** 			case 0:
+; Line 1400
+	*** 001903	90 			nop	
+					$I1024:
+;|*** 					Go=1;
+; Line 1222
+	*** 001904	c6 46 f8 01 		mov	BYTE PTR [bp-8],1	;Go
+;|*** 				break;
+; Line 1223
+	*** 001908	eb 6e 			jmp	SHORT $SB1019
+;|*** 			case '+':
+;|*** 			case '-':
+;|*** //            printf("- ??unario: f %x,l %ld, pty %d, times %d\n",*f1,*l1,Pty,Times);
+;|*** 				if(Times) {
+;|*** 					if(Pty > 4) {
+;|*** 						TextP++;
+;|*** 						RecursEval(4,&l2,&f2);
+;|*** 						if(*f1 & STR_FLAG) {
+;|*** 							if(f2 & STR_FLAG) {
+;|*** 								i=*(((int *)l1)+1);
+;|*** 								i1=*(((int *)&l2)+1);
+;|*** 								p=AllocaString(i+i1);
+;|*** 								if(p) {
+;|*** 									memmove(p,(char *)*(int *)l1,i);
+;|*** 									memmove(p+i,(char *)*((int *)&l2),i1);
+;|*** 									*(char **)l1=p;
+;|*** 									*(((int *)l1)+1)=i+i1;
+;|*** 									}
+;|*** 								}
+;|*** 							else
+;|*** 								fError=4;
+;|*** 							}
+;|*** 						else {
+;|*** 							if(ch=='+')
+;|*** 								*l1=*l1+l2;
+;|*** 							else
+;|*** 								*l1=*l1-l2;
+;|*** 							}  
+;|*** 						}
+;|*** 					else
+;|*** 						Go=1;
+;|*** 					}
+;|*** 				else {
+;|*** 					if(Pty > 2) {
+;|*** 						TextP++;
+;|*** 						RecursEval(2,l1,f1);
+;|*** 						if(ch=='-')
+;|*** 							*l1=-*l1;
+;|*** 						if(*f1 & STR_FLAG)
+;|*** 							fError=4;
+;|*** 						}
+;|*** 					else
+;|*** 						Go=1;
+;|*** 					}
+;|*** 				break;
+;|*** 			case '*':
+;|*** 			case '/':
+;|*** 			case '^':
+;|*** 			case '%':
+;|*** 				if(Pty > 3) {
+;|*** 					TextP++;
+;|*** 					RecursEval(3,&l2,&f2);
+;|*** 					if((*f1 & STR_FLAG) || (f2 & STR_FLAG)) {
+;|*** 						fError=4;
+;|*** 						}
+;|*** 					else {
+;|*** 						switch(ch) {
+;|*** 							case '*':
+;|*** 								*l1=*l1 * l2;
+;|*** 								break;
+;|*** 							case '/':
+;|*** 								*l1=*l1 / l2;
+;|*** 								break;
+;|*** 							case '^':
+;|*** 								*l1=pow(*l1,l2);
+;|*** 								break;
+;|*** 							case '%':
+;|*** 								*l1=*l1 % l2;
+;|*** 								break;
+;|*** 							}
+;|*** 						}
+;|*** 					}
+;|*** 				else
+;|*** 					Go=1;
+;|*** 				break;
+;|*** 			case '<':
+;|*** 			case '=':
+;|*** 			case '>':
+;|*** 				i=0;
+;|*** 				if(Pty > 5) {
+;|*** 					TextP++;
+;|*** 					if(*TextP == '=') {
+;|*** 						i=1;
+;|*** 						TextP++;
+;|*** 						}
+;|*** 					else {
+;|*** 						if(*TextP == '>') {
+;|*** 							i=-1;
+;|*** 							TextP++;
+;|*** 							}
+;|*** 						}  
+;|*** 					RecursEval(5,&l2,&f2);
+;|*** 					if(*f1 & STR_FLAG) {
+;|*** 						if(f2 & STR_FLAG) {
+;|*** 							p=*(char **)l1;
+;|*** 							p1=*((char **)&l2);
+;|*** 							i=*(((int *)l1)+1);
+;|*** 							i1=*(((int *)&l2)+1);
+;|*** 							if(i1>i)
+;|*** 								i=i1;                // prendo la +lunga
+;|*** 							j=strncmp(p,p1,i);
+;|*** 							switch(ch) {
+;|*** 								case '<':
+;|*** 									if(!i)
+;|*** 										*l1=j <= 0 ? 1 : 0;
+;|*** 									else {
+;|*** 										if(i>0)
+;|*** 											*l1=j < 0 ? 1 : 0;
+;|*** 										else
+;|*** 											*l1=j != 0;
+;|*** 										} 
+;|*** 									break;
+;|*** 								case '=':
+;|*** 									*l1=j == 0;
+;|*** 									break;
+;|*** 								case '>':
+;|*** 									if(i)
+;|*** 										*l1=j >= 0 ? 1 : 0;
+;|*** 									else
+;|*** 										*l1=j > 0 ? 1 : 0;
+;|*** 									break;
+;|*** 								}
+;|*** 							*f1=INT_FLAG;
+;|*** 							}
+;|*** 						else
+;|*** 							fError=4;
+;|*** 						}
+;|*** 					else {
+;|*** 						switch(ch) {
+;|*** 							case '<':
+;|*** 								if(!i)
+;|*** 									*l1=*l1 < l2;
+;|*** 								else {
+;|*** 									if(i>0) 
+;|*** 										*l1=*l1 <= l2;
+;|*** 									else
+;|*** 										*l1=*l1 != l2;
+;|*** 									}
+;|*** 								break;
+;|*** 							case '=':
+;|*** 								*l1=*l1 == l2;
+;|*** 								break;
+;|*** 							case '>':
+;|*** 								if(i)
+;|*** 									*l1=*l1 >= l2;
+;|*** 								else
+;|*** 									*l1=*l1 > l2;
+;|*** 								break;
+;|*** 							}
+;|*** 						}
+;|*** 					}
+;|*** 				else
+;|*** 					Go=1;
+;|*** 				break;
+;|*** 			case '\xc0':                        // and,or
+;|*** 			case '\xc1':
+;|*** 				if(Pty > 6) {
+;|*** 					TextP++;
+;|*** 					RecursEval(6,&l2,&f2);
+;|*** 					if((*f1 & STR_FLAG) || (f2 & STR_FLAG)) {
+;|*** 						fError=4;
+;|*** 						}
+;|*** 					else {
+;|*** 						if(ch=='\xc0')
+;|*** 							*l1=*l1 & l2;
+;|*** 						else
+;|*** 							*l1=*l1 | l2;
+;|*** 						}
+;|*** 					}
+;|*** 				else
+;|*** 					Go=1;
+;|*** 				break;
+;|*** 			case ' ':
+;|*** 				TextP++;
+;|*** 				Times--;
+;|*** 				break;
+;|*** 			case 0:
+;|*** 			case ':':
+;|*** 			case ';':
+;|*** 			case ',':
+;|*** 			case '\x91':                  // then,else,goto,gosub, to,step
+;|*** 			case '\x90':
+;|*** 			case '\x8c':
+;|*** 			case '\x8d':
+;|*** 			case '\x89':
+;|*** 			case '\x8a':
+;|*** 				Go=1;
+;|*** 				break;
+;|*** 			default:
+; Line 1412
+					$L20064:
+	*** 00190a	3d 28 00 		cmp	ax,40
+	*** 00190d	75 03 			jne	$JCC6413
+	*** 00190f	e9 0e fc 		jmp	$SC1022
+					$JCC6413:
+	*** 001912	77 0f 			ja	$SD1103
+	*** 001914	0a c0 			or	al,al
+	*** 001916	74 ec 			je	$I1024
+	*** 001918	2c 20 			sub	al,32
+	*** 00191a	74 de 			je	$SC1101
+	*** 00191c	2c 05 			sub	al,5
+	*** 00191e	75 03 			jne	$JCC6430
+	*** 001920	e9 17 fd 		jmp	$SC1042
+					$JCC6430:
+					$SD1103:
+;|*** 				*f1=GetAritmElem(l1);
+; Line 1413
+	*** 001923	ff 76 06 		push	WORD PTR [bp+6]	;l1
+	*** 001926	e8 4b f6 		call	_GetAritmElem
+	*** 001929	83 c4 02 		add	sp,2
+	*** 00192c	8b 5e 08 		mov	bx,WORD PTR [bp+8]	;f1
+	*** 00192f	88 07 			mov	BYTE PTR [bx],al
+;|*** 				break;
+; Line 1414
+	*** 001931	eb 45 			jmp	SHORT $SB1019
+	*** 001933	90 			nop	
+					$L20063:
+	*** 001934	3d 5e 00 		cmp	ax,94
+	*** 001937	75 03 			jne	$JCC6455
+	*** 001939	e9 fe fc 		jmp	$SC1042
+					$JCC6455:
+	*** 00193c	77 e5 			ja	$SD1103
+	*** 00193e	3c 2d 			cmp	al,45
+	*** 001940	75 03 			jne	$JCC6464
+	*** 001942	e9 f9 fb 		jmp	$SC1026
+					$JCC6464:
+	*** 001945	7f 15 			jg	$L20065
+	*** 001947	2c 2a 			sub	al,42
+	*** 001949	75 03 			jne	$JCC6473
+	*** 00194b	e9 ec fc 		jmp	$SC1042
+					$JCC6473:
+	*** 00194e	fe c8 			dec	al
+	*** 001950	75 03 			jne	$JCC6480
+	*** 001952	e9 e9 fb 		jmp	$SC1026
+					$JCC6480:
+	*** 001955	fe c8 			dec	al
+	*** 001957	74 ab 			je	$I1024
+	*** 001959	eb c8 			jmp	SHORT $SD1103
+	*** 00195b	90 			nop	
+					$L20065:
+	*** 00195c	2c 2f 			sub	al,47
+	*** 00195e	75 03 			jne	$JCC6494
+	*** 001960	e9 d7 fc 		jmp	$SC1042
+					$JCC6494:
+	*** 001963	2c 0b 			sub	al,11
+	*** 001965	7c bc 			jl	$SD1103
+	*** 001967	fe c8 			dec	al
+	*** 001969	7e 99 			jle	$I1024
+	*** 00196b	fe c8 			dec	al
+	*** 00196d	7c b4 			jl	$SD1103
+	*** 00196f	2c 02 			sub	al,2
+	*** 001971	7f 03 			jg	$JCC6513
+	*** 001973	e9 6e fd 		jmp	$SC1056
+					$JCC6513:
+	*** 001976	eb ab 			jmp	SHORT $SD1103
+					$SB1019:
+;|*** 			}
+;|*** 		Times++;
+; Line 1416
+	*** 001978	fe 46 fa 		inc	BYTE PTR [bp-6]	;Times
+;|*** 		} while(!Go && !fError);
+; Line 1417
+	*** 00197b	80 7e f8 00 		cmp	BYTE PTR [bp-8],0	;Go
+	*** 00197f	75 0a 			jne	$D1104
+	*** 001981	80 3e c1 01 00 		cmp	BYTE PTR _fError,0
+	*** 001986	75 03 			jne	$JCC6534
+	*** 001988	e9 45 fb 		jmp	$D1015
+					$JCC6534:
+					$D1104:
+;|*** 
+;|*** 	return 0;
+; Line 1419
+	*** 00198b	2a c0 			sub	al,al
+;|*** 	}
+; Line 1420
+	*** 00198d	8b e5 			mov	sp,bp
+	*** 00198f	5d 			pop	bp
+	*** 001990	c3 			ret	
+	*** 001991	90 			nop	
+
+_RecursEval	ENDP
+;|*** 	 
+;|*** long EvalExpr(char Pty, char *flags) {            // deve diventare long
+; Line 1422
+	PUBLIC	_EvalExpr
+_EvalExpr	PROC NEAR
+	*** 001992	55 			push	bp
+	*** 001993	8b ec 			mov	bp,sp
+	*** 001995	b8 04 00 		mov	ax,4
+	*** 001998	e8 00 00 		call	__aNchkstk
+;	l = -4
+;	flags = 6
+;	Pty = 4
+;|*** 	long l;
+;|*** 
+;|*** 	RecursEval(Pty,&l,flags);
+; Line 1425
+	*** 00199b	ff 76 06 		push	WORD PTR [bp+6]	;flags
+	*** 00199e	8d 46 fc 		lea	ax,WORD PTR [bp-4]	;l
+	*** 0019a1	50 			push	ax
+	*** 0019a2	8a 4e 04 		mov	cl,BYTE PTR [bp+4]	;Pty
+	*** 0019a5	51 			push	cx
+	*** 0019a6	e8 13 fb 		call	_RecursEval
+;|*** 	return l;
+; Line 1426
+	*** 0019a9	8b 46 fc 		mov	ax,WORD PTR [bp-4]	;l
+	*** 0019ac	8b 56 fe 		mov	dx,WORD PTR [bp-2]
+;|*** 	}
+; Line 1427
+	*** 0019af	8b e5 			mov	sp,bp
+	*** 0019b1	5d 			pop	bp
+	*** 0019b2	c3 			ret	
+	*** 0019b3	90 			nop	
+
+_EvalExpr	ENDP
+;|*** 	 
+;|*** long GetValue(int m) {             // m=0 number, 1 string
+; Line 1429
+	PUBLIC	_GetValue
+_GetValue	PROC NEAR
+	*** 0019b4	55 			push	bp
+	*** 0019b5	8b ec 			mov	bp,sp
+	*** 0019b7	b8 06 00 		mov	ax,6
+	*** 0019ba	e8 00 00 		call	__aNchkstk
+;	flags = -6
+;	l = -4
+;	m = 4
+;|*** 	char flags=-1;
+; Line 1430
+	*** 0019bd	c6 46 fa ff 		mov	BYTE PTR [bp-6],255	;flags
+;|*** 	long l;
+;|*** 
+;|*** 	l=EvalExpr(15,&flags);
+; Line 1433
+	*** 0019c1	8d 46 fa 		lea	ax,WORD PTR [bp-6]	;flags
+	*** 0019c4	50 			push	ax
+	*** 0019c5	b1 0f 			mov	cl,15
+	*** 0019c7	51 			push	cx
+	*** 0019c8	e8 c7 ff 		call	_EvalExpr
+	*** 0019cb	83 c4 04 		add	sp,4
+	*** 0019ce	89 46 fc 		mov	WORD PTR [bp-4],ax	;l
+	*** 0019d1	89 56 fe 		mov	WORD PTR [bp-2],dx
+;|*** 	if(flags<0)
+; Line 1434
+	*** 0019d4	80 7e fa 00 		cmp	BYTE PTR [bp-6],0	;flags
+	*** 0019d8	7d 08 			jge	$I1113
+;|*** 		fError=1;
+; Line 1435
+	*** 0019da	c6 06 c1 01 01 		mov	BYTE PTR _fError,1
+;|*** 	else { 
+; Line 1436
+	*** 0019df	eb 1a 			jmp	SHORT $I1118
+	*** 0019e1	90 			nop	
+					$I1113:
+;|*** 		if(m) {
+; Line 1437
+	*** 0019e2	83 7e 04 00 		cmp	WORD PTR [bp+4],0	;m
+	*** 0019e6	74 08 			je	$I1115
+;|*** 			if(!(flags & STR_FLAG)) {
+; Line 1438
+	*** 0019e8	f6 46 fa 02 		test	BYTE PTR [bp-6],2	;flags
+	*** 0019ec	75 0d 			jne	$I1118
+	*** 0019ee	eb 06 			jmp	SHORT $L20133
+					$I1115:
+;|*** 				fError=4;
+;|*** 				}
+;|*** 			}
+;|*** 		else {
+;|*** 			if(flags & STR_FLAG) {
+; Line 1443
+	*** 0019f0	f6 46 fa 02 		test	BYTE PTR [bp-6],2	;flags
+	*** 0019f4	74 05 			je	$I1118
+;|*** 				fError=4;
+; Line 1444
+					$L20133:
+	*** 0019f6	c6 06 c1 01 04 		mov	BYTE PTR _fError,4
+;|*** 				}
+; Line 1445
+;|*** 			}
+; Line 1446
+					$I1118:
+;|*** 		}
+; Line 1447
+;|*** 	return l;
+; Line 1448
+	*** 0019fb	8b 46 fc 		mov	ax,WORD PTR [bp-4]	;l
+	*** 0019fe	8b 56 fe 		mov	dx,WORD PTR [bp-2]
+;|*** 	}
+; Line 1449
+	*** 001a01	8b e5 			mov	sp,bp
+	*** 001a03	5d 			pop	bp
+	*** 001a04	c3 			ret	
+	*** 001a05	90 			nop	
+
+_GetValue	ENDP
+;|*** 	 
+;|*** int DoError(char n) {
+; Line 1451
+	PUBLIC	_DoError
+_DoError	PROC NEAR
+	*** 001a06	55 			push	bp
+	*** 001a07	8b ec 			mov	bp,sp
+	*** 001a09	33 c0 			xor	ax,ax
+	*** 001a0b	e8 00 00 		call	__aNchkstk
+;	n = 4
+;|*** 	
+;|*** 	putch('?');
+; Line 1453
+	*** 001a0e	b8 3f 00 		mov	ax,63
+	*** 001a11	50 			push	ax
+	*** 001a12	e8 00 00 		call	_putch
+	*** 001a15	8b e5 			mov	sp,bp
+;|*** 	printf(Errore[n-1]);
+; Line 1454
+	*** 001a17	8a 46 04 		mov	al,BYTE PTR [bp+4]	;n
+	*** 001a1a	98 			cbw	
+	*** 001a1b	8b d8 			mov	bx,ax
+	*** 001a1d	d1 e3 			shl	bx,1
+	*** 001a1f	ff b7 2e 02 		push	WORD PTR _Errore[bx-2]
+	*** 001a23	e8 00 00 		call	_printf
+	*** 001a26	8b e5 			mov	sp,bp
+;|*** 	if(!DirectMode) {
+; Line 1455
+	*** 001a28	80 3e bf 01 00 		cmp	BYTE PTR _DirectMode,0
+	*** 001a2d	75 11 			jne	$I1121
+;|*** 		printf(" alla linea %u\n",Linea);
+; Line 1456
+	*** 001a2f	ff 36 00 00 		push	WORD PTR _Linea
+	*** 001a33	b8 80 02 		mov	ax,OFFSET DGROUP:$SG1122
+	*** 001a36	50 			push	ax
+	*** 001a37	e8 00 00 		call	_printf
+	*** 001a3a	8b e5 			mov	sp,bp
+;|*** 		}                    
+; Line 1457
+;|*** 	else {
+; Line 1458
+	*** 001a3c	8b e5 			mov	sp,bp
+	*** 001a3e	5d 			pop	bp
+	*** 001a3f	c3 			ret	
+					$I1121:
+;|*** 		putch(10);
+; Line 1459
+	*** 001a40	b8 0a 00 		mov	ax,10
+	*** 001a43	50 			push	ax
+	*** 001a44	e8 00 00 		call	_putch
+	*** 001a47	8b e5 			mov	sp,bp
+;|*** #ifndef Z80
+;|*** 		putch(13);
+; Line 1461
+	*** 001a49	b8 0d 00 		mov	ax,13
+	*** 001a4c	50 			push	ax
+	*** 001a4d	e8 00 00 		call	_putch
+;|*** #endif
+;|*** 		}
+; Line 1463
+;|*** 	}
+; Line 1464
+	*** 001a50	8b e5 			mov	sp,bp
+	*** 001a52	5d 			pop	bp
+	*** 001a53	c3 			ret	
+
+_DoError	ENDP
+;|*** 
+;|*** void SkipSpaces() {
+; Line 1466
+	PUBLIC	_SkipSpaces
+_SkipSpaces	PROC NEAR
+	*** 001a54	33 c0 			xor	ax,ax
+	*** 001a56	e8 00 00 		call	__aNchkstk
+;|*** 	
+;|*** 	while(*TextP == ' ')
+; Line 1468
+	*** 001a59	eb 05 			jmp	SHORT $L20134
+	*** 001a5b	90 			nop	
+					$FC1126:
+;|*** 		TextP++;
+; Line 1469
+	*** 001a5c	ff 06 00 00 		inc	WORD PTR _TextP
+					$L20134:
+	*** 001a60	8b 1e 00 00 		mov	bx,WORD PTR _TextP
+	*** 001a64	80 3f 20 		cmp	BYTE PTR [bx],32
+	*** 001a67	74 f3 			je	$FC1126
+;|*** 	}
+; Line 1470
+	*** 001a69	c3 			ret	
+
+_SkipSpaces	ENDP
+;|*** 	
+;|*** char DoCheck(char ch) {
+; Line 1472
+	PUBLIC	_DoCheck
+_DoCheck	PROC NEAR
+	*** 001a6a	55 			push	bp
+	*** 001a6b	8b ec 			mov	bp,sp
+	*** 001a6d	33 c0 			xor	ax,ax
+	*** 001a6f	e8 00 00 		call	__aNchkstk
+;	ch = 4
+;|*** 	
+;|*** 	SkipSpaces();
+; Line 1474
+	*** 001a72	e8 df ff 		call	_SkipSpaces
+;|*** 	if(ch==*TextP) {
+; Line 1475
+	*** 001a75	8b 1e 00 00 		mov	bx,WORD PTR _TextP
+	*** 001a79	8a 46 04 		mov	al,BYTE PTR [bp+4]	;ch
+	*** 001a7c	38 07 			cmp	BYTE PTR [bx],al
+	*** 001a7e	75 0a 			jne	$I1130
+;|*** 		TextP++;
+; Line 1476
+	*** 001a80	ff 06 00 00 		inc	WORD PTR _TextP
+;|*** 		return 0;
+; Line 1477
+	*** 001a84	2a c0 			sub	al,al
+	*** 001a86	8b e5 			mov	sp,bp
+	*** 001a88	5d 			pop	bp
+	*** 001a89	c3 			ret	
+					$I1130:
+;|*** 		}
+;|*** 	else {
+;|*** 		fError=1;
+;|*** 		return 1;
+; Line 1481
+	*** 001a8a	b0 01 			mov	al,1
+	*** 001a8c	a2 c1 01 		mov	BYTE PTR _fError,al
+;|*** 		}
+; Line 1482
+;|*** 	}
+; Line 1483
+	*** 001a8f	8b e5 			mov	sp,bp
+	*** 001a91	5d 			pop	bp
+	*** 001a92	c3 			ret	
+	*** 001a93	90 			nop	
+
+_DoCheck	ENDP
+;|*** 	
+;|*** char CheckMemory(int n) {
+; Line 1485
+	PUBLIC	_CheckMemory
+_CheckMemory	PROC NEAR
+	*** 001a94	55 			push	bp
+	*** 001a95	8b ec 			mov	bp,sp
+	*** 001a97	b8 02 00 		mov	ax,2
+	*** 001a9a	e8 00 00 		call	__aNchkstk
+;	i = -2
+;	n = 4
+;|*** 	int i;
+;|*** 	
+;|*** 	i=StrBase-VarEnd;
+;|*** 	if(i<n) {
+; Line 1489
+	*** 001a9d	a1 00 00 		mov	ax,WORD PTR _StrBase
+	*** 001aa0	2b 06 00 00 		sub	ax,WORD PTR _VarEnd
+	*** 001aa4	3b 46 04 		cmp	ax,WORD PTR [bp+4]	;n
+	*** 001aa7	7d 0b 			jge	$I1135
+;|*** 		fError=7;
+; Line 1490
+	*** 001aa9	c6 06 c1 01 07 		mov	BYTE PTR _fError,7
+;|*** 		return 1;
+; Line 1491
+	*** 001aae	b0 01 			mov	al,1
+	*** 001ab0	8b e5 			mov	sp,bp
+	*** 001ab2	5d 			pop	bp
+	*** 001ab3	c3 			ret	
+					$I1135:
+;|*** 		}
+;|*** 	else
+;|*** 		return 0;
+; Line 1494
+	*** 001ab4	2a c0 			sub	al,al
+;|*** 	}
+; Line 1495
+	*** 001ab6	8b e5 			mov	sp,bp
+	*** 001ab8	5d 			pop	bp
+	*** 001ab9	c3 			ret	
+
+_CheckMemory	ENDP
+;|*** 	
+;|*** char *AllocaString(int n) {
+; Line 1497
+	PUBLIC	_AllocaString
+_AllocaString	PROC NEAR
+	*** 001aba	55 			push	bp
+	*** 001abb	8b ec 			mov	bp,sp
+	*** 001abd	33 c0 			xor	ax,ax
+	*** 001abf	e8 00 00 		call	__aNchkstk
+;	n = 4
+;|*** 	
+;|*** 	if(!CheckMemory(n)) {
+; Line 1499
+	*** 001ac2	ff 76 04 		push	WORD PTR [bp+4]	;n
+	*** 001ac5	e8 cc ff 		call	_CheckMemory
+	*** 001ac8	8b e5 			mov	sp,bp
+	*** 001aca	0a c0 			or	al,al
+	*** 001acc	75 0e 			jne	$I1139
+;|*** 		StrBase=StrBase-n;
+;|*** 		return StrBase;
+; Line 1501
+	*** 001ace	8b 46 04 		mov	ax,WORD PTR [bp+4]	;n
+	*** 001ad1	29 06 00 00 		sub	WORD PTR _StrBase,ax
+	*** 001ad5	a1 00 00 		mov	ax,WORD PTR _StrBase
+	*** 001ad8	8b e5 			mov	sp,bp
+	*** 001ada	5d 			pop	bp
+	*** 001adb	c3 			ret	
+					$I1139:
+;|*** 		}
+;|*** 	else
+;|*** 		return 0;
+; Line 1504
+	*** 001adc	2b c0 			sub	ax,ax
+;|*** 	}
+; Line 1505
+	*** 001ade	8b e5 			mov	sp,bp
+	*** 001ae0	5d 			pop	bp
+	*** 001ae1	c3 			ret	
+
+_AllocaString	ENDP
+;|*** 	
+;|*** #ifndef Z80
+;|*** #pragma check_stack(off)
+;|*** void _interrupt _far Ctrl_C() {
+; Line 1509
+	PUBLIC	_Ctrl_C
+_Ctrl_C	PROC FAR
+	*** 001ae2	50 			push	ax
+	*** 001ae3	51 			push	cx
+	*** 001ae4	52 			push	dx
+	*** 001ae5	53 			push	bx
+	*** 001ae6	54 			push	sp
+	*** 001ae7	55 			push	bp
+	*** 001ae8	56 			push	si
+	*** 001ae9	57 			push	di
+	*** 001aea	1e 			push	ds
+	*** 001aeb	06 			push	es
+	*** 001aec	8b ec 			mov	bp,sp
+	*** 001aee	b8 00 00 		mov	ax,DGROUP
+	*** 001af1	8e d8 			mov	ds,ax
+	ASSUME DS: DGROUP
+	*** 001af3	fc 			cld	
+;|*** 
+;|*** _asm {
+; Line 1511
+;|*** 
+;|*** 	mov   word ptr fStop,1
+; Line 1513
+	*** 001af4	c7 06 c0 01 01 00 	mov	WORD PTR _fStop,1
+;|*** //  pop   bp
+;|*** //  iret
+;|*** 	}
+; Line 1516
+;|*** 	}
+; Line 1517
+	*** 001afa	8b e5 			mov	sp,bp
+	*** 001afc	07 			pop	es
+	*** 001afd	1f 			pop	ds
+	*** 001afe	5f 			pop	di
+	*** 001aff	5e 			pop	si
+	*** 001b00	5d 			pop	bp
+	*** 001b01	5b 			pop	bx
+	*** 001b02	5b 			pop	bx
+	*** 001b03	5a 			pop	dx
+	*** 001b04	59 			pop	cx
+	*** 001b05	58 			pop	ax
+	*** 001b06	cf 			iret	
+
+_Ctrl_C	ENDP
+	*** 001b07	90 			nop	
+_TEXT	ENDS
+END
+;|*** 
+;|*** #pragma check_stack(on)
+;|*** #endif
+;|*** 
